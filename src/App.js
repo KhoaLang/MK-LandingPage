@@ -9,6 +9,7 @@ import "react-multi-carousel/lib/styles.css";
 import EventDetail from "./components/eventDetail/EventDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
+import ManagePost from "./componentsAdmin/ManagePost";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
           <Route path="event" element={<Event />} />
           <Route path="event/:id" element={<EventDetail />} />
         </Route>
-        <Route path="admin" element={<AdminLayout></AdminLayout>}></Route>
+        <Route path="admin" element={<AdminLayout></AdminLayout>}>
+          <Route index element={<ManagePost />} />
+        </Route>
       </Routes>
     </div>
   );
