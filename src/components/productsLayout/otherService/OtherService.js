@@ -12,7 +12,7 @@ const OtherService = () => {
     <section className="other-service d-flex justify-content-center align-items-center">
       <div className="other-service__container container d-flex flex-column justify-content-center align-items-center">
         <h2>Các dịch vụ khác</h2>
-        <Row>
+        <Row gutter={[24, 24]}>
           {image.map((item, idx) => (
             <Col key={idx} md={8} xs={24}>
               <div className="other-service__container__col">

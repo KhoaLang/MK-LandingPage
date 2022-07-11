@@ -41,3 +41,13 @@
     }
   }
 }
+
+@media (max-width: 1199px) {
+  .card {
+    &__content {
+      &__info {
+        font-size: 18px !important;
+      }
+    }
+  }
+}

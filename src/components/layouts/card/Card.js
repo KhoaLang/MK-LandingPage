@@ -1,4 +1,5 @@
 import "./card.scss";
+import { RightOutlined } from "@ant-design/icons";
 const Card = (props) => {
   const { image } = props;
   return (
@@ -11,10 +12,7 @@ const Card = (props) => {
         </p>
         <span className="card__content__link d-flex align-items-center">
           <a href="#">Xem chi tiết</a>
-          <i
-            className="bx bx-chevron-right"
-            style={{ fontSize: "20px", color: "#1ea6fb" }}
-          ></i>
+          <RightOutlined style={{ fontSize: "18px", color: "#1ea6fb" }} />
         </span>
       </div>
     </div>

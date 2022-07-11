@@ -75,14 +75,22 @@
 @media (max-width: 575.98px) {
   .event {
     &__container {
-      width: 100% !important;
+      width: 100%;
 
       &__pagination {
-        width: 100% !important;
         &__category {
           overflow-x: scroll;
           overflow-y: hidden;
         }
+      }
+    }
+  }
+}
+@media (max-width: 1199px) {
+  .event {
+    &__container {
+      &__pagination {
+        width: 100% !important;
       }
     }
   }

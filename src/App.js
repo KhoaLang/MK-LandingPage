@@ -8,7 +8,6 @@ import Products from "./components/products/Products";
 import Contact from "./components/contact/Contact";
 import Event from "./components/event/Event";
 
-import "boxicons";
 import "react-multi-carousel/lib/styles.css";
 import "antd/dist/antd.min.css";
 import EventDetail from "./components/eventDetail/EventDetail";

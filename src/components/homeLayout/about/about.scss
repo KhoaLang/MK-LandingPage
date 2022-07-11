@@ -28,11 +28,6 @@
     height: fit-content !important;
     &__container {
       width: 90% !important;
-      padding: 60px 0 60px 0;
-      h1,
-      p {
-        width: 100%;
-      }
       h1 {
         font-size: 32px !important;
         font-weight: 600 !important;
@@ -40,6 +35,20 @@
       }
       p {
         margin-top: 35px;
+      }
+    }
+  }
+}
+@media (max-width: 1199px) {
+  .about {
+    &__container {
+      padding: 60px 0 60px 0;
+      h1,
+      p {
+        width: 100% !important;
+      }
+      p {
+        line-height: 30px;
       }
     }
   }
