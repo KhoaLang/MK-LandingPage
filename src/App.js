@@ -22,7 +22,13 @@ function App() {
           <Route path="event" element={<Event />} />
           <Route path="event/:id" element={<EventDetail />} />
         </Route>
-        <Route path="admin" element={<AdminLayout></AdminLayout>}></Route>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route path="posts" element={<div>bai viet event</div>} />
+          <Route path="categories" element={<div>bai viet event</div>} />
+          <Route path="banners" element={<div>bai viet event</div>} />
+          <Route path="hiring" element={<div>bai viet event</div>} />
+          <Route path="hots" element={<div>bai viet event</div>} />
+        </Route>
       </Routes>
     </div>
   );
