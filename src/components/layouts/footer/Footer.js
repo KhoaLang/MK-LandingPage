@@ -10,6 +10,8 @@ import { ReactComponent as FacebookBlue } from "../../../assets/facebookBlue.svg
 import { ReactComponent as LinkedinBlue } from "../../../assets/linkedinBlue.svg";
 import { ReactComponent as YoutubeBlue } from "../../../assets/youtubeBlue.svg";
 import { Row, Col, Select } from "antd";
+import { DownOutlined } from "@ant-design/icons";
+
 import UK from "../../../assets/UK.png";
 import VN from "../../../assets/VietNam.png";
 import LanguageSelect from "../languageSelect/LanguageSelect";
@@ -56,12 +58,6 @@ const socialMediaResponsive = [
 ];
 
 const Footer = () => {
-  const [language, setLanguage] = useState("");
-
-  const handleChange = (value) => {
-    console.log(`selected ${value}`);
-  };
-
   return (
     <div className="footer">
       <div className="footer__upper d-flex justify-content-center align-items-center">
@@ -124,12 +120,9 @@ const Footer = () => {
                 backgroundColor: "#17243c",
               }}
               suffixIcon={
-                <i
-                  className="bx bx-chevron-down"
-                  style={{ fontSize: "25px", color: "#fff" }}
-                ></i>
+                <DownOutlined style={{ fontSize: "15px", color: "#fff" }} />
               }
-              onChange={handleChange}
+              // onChange={handleChange}
             >
               <Option value="uk">
                 <LanguageSelect icon={UK} name="English" />

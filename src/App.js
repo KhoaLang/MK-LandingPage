@@ -9,6 +9,7 @@ import "react-multi-carousel/lib/styles.css";
 import EventDetail from "./components/eventDetail/EventDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
+import ManagePost from "./componentsAdmin/ManagePost";
 
 function App() {
   return (

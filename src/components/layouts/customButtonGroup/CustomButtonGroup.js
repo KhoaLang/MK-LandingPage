@@ -1,25 +1,20 @@
 import "./customButtonGroup.scss";
+import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 const CustomButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   const {
     carouselState: { currentSlide },
   } = rest;
   return (
     <div className="carousel-button-group">
-      <i
-        // className="bx bx-chevron-left"
-        className={
-          currentSlide === 0
-            ? "disable bx bx-chevron-left"
-            : "bx bx-chevron-left"
-        }
+      <LeftOutlined
+        className={currentSlide === 0 && "disable bx bx-chevron-left"}
         onClick={() => previous()}
-        style={{ fontSize: "35px", color: "#1ea6fb" }}
-      ></i>
-      <i
-        className="bx bx-chevron-right"
-        style={{ fontSize: "35px", color: "#1ea6fb" }}
+        style={{ fontSize: "25px", color: "#1ea6fb" }}
+      />
+      <RightOutlined
         onClick={() => next()}
-      ></i>
+        style={{ fontSize: "25px", color: "#1ea6fb" }}
+      />
     </div>
   );
 };

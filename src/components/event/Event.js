@@ -53,10 +53,6 @@ const categoryName = [
 const Event = () => {
   const [currentPage, setCurrentPage] = useState();
 
-  useEffect(() => {
-    console.log(window.location.href);
-  }, []);
-
   return (
     <section className="event d-flex justify-content-center align-items-center">
       <div className="event__container container d-flex flex-column align-items-center justify-content-between">

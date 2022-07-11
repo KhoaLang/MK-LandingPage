@@ -4,10 +4,13 @@ import "./button.scss";
 const PrimaryButton = (props) => {
   const { children, style, path } = props;
   const navigate = useNavigate();
+  const handleOnClick = () => {
+    navigate(path);
+  };
   return (
     <button
       className="primary-button"
-      onClick={() => navigate(path)}
+      onClick={handleOnClick}
       style={style}
       type="submit"
     >
