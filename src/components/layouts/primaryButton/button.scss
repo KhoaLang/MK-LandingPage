@@ -1,0 +1,14 @@
+@import "../../../sass/reset.scss";
+@import "../../../sass/variables.scss";
+
+.primary-button {
+  display: block;
+  padding: 16px 50px 16px 50px;
+  background-color: $primary;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.78px;
+  color: $white !important;
+  border: none;
+  cursor: pointer;
+}

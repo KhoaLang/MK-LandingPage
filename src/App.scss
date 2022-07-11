@@ -1,0 +1,13 @@
+@import "./sass/reset.scss";
+@import "./sass/variables.scss";
+// @import "~bootstrap/scss/bootstrap";
+.App {
+  width: 100%;
+  position: relative;
+}
+
+@media (max-width: 575.98px) {
+  .App {
+    overflow-x: hidden;
+  }
+}

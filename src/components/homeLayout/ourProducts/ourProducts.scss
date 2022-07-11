@@ -1,0 +1,62 @@
+@import "../../../sass/reset.scss";
+@import "../../../sass/variables.scss";
+.our-products {
+  width: 100%;
+  padding: 60px 0 60px 0;
+  &__container {
+    &__title {
+      text-align: center;
+    }
+    &__items {
+      &__image-section {
+        height: 100px;
+        padding: 20px 0 30px 0;
+        position: relative;
+        &::after {
+          position: absolute;
+          content: "";
+          width: 30px;
+          height: 2px;
+          background-color: #999999;
+          bottom: 0%;
+          left: 0%;
+        }
+      }
+      p {
+        color: $black400;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+      }
+      h3 {
+        margin-top: 20px;
+      }
+      &__button {
+        border: 1px solid $primary;
+        background-color: $white;
+        color: $primary;
+        padding: 15px;
+        margin-top: 30px;
+        cursor: pointer;
+        p {
+          margin-right: 5px;
+          color: $primary;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .our-products {
+    &__container {
+      width: 90% !important;
+      &__title {
+        font-size: 32px !important;
+      }
+    }
+  }
+}

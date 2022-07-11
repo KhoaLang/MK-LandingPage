@@ -1,0 +1,45 @@
+@import "../../../sass/reset.scss";
+@import "../../../sass/variables.scss";
+
+.other-news {
+  width: 100%;
+  margin-top: 60px;
+  &__card {
+    width: fit-content;
+    box-shadow: 0px 0px 10px 1px rgba(27, 41, 56, 0.06);
+    img {
+      width: 100%;
+    }
+    &__content {
+      padding: 15px 20px;
+      p {
+        &:nth-child(1) {
+          font-size: 14px;
+          font-weight: 400;
+          color: $black300;
+        }
+        &:nth-child(2) {
+          font-size: 22px;
+          font-weight: 600;
+          line-height: 27px;
+          color: $black500;
+          margin-top: 10px;
+        }
+        &:nth-child(3) {
+          font-size: 14px;
+          font-weight: 400;
+          color: $black300;
+          margin-top: 15px;
+        }
+      }
+    }
+    &:hover {
+      background-color: $navy;
+      .other-news__card__content {
+        p {
+          color: $white;
+        }
+      }
+    }
+  }
+}

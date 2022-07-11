@@ -1,0 +1,21 @@
+@import "../../../sass/reset.scss";
+@import "../../../sass/variables.scss";
+
+.events {
+  width: 100%;
+  background-color: #edf8ff;
+  &__container {
+    padding-top: 60px;
+    h2 {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .events {
+    &__container {
+      width: 90% !important;
+    }
+  }
+}

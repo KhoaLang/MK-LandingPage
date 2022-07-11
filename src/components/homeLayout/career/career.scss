@@ -1,0 +1,22 @@
+@import "../../../sass/reset.scss";
+@import "../../../sass/variables.scss";
+
+.career {
+  width: 100%;
+  background-color: #edf8ff;
+  padding: 60px;
+  h2 {
+    text-align: center;
+  }
+  &__card-slider {
+    position: relative;
+    width: 100%;
+    padding-bottom: 50px;
+    margin-top: 53px;
+  }
+}
+@media (max-width: 575.98px) {
+  .career {
+    padding: 60px 20px 60px 20px;
+  }
+}

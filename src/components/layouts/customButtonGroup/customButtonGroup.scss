@@ -1,0 +1,12 @@
+@import "../../../sass/reset.scss";
+@import "../../../sass/variables.scss";
+
+.carousel-button-group {
+  position: absolute;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%);
+  i {
+    cursor: pointer;
+  }
+}
