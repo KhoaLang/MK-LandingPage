@@ -1,5 +1,4 @@
 import "./footer.scss";
-import { useState } from "react";
 import { ReactComponent as Location } from "../../../assets/locationLogo.svg";
 import { ReactComponent as Phone } from "../../../assets/phoneLogo.svg";
 import { ReactComponent as Email } from "../../../assets/mail.svg";
@@ -135,12 +134,8 @@ const Footer = () => {
         </Row>
       </div>
       <div className="footer__below d-flex justify-content-center align-items-center">
-        <Row className="footer__below__container container d-flex justify-content-between">
-          <Col
-            md={12}
-            xs={24}
-            className="footer__below__container__policies d-flex align-items-center"
-          >
+        <Row className="footer__below__container container">
+          <Col md={12} xs={24} className="footer__below__container__policies ">
             <li>Điều khoản sử dụng</li>
             <li>Chính sách bảo mật</li>
           </Col>

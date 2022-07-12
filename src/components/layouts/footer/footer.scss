@@ -80,6 +80,8 @@
       &__policies {
         margin-bottom: 0px;
         li {
+          display: inline-block;
+          width: fit-content;
           font-size: 14px;
           font-weight: 400;
           margin-right: 28px;
@@ -114,7 +116,7 @@
             display: flex !important;
             justify-content: space-between;
             width: 50% !important;
-            margin-top: 20px;
+            // margin
             &__item {
               display: none !important;
             }
