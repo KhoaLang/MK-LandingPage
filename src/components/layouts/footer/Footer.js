@@ -139,11 +139,7 @@ const Footer = () => {
             <li>Điều khoản sử dụng</li>
             <li>Chính sách bảo mật</li>
           </Col>
-          <Col
-            md={12}
-            xs={24}
-            className="footer__below__container__copyright d-flex justify-content-end"
-          >
+          <Col md={12} xs={24} className="footer__below__container__copyright">
             <p>Copyright &copy; 2022 VNPLUS Langing Page</p>
           </Col>
         </Row>
