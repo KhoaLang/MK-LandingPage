@@ -16,7 +16,6 @@ import { PostDetail } from "./pages/admin/Category/Detail";
 import ManageCategories from "./componentsAdmin/ManageCategories";
 import NewPost from "./componentsAdmin/NewPost";
 
-
 function App() {
   return (
     <div className="App">
@@ -30,25 +29,16 @@ function App() {
           <Route path="event/:id" element={<EventDetail />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
+          <Route index element={<ManagePost />} />
 
           <Route path="categories">
-            <Route
-              index
-              element={
-                <>
-                  <p>DanhMuc</p>
-                </>
-              }
-            />
+            <Route index element={<ManageCategories />} />
             <Route path="new" element={<PostNew />} />
             <Route path="detail/:id" element={<PostDetail />} />
           </Route>
           <Route path="posts">
             <Route index element={<ManagePost />} />
           </Route>
-
-       
-         
 
           <Route path="banners" element={<div>bai viet event</div>} />
           <Route path="hiring" element={<div>bai viet event</div>} />

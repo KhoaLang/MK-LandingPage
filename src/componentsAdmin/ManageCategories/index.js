@@ -1,13 +1,11 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./manageCategories.module.scss";
+import { useNavigate } from "react-router-dom";
 import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
-import {
-  DeleteOutlined,
-  PlusOutlined,
-  SearchOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
@@ -15,8 +13,15 @@ const cx = classNames.bind(styles);
 
 const ManageCategories = () => {
   const [form] = Form.useForm();
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { listCategory } = useSelector((state) => state.categoryReducer);
+  console.log("listCategory", listCategory);
 
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  useEffect(() => {
+    dispatch(getAllCatetgoryAction());
+  }, []);
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -24,150 +29,14 @@ const ManageCategories = () => {
     console.log("id", id);
     console.log("checked", checked);
   };
-  const data = [
-    {
-      key: 1,
-      title: "Category 1",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 2,
-      title: "Category 2",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 3,
-      title: "Category 3",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 4,
-      title: "Category 4",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 5,
-      title: "Category 5",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 6,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 7,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 8,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 9,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 10,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 11,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 12,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 13,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 14,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 15,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 16,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 17,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 18,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 19,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-    {
-      key: 20,
-      title: "Lorem Ipsum",
-      articleNumber: 2,
-      serial: 1,
-      visible: true,
-    },
-  ];
+  const data = listCategory.map((item, idx) => {
+    return { ...item, key: item.id, numberOfArticle: item.Posts.length };
+  });
+
   const columns = [
     {
       title: "Danh mục",
-      dataIndex: "title",
+      dataIndex: "name",
       render: (text) => {
         return <p className={cx("title")}>{text}</p>;
       },
@@ -175,9 +44,13 @@ const ManageCategories = () => {
 
     {
       title: "Số bài viết",
-      dataIndex: "articleNumber",
+      dataIndex: "numberOfArticle",
       render: (text) => {
-        return <p className={cx("title")}>{text}</p>;
+        return (
+          <p style={{ textAlign: "center" }} className={cx("title")}>
+            {text}
+          </p>
+        );
       },
     },
     {
@@ -189,7 +62,7 @@ const ManageCategories = () => {
     },
     {
       title: "Hiển thị",
-      dataIndex: "visible",
+      dataIndex: "isVisible",
       render: (text, record) => {
         return (
           <Switch
@@ -202,11 +75,13 @@ const ManageCategories = () => {
     {
       title: "Thao tác",
       align: "center",
-      render: () => {
+      render: (item) => {
+        console.log(item);
         return (
           <div>
             <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             <Button
+              onClick={() => navigate(`detail/${item.id}`)}
               style={{ marginLeft: "20px" }}
               shape="circle"
               size="large"
@@ -235,9 +110,14 @@ const ManageCategories = () => {
             <DeleteOutlined />
             Xoá
           </Button>
-          <Button style={{ marginLeft: "20px" }} type="primary" size="large">
+          <Button
+            onClick={() => navigate("new")}
+            style={{ marginLeft: "20px" }}
+            type="primary"
+            size="large"
+          >
             <PlusOutlined />
-            Tạo Bài Viết
+            Tạo danh mục
           </Button>
         </div>
       </div>

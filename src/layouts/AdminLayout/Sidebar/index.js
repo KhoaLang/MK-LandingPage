@@ -30,15 +30,7 @@ export const SiderbarAdmin = () => {
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
         >
-          <Menu.Item key={"2"} onClick={() => navigate("posts")}>
-            Bài viết
-          </Menu.Item>
-          <Menu.Item key={"3"} onClick={() => navigate("categories")}>
-          key={0}
-          icon={<ProfileOutlined />}
-          title="Tin tức-Sự kiện"
-        >
-          <Menu.Item key={1} onClick={() => navigate("")}>
+          <Menu.Item key={1} onClick={() => navigate("posts")}>
             Bài viết
           </Menu.Item>
           <Menu.Item key={2} onClick={() => navigate("categories")}>
@@ -53,8 +45,6 @@ export const SiderbarAdmin = () => {
           Banner
         </Menu.Item>
         <Menu.Item
-
-
           key={4}
           onClick={() => navigate("hiring")}
           icon={<ShoppingOutlined />}
