@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./managePost.module.scss";
 import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
 import {
@@ -8,6 +8,7 @@ import {
   SearchOutlined,
   EditOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const cx = classNames.bind(styles);
@@ -15,6 +16,7 @@ const cx = classNames.bind(styles);
 const ManagePost = () => {
   const [form] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const navigate = useNavigate();
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -256,7 +258,12 @@ const ManagePost = () => {
             <DeleteOutlined />
             Xoá
           </Button>
-          <Button style={{ marginLeft: "20px" }} type="primary" size="large">
+          <Button
+            onClick={() => navigate("newpost")}
+            style={{ marginLeft: "20px" }}
+            type="primary"
+            size="large"
+          >
             <PlusOutlined />
             Tạo Bài Viết
           </Button>

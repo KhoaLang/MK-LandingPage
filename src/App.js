@@ -10,8 +10,12 @@ import EventDetail from "./components/eventDetail/EventDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
 import ManagePost from "./componentsAdmin/ManagePost";
+
 import { PostNew } from "./pages/admin/Category/New";
 import { PostDetail } from "./pages/admin/Category/Detail";
+import ManageCategories from "./componentsAdmin/ManageCategories";
+import NewPost from "./componentsAdmin/NewPost";
+
 
 function App() {
   return (
@@ -26,6 +30,7 @@ function App() {
           <Route path="event/:id" element={<EventDetail />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
+
           <Route path="categories">
             <Route
               index
@@ -41,6 +46,9 @@ function App() {
           <Route path="posts">
             <Route index element={<ManagePost />} />
           </Route>
+
+       
+         
 
           <Route path="banners" element={<div>bai viet event</div>} />
           <Route path="hiring" element={<div>bai viet event</div>} />

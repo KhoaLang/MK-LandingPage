@@ -1,10 +1,8 @@
 @import "../../sass/reset.scss";
 @import "../../sass/variables.scss";
 
-.ManagePost {
-
-  background-color: #ffff;
-
+.manageCategorie {
+  background-color: $white;
   .top {
     padding: 20px;
     display: flex;
@@ -13,10 +11,6 @@
   }
 }
 .title {
-  width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  font-size: 18px;
+  font-weight: 400px;
 }

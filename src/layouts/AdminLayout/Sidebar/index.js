@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +26,7 @@ export const SiderbarAdmin = () => {
         mode="inline"
       >
         <Menu.SubMenu
-          key={"1"}
+          key={1}
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
         >
@@ -35,25 +34,35 @@ export const SiderbarAdmin = () => {
             Bài viết
           </Menu.Item>
           <Menu.Item key={"3"} onClick={() => navigate("categories")}>
+          key={0}
+          icon={<ProfileOutlined />}
+          title="Tin tức-Sự kiện"
+        >
+          <Menu.Item key={1} onClick={() => navigate("")}>
+            Bài viết
+          </Menu.Item>
+          <Menu.Item key={2} onClick={() => navigate("categories")}>
             Danh mục
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item
-          key={"4"}
+          key={3}
           onClick={() => navigate("banners")}
           icon={<PictureOutlined />}
         >
           Banner
         </Menu.Item>
         <Menu.Item
-          key={"5"}
+
+
+          key={4}
           onClick={() => navigate("hiring")}
           icon={<ShoppingOutlined />}
         >
           Tuyển dụng
         </Menu.Item>
         <Menu.Item
-          key={"7"}
+          key={5}
           onClick={() => navigate("hots")}
           icon={<CameraOutlined />}
         >

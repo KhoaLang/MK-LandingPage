@@ -1,0 +1,27 @@
+@import "../../sass/reset.scss";
+@import "../../sass/variables.scss";
+
+.edit-post {
+  background-color: $white;
+  &__page-header {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__form {
+    padding: 20px;
+    p {
+      font-weight: 700;
+      font-size: 18px;
+      color: #181818;
+    }
+    form {
+      margin-top: 50px;
+    }
+  }
+}
+.title {
+  font-size: 18px;
+  font-weight: 400px;
+}

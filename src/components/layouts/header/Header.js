@@ -59,7 +59,11 @@ const Header = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    //get location and active route base on url
+    let currentURL = window.location.href;
+    let endpoint = currentURL.split("/");
+    setActiveRoute(endpoint[3]);
+
     setActiveNavbarItem();
   }, [activeRoute]);
 
@@ -76,8 +80,8 @@ const Header = () => {
           {navbarItems.map((item, idx) => (
             <Link
               key={idx}
-              onClick={() => setActiveRoute(item.path)}
-              to={item.path}
+              onClick={() => idx !== 5 && setActiveRoute(item.path)}
+              to={idx !== 5 && item.path}
             >
               <li
                 className={
