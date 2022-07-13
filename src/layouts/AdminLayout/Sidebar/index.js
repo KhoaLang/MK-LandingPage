@@ -6,6 +6,7 @@ import {
   CameraOutlined,
   PictureOutlined,
   ShoppingOutlined,
+  MailOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 
@@ -22,11 +23,17 @@ export const SiderbarAdmin = () => {
           marginTop: "48px",
           fontSize: "17px",
         }}
-        // defaultOpenKeys={["sub1"]}
-        // items={items}
         mode="inline"
       >
         <Menu.SubMenu
+          key={1}
+          icon={<ProfileOutlined />}
+          title="Tin tức-Sự kiện"
+        >
+          <Menu.Item key={"2"} onClick={() => navigate("posts")}>
+            Bài viết
+          </Menu.Item>
+          <Menu.Item key={"3"} onClick={() => navigate("categories")}>
           key={0}
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
@@ -46,6 +53,8 @@ export const SiderbarAdmin = () => {
           Banner
         </Menu.Item>
         <Menu.Item
+
+
           key={4}
           onClick={() => navigate("hiring")}
           icon={<ShoppingOutlined />}
