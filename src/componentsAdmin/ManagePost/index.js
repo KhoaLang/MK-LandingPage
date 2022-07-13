@@ -252,7 +252,7 @@ const ManagePost = () => {
       <div className={cx("top")}>
         <h5>QUẢN LÝ BÀI VIẾT</h5>
         <div className={cx("grpBtn")}>
-          <Button danger size="large">
+          <Button style={{ color: "#C00101", borderColor:"currentcolor", fontWeight:"bold" }} size="large">
             <DeleteOutlined />
             Xoá
           </Button>
@@ -273,7 +273,8 @@ const ManagePost = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}>
+        onFinish={onFinish}
+      >
         <Form.Item label="Tìm kiếm" className="w-20" name="title">
           <Input
             size="large"

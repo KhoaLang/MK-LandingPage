@@ -31,15 +31,18 @@
         line-height: 1;
         border: 1px solid transparent;
         transition: all .2s ease-out;
+        background: transparent;
 
         &:hover {
             color: #1ea6fb;
             border: 1px solid #1ea6fb;
+            background: #fff;
         }
 
         &.active {
             color: #1ea6fb;
             border: 1px solid #1ea6fb;
+            background: #fff;
         }
     }
 }
