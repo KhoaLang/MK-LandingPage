@@ -25,10 +25,6 @@ const routes = [
 ];
 
 const EventDetail = (props) => {
-  let { id } = useParams();
-  const { image, title, date } = props;
-  const [current, setCurrent] = useState(0);
-
   return (
     <section className="event-detail d-flex justify-content-center align-items-center">
       <div className="event-detail__container">

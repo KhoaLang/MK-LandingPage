@@ -5,6 +5,8 @@ import { ReactComponent as Location } from "../../assets/locationLogo.svg";
 import { ReactComponent as Phone } from "../../assets/phoneLogo.svg";
 import { ReactComponent as Email } from "../../assets/mail.svg";
 import img1 from "../../assets/Frame 66.png";
+import { useEffect } from "react";
+
 // import MyMap from "../layouts/myMap/MyMap";
 
 const contactInfo = [
@@ -24,6 +26,10 @@ const contactInfo = [
 
 const Contact = () => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <section className="contact d-flex justify-content-center align-items-center">
       <div className="contact__container container d-flex flex-column justify-content-center align-items-center">

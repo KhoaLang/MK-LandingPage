@@ -16,7 +16,9 @@ const About = () => {
           culpa qui officia deserunt mollit anim id non proident, sunt in culpa
           qui officia
         </p>
-        <PrimaryButton style={{ margin: "70px auto" }}>Xem thêm</PrimaryButton>
+        <PrimaryButton path="/aboutus" style={{ margin: "70px auto" }}>
+          Xem thêm
+        </PrimaryButton>
       </div>
     </section>
   );

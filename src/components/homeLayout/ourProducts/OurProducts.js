@@ -8,6 +8,7 @@ import plustrip from "../../../assets/plustrip.png";
 import gardenie from "../../../assets/gardenie.png";
 import plusfood from "../../../assets/plusfood.png";
 import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
+import Item from "antd/lib/list/Item";
 
 const OurProducts = (props) => {
   const products = [
@@ -19,7 +20,7 @@ const OurProducts = (props) => {
     {
       logo: bookingstudio,
       name: "Booking Studio",
-      link: "#",
+      link: "https://www.facebook.com/BookingStudio.vnplus.vn",
     },
     {
       logo: plusticket,
@@ -62,7 +63,7 @@ const OurProducts = (props) => {
                   <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
                     <a
                       className="d-flex justify-content-center align-items-center"
-                      href="#"
+                      href={item.link}
                     >
                       <p>Xem chi tiết</p>
                       <GoTo />
