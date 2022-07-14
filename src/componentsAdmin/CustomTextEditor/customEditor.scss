@@ -1,0 +1,42 @@
+@import "../../sass/reset.scss";
+@import "../../sass/variables.scss";
+
+.custom-editor {
+  width: fit-content;
+  padding: 5px;
+  border: 1px solid #c0c0c0;
+  &__font,
+  &__attach,
+  &__list {
+    border-right: 1px solid #c0c0c0;
+    // margin-right: 15px;
+    &__item {
+      padding: 5px;
+      &:hover {
+        background-color: #ececec;
+      }
+    }
+  }
+  &__font__item {
+    &:last-child {
+      padding-right: 10px;
+    }
+  }
+  &__attach__item {
+    &:first-child {
+      padding-left: 10px;
+    }
+    &:last-child {
+      padding-right: 10px;
+    }
+  }
+  &__list {
+    border-right: none;
+    margin-right: 0px;
+    &__item {
+      &:first-child {
+        padding-left: 10px;
+      }
+    }
+  }
+}

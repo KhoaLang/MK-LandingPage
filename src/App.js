@@ -9,12 +9,12 @@ import "react-multi-carousel/lib/styles.css";
 import EventDetail from "./components/eventDetail/EventDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
-import ManagePost from "./componentsAdmin/ManagePost";
+import ManagePost from "./pages/admin/Post/ManagePost";
 
+import ManageCategories from "./pages/admin/Category/ManageCategories";
+import NewPost from "./pages/admin/Post/New";
 import { CategorytNew } from "./pages/admin/Category/New";
 import { CatetgorytDetail } from "./pages/admin/Category/Detail";
-import ManageCategories from "./componentsAdmin/ManageCategories";
-import NewPost from "./componentsAdmin/NewPost";
 import { Banner } from "./pages/admin/banner";
 import { BannerNew } from "./pages/admin/banner/New";
 import { BannerDetail } from "./pages/admin/banner/Detail";
@@ -41,7 +41,8 @@ function App() {
           </Route>
           <Route path="posts">
             <Route index element={<ManagePost />} />
-            <Route path="new" element={<NewPost />} />
+
+            <Route path="newpost" element={<NewPost />} />
           </Route>
 
           <Route path="banners">

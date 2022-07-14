@@ -1,13 +1,11 @@
 import "./contact.scss";
-import { Row, Col, Form, Input } from "antd";
+import { Row, Col, Form, Input, Modal } from "antd";
 import Button from "../layouts/primaryButton/Button";
 import { ReactComponent as Location } from "../../assets/locationLogo.svg";
 import { ReactComponent as Phone } from "../../assets/phoneLogo.svg";
 import { ReactComponent as Email } from "../../assets/mail.svg";
 import img1 from "../../assets/Frame 66.png";
-import { useEffect } from "react";
-
-// import MyMap from "../layouts/myMap/MyMap";
+import { useEffect, useState } from "react";
 
 const contactInfo = [
   {
@@ -26,10 +24,21 @@ const contactInfo = [
 
 const Contact = () => {
   const [form] = Form.useForm();
-
+  const [isModalVisible, setIsModalVisible] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <section className="contact d-flex justify-content-center align-items-center">
       <div className="contact__container container d-flex flex-column justify-content-center align-items-center">
@@ -45,8 +54,7 @@ const Contact = () => {
                 wrapperCol={{
                   span: 24,
                 }}
-                layout="vertical"
-              >
+                layout="vertical">
                 <Row gutter={[24, 24]}>
                   <Col md={12} xs={24}>
                     <Form.Item
@@ -57,8 +65,7 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập họ và tên!",
                         },
-                      ]}
-                    >
+                      ]}>
                       <Input />
                     </Form.Item>
                   </Col>
@@ -71,8 +78,7 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập email!",
                         },
-                      ]}
-                    >
+                      ]}>
                       <Input />
                     </Form.Item>
                   </Col>
@@ -87,8 +93,7 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập tên công ty!",
                         },
-                      ]}
-                    >
+                      ]}>
                       <Input />
                     </Form.Item>
                   </Col>
@@ -101,8 +106,7 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập số điện thoại!",
                         },
-                      ]}
-                    >
+                      ]}>
                       <Input />
                     </Form.Item>
                   </Col>
@@ -116,8 +120,7 @@ const Contact = () => {
                       required: true,
                       message: "Bạn thắc mắc điều gì?",
                     },
-                  ]}
-                >
+                  ]}>
                   <Input.TextArea />
                 </Form.Item>
                 <Button style={{ marginTop: "26px" }}>Gửi</Button>
@@ -130,8 +133,7 @@ const Contact = () => {
                   {contactInfo.map((item, idx) => (
                     <li
                       className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
-                      key={idx}
-                    >
+                      key={idx}>
                       {item.logo}
                       <p style={{ color: "#000" }}>{item.info}</p>
                     </li>
@@ -139,15 +141,22 @@ const Contact = () => {
                 </ul>
               </div>
               <div className="contact__container__form__map">
-                <img src={img1} alt="nothing to see" />
-                {/* <MyMap
-                  isMarkerShown
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
-                  loadingElement={<div style={{ height: `100%` }} />}
-                  containerElement={<div style={{ height: `400px` }} />}
-                  mapElement={<div style={{ height: `100%` }} />}
-                /> */}
+                <img src={img1} alt="nothing to see" onClick={showModal} />
               </div>
+              <Modal
+                width={"100%"}
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                footer={[]}>
+                <iframe
+                  width="100%"
+                  height="600px"
+                  frameborder="0"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAuHn3Zlnm6SSmMnR7qHGrVVM_Fumq67-0&q=10.732531, 106.731495"
+                  allowFullScreen></iframe>
+              </Modal>
             </Col>
           </Row>
         </div>
