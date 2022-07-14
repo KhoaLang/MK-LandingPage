@@ -11,10 +11,10 @@ import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
 import ManagePost from "./pages/admin/Post/ManagePost";
 
-import { PostNew } from "./pages/admin/Category/New";
-import { PostDetail } from "./pages/admin/Category/Detail";
 import ManageCategories from "./pages/admin/Category/ManageCategories";
 import NewPost from "./pages/admin/Post/New";
+import { CategorytNew } from "./pages/admin/Category/New";
+import { CatetgorytDetail } from "./pages/admin/Category/Detail";
 
 function App() {
   return (
@@ -33,8 +33,8 @@ function App() {
 
           <Route path="categories">
             <Route index element={<ManageCategories />} />
-            <Route path="new" element={<PostNew />} />
-            <Route path="detail/:id" element={<PostDetail />} />
+            <Route path="new" element={<CategorytNew />} />
+            <Route path="detail/:id" element={<CatetgorytDetail />} />
           </Route>
           <Route path="posts">
             <Route index element={<ManagePost />} />

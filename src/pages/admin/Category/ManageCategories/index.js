@@ -2,63 +2,70 @@ import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import styles from "./manageCategories.module.scss";
 import { useNavigate } from "react-router-dom";
-import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
-import { DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { Button, Popconfirm, Select, Switch, Table } from "antd";
+import {
+  DeleteOutlined,
+  PlusOutlined,
+  EditOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCatetgoryAction } from "../../../../stores/actions/categoryAction";
+import {
+  deleteCategory,
+  getAllCatetgoryAction,
+  updateCategoryAction,
+} from "../../../../stores/actions/categoryAction";
 const { Option } = Select;
-const { RangePicker } = DatePicker;
 
 const cx = classNames.bind(styles);
 
 const ManageCategories = () => {
-  const [form] = Form.useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { listCategory } = useSelector((state) => state.categoryReducer);
-  console.log("listCategory", listCategory);
-
+  // const { isLoading } = useSelector((state) => state.loadingReducer);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
   useEffect(() => {
     dispatch(getAllCatetgoryAction());
-  }, []);
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  }, [dispatch]);
+
   const handleVisible = (id, checked) => {
-    console.log("id", id);
-    console.log("checked", checked);
+    dispatch(updateCategoryAction(id, checked));
   };
-  const data = listCategory.map((item, idx) => {
-    return { ...item, key: item.id, numberOfArticle: item.Posts.length };
+  const handleDeleteArray = async (data) => {
+    await Promise.all(data.map(async (id) => dispatch(deleteCategory(id))));
+  };
+  const data = listCategory?.map((item, idx) => {
+    return { ...item, key: item.id, numberOfArticle: item.Posts?.length };
   });
 
   const columns = [
     {
       title: "Danh mục",
       dataIndex: "name",
-      render: (text) => {
-        return <p className={cx("title")}>{text}</p>;
-      },
+      // render: (text) => {
+      //   return <p className={cx("title")}>{text}</p>;
+      // },
     },
 
     {
       title: "Số bài viết",
       dataIndex: "numberOfArticle",
-      render: (text) => {
-        return (
-          <p style={{ textAlign: "center" }} className={cx("title")}>
-            {text}
-          </p>
-        );
-      },
+      // render: (text) => {
+      //   return (
+      //     <p style={{ textAlign: "center" }} className={cx("title")}>
+      //       {text}
+      //     </p>
+      //   );
+      // },
     },
     {
       title: "Số seri",
       dataIndex: "serial",
-      render: (text) => {
-        return <p className={cx("title")}>{text}</p>;
-      },
+      // render: (text) => {
+      //   return <p className={cx("title")}>{text}</p>;
+      // },
     },
     {
       title: "Hiển thị",
@@ -76,10 +83,15 @@ const ManageCategories = () => {
       title: "Thao tác",
       align: "center",
       render: (item) => {
-        console.log(item);
         return (
           <div>
-            <Button shape="circle" size="large" icon={<DeleteOutlined />} />
+            <Popconfirm
+              title="Are you sure？"
+              onConfirm={() => dispatch(deleteCategory(item.id))}
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            >
+              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
+            </Popconfirm>
             <Button
               onClick={() => navigate(`detail/${item.id}`)}
               style={{ marginLeft: "20px" }}
@@ -95,6 +107,7 @@ const ManageCategories = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
+    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -106,10 +119,24 @@ const ManageCategories = () => {
       <div className={cx("top")}>
         <h5>QUẢN LÝ DANH MỤC</h5>
         <div className={cx("grpBtn")}>
-          <Button danger size="large">
-            <DeleteOutlined />
-            Xoá
-          </Button>
+          <Popconfirm
+            title="Are you sure？"
+            onConfirm={() => handleDeleteArray(selectedRowKeys)}
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
+            <Button
+              style={{
+                color: "#C00101",
+                borderColor: "currentcolor",
+                fontWeight: "bold",
+              }}
+              size="large"
+            >
+              <DeleteOutlined />
+              Xoá
+            </Button>
+          </Popconfirm>
+
           <Button
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
