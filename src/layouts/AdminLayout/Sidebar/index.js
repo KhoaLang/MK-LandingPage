@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 
 export const SiderbarAdmin = () => {
   const navigate = useNavigate();
-  const {pathname} =useLocation();
+  const { pathname } = useLocation();
 
   return (
     <div className={cx("sidebar")}>
@@ -27,18 +27,30 @@ export const SiderbarAdmin = () => {
         mode="inline"
       >
         <Menu.SubMenu
-          key={1}
+          key={0}
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
         >
           <Menu.Item
-            className={["posts"].includes(pathname.split("/")[2])?"ant-menu-item-selected":""}
+            className={
+              ["posts"].includes(pathname.split("/")[2])
+                ? "ant-menu-item-selected"
+                : ""
+            }
             key={1}
             onClick={() => navigate("posts")}
           >
             Bài viết
           </Menu.Item>
-          <Menu.Item  className={["categories"].includes(pathname.split("/")[2])?"ant-menu-item-selected":""} key={2} onClick={() => navigate("categories")}>
+          <Menu.Item
+            className={
+              ["categories"].includes(pathname.split("/")[2])
+                ? "ant-menu-item-selected"
+                : ""
+            }
+            key={2}
+            onClick={() => navigate("categories")}
+          >
             Danh mục
           </Menu.Item>
         </Menu.SubMenu>

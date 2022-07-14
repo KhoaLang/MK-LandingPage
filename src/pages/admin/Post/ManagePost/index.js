@@ -104,7 +104,7 @@ const ManagePost = () => {
 
   const handleNavigateToCreateNewPost = () => {
     let endpoint = window.location.href.slice(-5);
-    if (window.location.href.length !== "posts") {
+    if (endpoint !== "posts") {
       navigate("posts/newpost");
     } else navigate("newpost");
   };
