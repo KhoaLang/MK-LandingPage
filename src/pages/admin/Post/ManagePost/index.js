@@ -1,5 +1,7 @@
 import classNames from "classnames/bind";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPostAction } from "../../../../stores/actions/postAction";
 import styles from "./managePost.module.scss";
 import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
 import {
@@ -14,6 +16,9 @@ const { RangePicker } = DatePicker;
 const cx = classNames.bind(styles);
 
 const ManagePost = () => {
+  const dispatch = useDispatch();
+  const { listPost } = useSelector((state) => state.postReducer);
+
   const [form] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const navigate = useNavigate();
@@ -25,169 +30,16 @@ const ManagePost = () => {
     console.log("id", id);
     console.log("checked", checked);
   };
-  const data = [
-    {
-      key: 1,
-      avatar: "https://picsum.photos/200/300",
-      title:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.      ",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 2,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 3,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 4,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 5,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 6,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 7,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 8,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 9,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 10,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 11,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 12,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 13,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 14,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 15,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 16,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 17,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 18,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 19,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-    {
-      key: 20,
-      avatar: "https://picsum.photos/200/300",
-      title: "Lorem Ipsum",
-      category: 1,
-      createdAt: "30/2/2022",
-      visible: true,
-    },
-  ];
+  const data = listPost?.map((item, idx) => {
+    const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`;
+    return {
+      ...item,
+      key: item.id,
+      avatar: imgURL,
+      category: item.Category_ID,
+      visible: item.isVisible,
+    };
+  });
   const columns = [
     {
       title: "Avatar",
@@ -249,17 +101,37 @@ const ManagePost = () => {
     selectedRowKeys,
     onChange: onSelectChange,
   };
+
+  const handleNavigateToCreateNewPost = () => {
+    let endpoint = window.location.href.slice(-5);
+    if (window.location.href.length !== "posts") {
+      navigate("posts/newpost");
+    } else navigate("newpost");
+  };
+
+  useEffect(() => {
+    dispatch(getAllPostAction());
+  }, [dispatch]);
+
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
         <h5>QUẢN LÝ BÀI VIẾT</h5>
         <div className={cx("grpBtn")}>
-          <Button style={{ color: "#C00101", borderColor:"currentcolor", fontWeight:"bold" }} size="large">
+          <Button
+            style={{
+              color: "#C00101",
+              borderColor: "currentcolor",
+              fontWeight: "bold",
+            }}
+            size="large"
+          >
             <DeleteOutlined />
             Xoá
           </Button>
           <Button
-            onClick={() => navigate("newpost")}
+            onClick={handleNavigateToCreateNewPost}
+            // onClick={() => console.log(listPost)}
             style={{ marginLeft: "20px" }}
             type="primary"
             size="large"
