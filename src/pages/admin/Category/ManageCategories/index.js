@@ -2,13 +2,7 @@ import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import styles from "./manageCategories.module.scss";
 import { useNavigate } from "react-router-dom";
-import {
-  Button,
-  Popconfirm,
-  Select,
-  Switch,
-  Table,
-} from "antd";
+import { Button, Popconfirm, Select, Switch, Table } from "antd";
 import {
   DeleteOutlined,
   PlusOutlined,
@@ -20,7 +14,7 @@ import {
   deleteCategory,
   getAllCatetgoryAction,
   updateCategoryAction,
-} from "../../stores/actions/categoryAction";
+} from "../../../../stores/actions/categoryAction";
 const { Option } = Select;
 
 const cx = classNames.bind(styles);
@@ -35,7 +29,7 @@ const ManageCategories = () => {
   useEffect(() => {
     dispatch(getAllCatetgoryAction());
   }, [dispatch]);
- 
+
   const handleVisible = (id, checked) => {
     dispatch(updateCategoryAction(id, checked));
   };
