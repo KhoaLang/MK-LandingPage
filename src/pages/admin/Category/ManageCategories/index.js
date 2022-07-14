@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
 import { DeleteOutlined, PlusOutlined, EditOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
+import { getAllCatetgoryAction } from "../../../../stores/actions/categoryAction";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
