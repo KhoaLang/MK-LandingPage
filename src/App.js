@@ -14,6 +14,10 @@ import ManagePost from "./componentsAdmin/ManagePost";
 import { CategorytNew } from "./pages/admin/Category/New";
 import { CatetgorytDetail } from "./pages/admin/Category/Detail";
 import ManageCategories from "./componentsAdmin/ManageCategories";
+import NewPost from "./componentsAdmin/NewPost";
+import { Banner } from "./pages/admin/banner";
+import { BannerNew } from "./pages/admin/banner/New";
+import { BannerDetail } from "./pages/admin/banner/Detail";
 
 function App() {
   return (
@@ -31,15 +35,20 @@ function App() {
           <Route index element={<ManagePost />} />
 
           <Route path="categories">
-            <Route index element={<ManageCategories/>} />
+            <Route index element={<ManageCategories />} />
             <Route path="new" element={<CategorytNew />} />
             <Route path="detail/:id" element={<CatetgorytDetail />} />
           </Route>
           <Route path="posts">
             <Route index element={<ManagePost />} />
+            <Route path="new" element={<NewPost />} />
           </Route>
 
-          <Route path="banners" element={<div>bai viet event</div>} />
+          <Route path="banners">
+            <Route index element={<Banner />} />
+            <Route path="new" element={<BannerNew />} />
+            <Route path="detail/:id" element={<BannerDetail />} />
+          </Route>
           <Route path="hiring" element={<div>bai viet event</div>} />
           <Route path="hots" element={<div>bai viet event</div>} />
         </Route>

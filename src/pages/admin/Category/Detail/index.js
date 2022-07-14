@@ -90,6 +90,7 @@ export const CatetgorytDetail = () => {
                   icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                 >
                   <Button
+                  danger
                     style={{
                       color: "#C00101",
                       borderColor: "currentcolor",
