@@ -11,6 +11,14 @@ export class baseService {
       headers: { Authorization: "Bearer " + localStorage.getItem(TOKEN) }, //JWT
     });
   };
+  patch = (url, model) => {
+    return Axios({
+      url: `${DOMAIN}${url}`,
+      method: "PATCH",
+      data: model,
+      headers: { Authorization: "Bearer " + localStorage.getItem(TOKEN) }, //JWT
+    });
+  };
 
   post = (url, model) => {
     return Axios({
