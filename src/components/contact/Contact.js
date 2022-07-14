@@ -54,7 +54,8 @@ const Contact = () => {
                 wrapperCol={{
                   span: 24,
                 }}
-                layout="vertical">
+                layout="vertical"
+              >
                 <Row gutter={[24, 24]}>
                   <Col md={12} xs={24}>
                     <Form.Item
@@ -65,7 +66,8 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập họ và tên!",
                         },
-                      ]}>
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                   </Col>
@@ -78,7 +80,8 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập email!",
                         },
-                      ]}>
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                   </Col>
@@ -93,7 +96,8 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập tên công ty!",
                         },
-                      ]}>
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                   </Col>
@@ -106,7 +110,8 @@ const Contact = () => {
                           required: true,
                           message: "Vui lòng nhập số điện thoại!",
                         },
-                      ]}>
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
                   </Col>
@@ -120,7 +125,8 @@ const Contact = () => {
                       required: true,
                       message: "Bạn thắc mắc điều gì?",
                     },
-                  ]}>
+                  ]}
+                >
                   <Input.TextArea />
                 </Form.Item>
                 <Button style={{ marginTop: "26px" }}>Gửi</Button>
@@ -133,7 +139,8 @@ const Contact = () => {
                   {contactInfo.map((item, idx) => (
                     <li
                       className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
-                      key={idx}>
+                      key={idx}
+                    >
                       {item.logo}
                       <p style={{ color: "#000" }}>{item.info}</p>
                     </li>
@@ -148,14 +155,16 @@ const Contact = () => {
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                footer={[]}>
+                footer={[]}
+              >
                 <iframe
                   width="100%"
                   height="600px"
-                  frameborder="0"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAuHn3Zlnm6SSmMnR7qHGrVVM_Fumq67-0&q=10.732531, 106.731495"
-                  allowFullScreen></iframe>
+                  frameBorder="0"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GG_API_KEY}_Fumq67-0&q=10.732531, 106.731495`}
+                  allowFullScreen
+                ></iframe>
               </Modal>
             </Col>
           </Row>

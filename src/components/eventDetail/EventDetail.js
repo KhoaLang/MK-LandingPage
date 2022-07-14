@@ -29,8 +29,8 @@ const EventDetail = (props) => {
     <section className="event-detail d-flex justify-content-center align-items-center">
       <div className="event-detail__container">
         <div className="event-detail__container__main-content">
-          <Row gutter={[16]}>
-            <Col md={15}>
+          <Row gutter={[16, 16]}>
+            <Col md={17}>
               <div className="event-detail__container__main-content__page-header">
                 <PageHeader
                   style={{ padding: "0px" }}
@@ -80,7 +80,25 @@ const EventDetail = (props) => {
                 <Link />
               </div>
             </Col>
-            <Col md={6}>Facebook shortcut</Col>
+            <Col md={6} className="d-flex justify-content-center">
+              <div
+                className="fb-page"
+                data-href="https://www.facebook.com/vnplusjsc"
+                data-width="340"
+                data-height="152"
+                data-small-header="false"
+                data-adapt-container-width="true"
+                data-hide-cover="false"
+                data-show-facepile="false"
+              >
+                <blockquote
+                  cite="https://www.facebook.com/vnplusjsc"
+                  className="fb-xfbml-parse-ignore"
+                >
+                  <a href="https://www.facebook.com/vnplusjsc">VNPLus jsc</a>
+                </blockquote>
+              </div>
+            </Col>
           </Row>
         </div>
 
