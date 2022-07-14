@@ -13,12 +13,14 @@ import {
 import TextArea from "antd/lib/input/TextArea";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategoryAction } from "../../../../stores/actions/categoryAction";
+import { useNavigate } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-export const PostNew = () => {
+export const CategorytNew = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
+  const navigate = useNavigate();
   console.log(isLoading);
   const formik = useFormik({
     enableReinitialize: true,
@@ -49,8 +51,14 @@ export const PostNew = () => {
     <div className={cx("post-new")} onSubmit={formik.handleSubmit}>
       <div className={cx("wrapper")}>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
-          <Breadcrumb style={{ fontSize: "16px", fontWeight:"500" }}>
+          <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item>Tin tức-Sự kiện</Breadcrumb.Item>
+            <Breadcrumb.Item
+              className={cx("bread")}
+              onClick={() => navigate(-1)}
+            >
+              <span style={{ cursor: "pointer" }}>Danh mục</span>
+            </Breadcrumb.Item>
             <Breadcrumb.Item>
               <span style={{ color: "#1EA6FB" }}>Tạo danh mục</span>
             </Breadcrumb.Item>

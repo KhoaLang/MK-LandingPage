@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./Sidebar.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   ProfileOutlined,
   CameraOutlined,
@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 
 export const SiderbarAdmin = () => {
   const navigate = useNavigate();
+  const {pathname} =useLocation();
 
   return (
     <div className={cx("sidebar")}>
@@ -30,10 +31,14 @@ export const SiderbarAdmin = () => {
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
         >
-          <Menu.Item key={1} onClick={() => navigate("posts")}>
+          <Menu.Item
+            className={["posts"].includes(pathname.split("/")[2])?"ant-menu-item-selected":""}
+            key={1}
+            onClick={() => navigate("posts")}
+          >
             Bài viết
           </Menu.Item>
-          <Menu.Item key={2} onClick={() => navigate("categories")}>
+          <Menu.Item  className={["categories"].includes(pathname.split("/")[2])?"ant-menu-item-selected":""} key={2} onClick={() => navigate("categories")}>
             Danh mục
           </Menu.Item>
         </Menu.SubMenu>
