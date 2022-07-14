@@ -1,20 +1,10 @@
 import classNames from "classnames/bind";
 import { useState, useEffect, useRef } from "react";
 import styles from "./NewPost.module.scss";
-import {
-  Form,
-  Input,
-  PageHeader,
-  Select,
-  message,
-  Upload,
-  Switch,
-  Button,
-} from "antd";
+import { Form, Input, PageHeader, Select, Upload, Switch, Button } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Editor } from "@tinymce/tinymce-react";
 import { useFormik } from "formik";
-import FormList from "antd/lib/form/FormList";
 
 const { Option } = Select;
 
@@ -36,15 +26,13 @@ const NewPost = () => {
   const [uploadImg, setUploadImg] = useState([]);
   const [textValue, setTextValue] = useState("");
 
-  const [form] = Form.useForm();
-
   const formik = useFormik({
     initialValues: {
       title: "",
       category: "",
       avatar: "",
       content: "",
-      visible: "",
+      isVisible: false,
       source: "",
     },
     onSubmit: (values) => {
@@ -52,11 +40,14 @@ const NewPost = () => {
     },
   });
 
-  const handleChange = (info) => {
+  const handleFileChange = (info) => {
     setUploadImg(info.fileList);
+    formik.setFieldValue("avatar", info.fileList);
   };
   const onchangeEdit = (newValue, editor) => {
     setTextValue(newValue);
+    newValue = newValue.slice(3);
+    formik.values.content = newValue.slice(0, newValue.length - 4);
   };
 
   const handlePreview = async (file) => {
@@ -80,6 +71,12 @@ const NewPost = () => {
     }, 2000);
   };
 
+  const handleFormItemChange = (name) => {
+    return (value) => {
+      formik.setFieldValue(name, value);
+    };
+  };
+
   useEffect(() => {
     setImageUrl(uploadImg[uploadImg?.length - 1] || 0);
   }, [uploadImg]);
@@ -98,7 +95,7 @@ const NewPost = () => {
       <div className={cx("edit-post__form")}>
         <p>TẠO BÀI VIẾT</p>
         <Form
-          onSubmit={formik.handleSubmit}
+          onFinish={formik.handleSubmit}
           // onChange={() => console.log(form)}
           // form={form}
           labelCol={{ span: 3 }}
@@ -109,7 +106,7 @@ const NewPost = () => {
               offset: 21,
             }}
           >
-            <Button type="submit" htmlType="submit">
+            <Button type="primary" htmlType="submit">
               <PlusOutlined />
               Tạo bài viết
             </Button>
@@ -142,46 +139,48 @@ const NewPost = () => {
               },
             ]}
           >
-            <Select defaultValue="category1" style={{ width: "fit-content" }}>
-              <Option value="category1">Category 1</Option>
-              <Option value="category2">Category 2</Option>
-              <Option value="category3">Category 3</Option>
-              <Option value="category4">Category 4</Option>
+            <Select
+              onChange={handleFormItemChange("category")}
+              value={formik.values.category}
+              defaultValue="Category1"
+              style={{ width: "fit-content" }}
+            >
+              <Option value="Category1">Category 1</Option>
+              <Option value="Category2">Category 2</Option>
+              <Option value="Category3">Category 3</Option>
+              <Option value="Category4">Category 4</Option>
             </Select>
           </Form.Item>
           <Form.Item
             label="Avatar"
             name="avatar"
             labelAlign="left"
-            onChange={formik.handleChange}
-            value={formik.values.avatar}
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please choost an avatar for this post!",
-            //   },
-            // ]}
+            // onChange={handleFileChange(event)}
+            rules={[
+              {
+                required: true,
+                message: "Please choost an avatar for this post!",
+              },
+            ]}
           >
             <Upload
               fileList={uploadImg}
               listType="picture-card"
               className="avatar-uploader"
+              onChange={handleFileChange}
+              value={formik.values.avatar}
               // showUploadList={true}
               previewFile={handlePreview}
               customRequest={dummyRequest}
-              onChange={handleChange}
             >
               {uploadImg < 1 && "+ Upload"}
             </Upload>
           </Form.Item>
-          <Form.Item
-            label="Hiển thị"
-            onChange={formik.handleChange}
-            value={formik.values.visible}
-            name="visible"
-            labelAlign="left"
-          >
-            <Switch defaultChecked />
+          <Form.Item label="Hiển thị" name="visible" labelAlign="left">
+            <Switch
+              checked={formik.values.isVisible}
+              onChange={handleFormItemChange("isVisible")}
+            />
           </Form.Item>
           <Form.Item
             onChange={formik.handleChange}
@@ -194,9 +193,7 @@ const NewPost = () => {
               tinymceScriptSrc={
                 process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
               }
-              // initialValue={"asd"}
-              value={textValue}
-              // defaultValue={textValue}
+              value={formik.values.content}
               onEditorChange={(newValue, editor) =>
                 onchangeEdit(newValue, editor)
               }
@@ -234,6 +231,16 @@ const NewPost = () => {
             label="Nguồn"
             name="source"
             labelAlign="left"
+            rules={[
+              {
+                required: true,
+                message: "This field is required.",
+              },
+              {
+                type: "url",
+                message: "This field must be a valid url.",
+              },
+            ]}
           >
             <Input placeholder="https://..." />
           </Form.Item>

@@ -15,7 +15,7 @@ const OurProducts = (props) => {
     {
       logo: plusstinv,
       name: "Plusstinv",
-      link: "#",
+      link: "https://www.facebook.com/plusstinv",
     },
     {
       logo: bookingstudio,
