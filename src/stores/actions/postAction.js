@@ -13,3 +13,22 @@ export const getAllPostAction = () => {
     }
   };
 };
+
+export const createPostAction = (data, resetForm) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SHOW_LOADING });
+      await postService.createPost(data);
+      dispatch({ type: HIDE_LOADING });
+      dispatch(getAllPostAction);
+      resetForm();
+
+      openNotification("success", "Create Post success!");
+      // dispatch({ type: HIDE_LOADING });
+    } catch (error) {
+      openNotification("error", `Create fail!`);
+      dispatch({ type: HIDE_LOADING });
+      // console.log(error.response?.data);
+    }
+  };
+};

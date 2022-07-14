@@ -130,8 +130,8 @@ const ManagePost = () => {
             Xoá
           </Button>
           <Button
-            onClick={handleNavigateToCreateNewPost}
-            // onClick={() => console.log(listPost)}
+            // onClick={handleNavigateToCreateNewPost}
+            onClick={() => console.log(listPost)}
             style={{ marginLeft: "20px" }}
             type="primary"
             size="large"

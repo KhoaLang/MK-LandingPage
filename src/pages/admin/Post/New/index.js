@@ -5,6 +5,9 @@ import { Form, Input, PageHeader, Select, Upload, Switch, Button } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Editor } from "@tinymce/tinymce-react";
 import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { createPostAction } from "../../../../stores/actions/postAction";
+import { getAllCatetgoryAction } from "../../../../stores/actions/categoryAction";
 
 const { Option } = Select;
 
@@ -21,7 +24,9 @@ const routes = [
 ];
 
 const NewPost = () => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loadingReducer);
+  const { listCategory } = useSelector((state) => state.categoryReducer);
   const [imageUrl, setImageUrl] = useState();
   const [uploadImg, setUploadImg] = useState([]);
   const [textValue, setTextValue] = useState("");
@@ -30,19 +35,28 @@ const NewPost = () => {
     initialValues: {
       title: "",
       category: "",
-      avatar: "",
+      image: "",
       content: "",
       isVisible: false,
       source: "",
+      Category_ID: 0,
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, { resetForm }) => {
+      let formData = new FormData();
+      for (let key in values) {
+        if (key !== "image") {
+          formData.append(key, values[key]);
+        } else {
+          formData.append("image", values.image[0].originFileObj);
+        }
+      }
+      dispatch(createPostAction(formData, resetForm));
     },
   });
 
   const handleFileChange = (info) => {
     setUploadImg(info.fileList);
-    formik.setFieldValue("avatar", info.fileList);
+    formik.setFieldValue("image", info.fileList);
   };
   const onchangeEdit = (newValue, editor) => {
     setTextValue(newValue);
@@ -80,6 +94,10 @@ const NewPost = () => {
   useEffect(() => {
     setImageUrl(uploadImg[uploadImg?.length - 1] || 0);
   }, [uploadImg]);
+
+  useEffect(() => {
+    dispatch(getAllCatetgoryAction());
+  }, []);
 
   return (
     <section className={cx("edit-post")}>
@@ -142,13 +160,17 @@ const NewPost = () => {
             <Select
               onChange={handleFormItemChange("category")}
               value={formik.values.category}
-              defaultValue="Category1"
+              defaultValue="Category 1"
               style={{ width: "fit-content" }}
             >
-              <Option value="Category1">Category 1</Option>
-              <Option value="Category2">Category 2</Option>
+              {listCategory.map((item, idx) => (
+                <Option key={idx} value={item.id}>
+                  {item.name}
+                </Option>
+              ))}
+              {/* <Option value="Category2">Category 2</Option>
               <Option value="Category3">Category 3</Option>
-              <Option value="Category4">Category 4</Option>
+              <Option value="Category4">Category 4</Option> */}
             </Select>
           </Form.Item>
           <Form.Item
