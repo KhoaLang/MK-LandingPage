@@ -14,6 +14,7 @@ import { DownOutlined } from "@ant-design/icons";
 import UK from "../../../assets/UK.png";
 import VN from "../../../assets/VietNam.png";
 import LanguageSelect from "../languageSelect/LanguageSelect";
+import { useTranslation } from "react-i18next";
 const { Option } = Select;
 
 const contactInfo = [
@@ -55,8 +56,14 @@ const socialMediaResponsive = [
     logo: <YoutubeBlue />,
   },
 ];
-
 const Footer = () => {
+  const { t, i18n } = useTranslation();
+
+  
+  const handleChange = (value) => {
+    console.log("languae", value);
+    i18n.changeLanguage(value);
+  };
   return (
     <div className="footer">
       <div className="footer__upper d-flex justify-content-center align-items-center">
@@ -121,9 +128,9 @@ const Footer = () => {
               suffixIcon={
                 <DownOutlined style={{ fontSize: "15px", color: "#fff" }} />
               }
-              // onChange={handleChange}
+              onChange={handleChange}
             >
-              <Option value="uk">
+              <Option value="en">
                 <LanguageSelect icon={UK} name="English" />
               </Option>
               <Option value="vn">

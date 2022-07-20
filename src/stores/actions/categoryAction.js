@@ -47,6 +47,7 @@ export const updateCategoryAction = (id, data) => {
     try {
       dispatch({ type: SHOW_LOADING });
       await catetgoryService.updateCategory(id, data);
+      dispatch(getAllCatetgoryAction)
       openNotification("success", "Update Category success!");
       dispatch({ type: HIDE_LOADING });
     } catch (error) {

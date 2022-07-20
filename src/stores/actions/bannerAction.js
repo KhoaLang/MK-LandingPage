@@ -24,32 +24,32 @@ export const getDetailBannerAction = (id) => {
     }
   };
 };
-export const createBannerAction = (data, resetForm) => {
+export const createBannerAction = (data, resetForm, setFileList) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SHOW_LOADING });
-      const data1 = await bannerService.createBanner(data);
-      console.log("data", data);
+       await bannerService.createBanner(data);
       dispatch({ type: HIDE_LOADING });
       // dispatch(getAllCatetgoryAction);
       resetForm();
+      setFileList([]);
 
-      openNotification("success", "Create Category success!");
+      openNotification("success", "Create banner success!");
       // dispatch({ type: HIDE_LOADING });
     } catch (error) {
-      openNotification("error", `Create fail!`);
+      openNotification("error", `Create banner fail!`);
       dispatch({ type: HIDE_LOADING });
-      // console.log(error.response?.data);
+      console.log(error);
     }
   };
 };
-
 
 export const updateBannerAction = (id, data) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SHOW_LOADING });
       await bannerService.updateBanner(id, data);
+      dispatch(getAllBannerAction)
       openNotification("success", "Update banner success!");
       dispatch({ type: HIDE_LOADING });
     } catch (error) {
@@ -59,7 +59,6 @@ export const updateBannerAction = (id, data) => {
     }
   };
 };
-
 
 export const deleteBannerAction = (id) => {
   return async (dispatch) => {
@@ -76,5 +75,3 @@ export const deleteBannerAction = (id) => {
     }
   };
 };
-
-

@@ -1,6 +1,8 @@
+import React from "react";
+import styles from "./Hiring.module.scss";
 import classNames from "classnames/bind";
+
 import { useEffect, useState } from "react";
-import styles from "./Banner.module.scss";
 import {
   Button,
   DatePicker,
@@ -26,71 +28,84 @@ import {
   getDetailBannerAction,
   updateBannerAction,
 } from "../../../stores/actions/bannerAction";
-import { updateCategoryAction } from "../../../stores/actions/categoryAction";
-import { getAllPageAction } from "../../../stores/actions/pageAction";
+
+import {
+  deleteHiringAction,
+  getAllHiringAction,
+  updateHiringAction,
+} from "../../../stores/actions/hiringAction";
 const { Option } = Select;
+
 const cx = classNames.bind(styles);
 
-export const Banner = () => {
+export const Hiring = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const { listBanner } = useSelector((state) => state.bannerReducer);
-  const { listPage } = useSelector((state) => state.pageReducer);
+  const { listHiring } = useSelector((state) => state.hiringReducer);
+  console.log(listHiring);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllBannerAction());
-    dispatch(getAllPageAction);
+    dispatch(getAllHiringAction());
   }, []);
   const navigate = useNavigate();
-  console.log("listBanner", listBanner);
 
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log("Success:", values);
+    dispatch(getAllHiringAction(values.keyWord, values.type));
   };
   const handleVisible = (id, checked) => {
-    dispatch(updateBannerAction(id, { isVisible: checked }));
+    console.log(id, checked);
+    dispatch(updateHiringAction(id, { isVisible: checked }));
   };
 
-  const data = listBanner?.map((item, idx) => {
-    return { ...item, key: item.id, locatedAt: item.Page?.name };
+  const data = listHiring?.map((item, idx) => {
+    return { ...item };
   });
 
   const columns = [
     {
-      title: "Hình",
-      dataIndex: "image",
-      render: (text) => {
-        return (
-          <img
-            style={{ width: "74px", height: "48px" }}
-            src={`https://landing-page-vnplus.herokuapp.com/image/${text}`}
-          />
-        );
-      },
-    },
-    {
-      title: "Tên",
-      dataIndex: "name",
-      render: (text) => {
-        return <strong className={cx("title")}>{text}</strong>;
-      },
-    },
-    {
       title: "Vị trí",
-      dataIndex: "locatedAt",
+      dataIndex: "position",
+      // render: (text) => {
+      //   return (
+      //     <img
+      //       style={{ width: "74px", height: "48px" }}
+      //       src={`https://landing-page-vnplus.herokuapp.com/image/${text}`}
+      //     />
+      //   );
+      // },
     },
     {
-      title: "Số Seri",
-      dataIndex: "serial",
+      title: "Mức lương",
+      dataIndex: "salary",
+      // render: (text) => {
+      //   return <strong className={cx("title")}>{text}</strong>;
+      // },
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      render: (text) => {
+        return <div>{text === 1 ? "Fulltime" : "Intern"}</div>;
+      },
+    },
+    {
+      title: "Địa điểm",
+      dataIndex: "location",
+    },
+    {
+      title: "Ngày tạo",
+      dataIndex: "createdAt",
     },
     {
       title: "Hiển thị",
       dataIndex: "isVisible",
       render: (text, record) => {
+        console.log(record);
         return (
           <Switch
             defaultChecked={text}
-            onChange={(checked) => handleVisible(record.key, checked)}
+            onChange={(checked) => handleVisible(record.id, checked)}
           />
         );
       },
@@ -102,7 +117,7 @@ export const Banner = () => {
           <div>
             <Popconfirm
               title="Are you sure？"
-              onConfirm={() => dispatch(deleteBannerAction(item.id))}
+              onConfirm={() => dispatch(deleteHiringAction(item.id))}
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             >
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
@@ -133,18 +148,14 @@ export const Banner = () => {
     onChange: onSelectChange,
   };
 
-  const handleChangeSelect = (value) => {
-    console.log(value);
-    dispatch(getAllBannerAction(value));
-  };
   const handleDeleteArray = async (data) => {
-    await Promise.all(data.map(async (id) => dispatch(deleteBannerAction(id))));
+    await Promise.all(data.map(async (id) => dispatch(deleteHiringAction(id))));
   };
 
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-        <h5>Quản lý banner</h5>
+        <h5>Tuyển dụng</h5>
         <div className={cx("grpBtn")}>
           <Popconfirm
             title="Are you sure？"
@@ -170,7 +181,7 @@ export const Banner = () => {
             size="large"
           >
             <PlusOutlined />
-            Tạo Bài Viết
+            Tạo Bài Đăng
           </Button>
         </div>
       </div>
@@ -187,28 +198,29 @@ export const Banner = () => {
         form={form}
         onFinish={onFinish}
       >
+        <Form.Item label="Tìm kiếm" className="w-20" name="keyWord">
+          <Input
+            size="large"
+            placeholder="Tìm tiêu đề"
+            prefix={<SearchOutlined />}
+          />
+        </Form.Item>
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
           name="type"
         >
-          <Select
-            size={"large"}
-            defaultValue=""
-            className={cx("upload")}
-            onChange={handleChangeSelect}
-          >
-            <Option label={"Tất cả"} value={""}>
-              Tất Cả
+          <Select size={"large"} defaultValue={0} className={cx("upload")}>
+            <Option label={"Tất cả"} value={0}>
+              Tất cả
             </Option>
-            {listPage?.map((item) => {
-              return (
-                <Option label={item.name} key={item.id} value={item.id}>
-                  {item.name}
-                </Option>
-              );
-            })}
+            <Option label={"Fulltime"} value={1}>
+              Fulltime
+            </Option>
+            <Option label={"Intern"} value={2}>
+              Intern
+            </Option>
           </Select>
         </Form.Item>
         <Form.Item>
@@ -224,6 +236,7 @@ export const Banner = () => {
         rowSelection={rowSelection}
         columns={columns}
         dataSource={data}
+        rowKey="id"
         style={{ margin: "20px" }}
         pagination={{
           defaultPageSize: 10,
