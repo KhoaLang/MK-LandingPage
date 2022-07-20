@@ -59,7 +59,6 @@ const socialMediaResponsive = [
 const Footer = () => {
   const { t, i18n } = useTranslation();
 
-  
   const handleChange = (value) => {
     console.log("languae", value);
     i18n.changeLanguage(value);

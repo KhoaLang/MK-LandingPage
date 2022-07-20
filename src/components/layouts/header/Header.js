@@ -13,7 +13,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const { t, i18n } = useTranslation();
-  console.log(t("home"));
 
   const navbarItems = [
     { path: "/", page: t("home") },

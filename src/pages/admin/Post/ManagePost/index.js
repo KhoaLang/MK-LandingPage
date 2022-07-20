@@ -36,7 +36,7 @@ const ManagePost = () => {
       ...item,
       key: item.id,
       avatar: imgURL,
-      category: item.Category_ID,
+      category: item.Category?.name,
       visible: item.isVisible,
     };
   });

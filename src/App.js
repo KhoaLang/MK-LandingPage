@@ -21,9 +21,21 @@ import { BannerDetail } from "./pages/admin/banner/Detail";
 import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
+
+import Scrollbar from "smooth-scrollbar";
 
 function App() {
+  // useEffect(() => {
+  //   Scrollbar.init(document.querySelector(".App"), {
+  //     damping: 0.1,
+  //     thumbMinSize: 20,
+  //     renderByPixels: true,
+  //     alwaysShowTracks: false,
+  //     continuousScrolling: false,
+  //   });
+  // }, []);
+
   return (
     <div className="App">
       <Suspense fallback={<div>Loading....</div>}>
@@ -68,4 +80,3 @@ function App() {
 }
 
 export default App;
-

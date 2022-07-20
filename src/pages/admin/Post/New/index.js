@@ -5,6 +5,13 @@ import { Form, Input, PageHeader, Select, Upload, Switch, Button } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { Editor } from "@tinymce/tinymce-react";
 import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { createPostAction } from "../../../../stores/actions/postAction";
+import {
+  getAllCatetgoryAction,
+  updateCategoryAction,
+} from "../../../../stores/actions/categoryAction";
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -21,33 +28,57 @@ const routes = [
 ];
 
 const NewPost = () => {
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loadingReducer);
+  const { listCategory } = useSelector((state) => state.categoryReducer);
   const [imageUrl, setImageUrl] = useState();
   const [uploadImg, setUploadImg] = useState([]);
   const [textValue, setTextValue] = useState("");
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
       title: "",
-      category: "",
-      avatar: "",
+      Category_ID: -1,
+      image: "",
       content: "",
       isVisible: false,
       source: "",
+      Category: {},
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: (values, { resetForm }) => {
+      let formData = new FormData();
+      for (let key in values) {
+        if (key !== "image") {
+          formData.append(key, values[key]);
+        } else {
+          formData.append("image", values.image[0].originFileObj);
+        }
+      }
+      dispatch(createPostAction(formData, resetForm));
+      updateCategoryNumberOfArticles(values["Category_ID"], values["Category"]);
+      navigate("/admin/posts");
     },
   });
 
+  const updateCategoryNumberOfArticles = (category_id, category) => {
+    let newCategoryForm = {
+      ...category,
+      numberOfArticle:
+        category.numberOfArticle === null ? 1 : category.numberOfArticle + 1,
+    };
+    dispatch(updateCategoryAction(category_id, newCategoryForm));
+  };
+
   const handleFileChange = (info) => {
     setUploadImg(info.fileList);
-    formik.setFieldValue("avatar", info.fileList);
+    formik.setFieldValue("image", info.fileList);
   };
   const onchangeEdit = (newValue, editor) => {
     setTextValue(newValue);
-    newValue = newValue.slice(3);
-    formik.values.content = newValue.slice(0, newValue.length - 4);
+    // newValue = newValue.slice(3);
+    // formik.values.content = newValue.slice(0, newValue.length - 4);
+    formik.values.content = newValue;
   };
 
   const handlePreview = async (file) => {
@@ -71,15 +102,38 @@ const NewPost = () => {
     }, 2000);
   };
 
-  const handleFormItemChange = (name) => {
+  const handleFormItemChange = (name, valueTemp = null) => {
+    if (name === "category") {
+      let categoryObjInCategoryList = listCategory.filter(
+        (item, idx) => item.id === valueTemp
+      );
+      console.log(categoryObjInCategoryList);
+      let categoryTemp = {
+        id: categoryObjInCategoryList.id,
+        serial: categoryObjInCategoryList.serial,
+        name: categoryObjInCategoryList.name,
+        description: categoryObjInCategoryList.description,
+        isVisible: categoryObjInCategoryList.isVisible,
+        creator: categoryObjInCategoryList.creator,
+        numberOfArticle: categoryObjInCategoryList.numberOfArticle,
+      };
+      formik.setFieldValue("Category", categoryTemp);
+      formik.setFieldValue("Category_ID", valueTemp);
+    }
     return (value) => {
-      formik.setFieldValue(name, value);
+      if (!name.includes("category")) {
+        formik.setFieldValue(name, value);
+      }
     };
   };
 
   useEffect(() => {
     setImageUrl(uploadImg[uploadImg?.length - 1] || 0);
   }, [uploadImg]);
+
+  useEffect(() => {
+    dispatch(getAllCatetgoryAction());
+  }, []);
 
   return (
     <section className={cx("edit-post")}>
@@ -130,8 +184,8 @@ const NewPost = () => {
             label="Danh mục"
             name="category"
             labelAlign="left"
-            onChange={formik.handleChange}
-            value={formik.values.category}
+            // onChange={formik.handleChange}
+            // value={formik.values.Category}
             rules={[
               {
                 required: true,
@@ -140,15 +194,16 @@ const NewPost = () => {
             ]}
           >
             <Select
-              onChange={handleFormItemChange("category")}
-              value={formik.values.category}
-              defaultValue="Category1"
+              onChange={(value) => handleFormItemChange("category", value)}
+              value={formik.values.Category}
+              defaultValue="Category 1"
               style={{ width: "fit-content" }}
             >
-              <Option value="Category1">Category 1</Option>
-              <Option value="Category2">Category 2</Option>
-              <Option value="Category3">Category 3</Option>
-              <Option value="Category4">Category 4</Option>
+              {listCategory.map((item, idx) => (
+                <Option key={idx} value={item.id}>
+                  {item.name}
+                </Option>
+              ))}
             </Select>
           </Form.Item>
           <Form.Item

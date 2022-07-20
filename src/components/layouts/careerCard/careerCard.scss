@@ -6,6 +6,7 @@
   padding: 24px;
   box-shadow: 0px 0px 8px 2px rgba(48, 82, 122, 0.04);
   background-color: $white;
+  transition: background-color 0.3s ease;
   h4 {
     color: #000;
   }
@@ -15,6 +16,7 @@
   h4,
   p {
     text-align: left;
+    transition: color 0.3s ease;
   }
 
   &__info {
@@ -37,11 +39,26 @@
       width: 152px;
       padding: 13px;
       border: 1px solid $primary;
-      background-color: $white;
+      background-color: transparent;
       color: $primary;
       font-size: 16px;
       font-weight: 500;
       line-height: 19.36px;
+      transition: background-color 0.3s ease;
+      transition: color 0.3s ease;
+      &:hover {
+        background-color: $primary;
+        color: $white;
+      }
+    }
+  }
+  &:hover {
+    background-color: #0e1624;
+    h4 {
+      color: $grey300;
+    }
+    p {
+      color: $grey400;
     }
   }
 }

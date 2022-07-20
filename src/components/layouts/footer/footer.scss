@@ -51,6 +51,18 @@
           margin-top: 16px;
           &__item {
             margin-bottom: 12px;
+            cursor: pointer;
+            &:hover {
+              p {
+                color: $primary;
+              }
+              svg {
+                path {
+                  fill: $primary;
+                }
+              }
+            }
+
             p {
               margin-bottom: 0px;
               color: #c7c7c7;
