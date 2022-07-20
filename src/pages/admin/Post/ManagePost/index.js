@@ -36,7 +36,7 @@ const ManagePost = () => {
       ...item,
       key: item.id,
       avatar: imgURL,
-      category: item.Category_ID,
+      category: item.Category?.name,
       visible: item.isVisible,
     };
   });
@@ -130,8 +130,8 @@ const ManagePost = () => {
             Xoá
           </Button>
           <Button
-            // onClick={handleNavigateToCreateNewPost}
-            onClick={() => console.log(listPost)}
+            onClick={handleNavigateToCreateNewPost}
+            // onClick={() => console.log(listPost)}
             style={{ marginLeft: "20px" }}
             type="primary"
             size="large"
