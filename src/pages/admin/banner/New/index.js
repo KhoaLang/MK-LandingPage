@@ -117,7 +117,8 @@ export const BannerNew = () => {
         }
       }
       console.log(formData.get("image"));
-      dispatch(createBannerAction(formData, resetForm));
+      dispatch(createBannerAction(formData, resetForm,setFileList));
+      
     },
   });
 

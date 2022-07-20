@@ -4,21 +4,25 @@ import { useEffect, useState } from "react";
 import { ReactComponent as Logo } from "../../../assets/logoWhite.svg";
 import { ReactComponent as Menu } from "../../../assets/GgMenuRight 1.svg";
 import { ReactComponent as Close } from "../../../assets/RadixIconsCross2 (2) 1.svg";
-
-const navbarItems = [
-  { path: "/", page: "Trang chủ" },
-  { path: "/aboutus", page: "Về chúng tôi" },
-  { path: "/products", page: "Các sản phẩm" },
-  { path: "/event", page: "Sự kiện" },
-  { path: "/contact", page: "Liên hệ" },
-  { path: "/career", page: "Tuyển dụng" },
-];
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const [openOverlay, setOpenOverlay] = useState(false);
   const [activeRoute, setActiveRoute] = useState("");
   const [activeItem, setActiveItem] = useState(0);
   const navigate = useNavigate();
+
+  const { t, i18n } = useTranslation();
+  console.log(t("home"));
+
+  const navbarItems = [
+    { path: "/", page: t("home") },
+    { path: "/aboutus", page: t("about") },
+    { path: "/products", page: t("product") },
+    { path: "/event", page: t("event") },
+    { path: "/contact", page: t("contact") },
+    { path: "/career", page: t("career") },
+  ];
 
   const setActiveNavbarItem = () => {
     if (activeRoute.length > 0) {

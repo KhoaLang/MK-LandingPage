@@ -57,23 +57,20 @@ export const BannerDetail = () => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([]);
+  const [fileList, setFileList] = useState([{ url }]);
 
   const navigate = useNavigate();
-
-  console.log(bannerDetail);
-  console.log(url);
-
-  console.log(fileList);
   useEffect(() => {
     dispatch(getAllPageAction());
+    console.log("[first]");
   }, []);
-
+  console.log("first");
   useEffect(() => {
     // dispatch(getDetailBannerAction(id));
     if (bannerDetail) {
       setFileList([{ url }]);
     }
+    console.log("[id]");
   }, [bannerDetail, dispatch]);
 
   const handleCancel = () => setPreviewVisible(false);

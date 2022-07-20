@@ -144,6 +144,7 @@ const Contact = () => {
                 <img src={img1} alt="nothing to see" onClick={showModal} />
               </div>
               <Modal
+              className="map"
                 width={"100%"}
                 visible={isModalVisible}
                 onOk={handleOk}
