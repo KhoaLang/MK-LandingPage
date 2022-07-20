@@ -1,0 +1,2 @@
+export const GET_ALL_HIRING= "GET_ALL_HIRING"
+export const GET_DETAIL_HIRING= "GET_DETAIL_HIRING"

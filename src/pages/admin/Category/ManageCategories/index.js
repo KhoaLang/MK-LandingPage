@@ -31,7 +31,8 @@ const ManageCategories = () => {
   }, [dispatch]);
 
   const handleVisible = (id, checked) => {
-    dispatch(updateCategoryAction(id, checked));
+    console.log(id,checked)
+    dispatch(updateCategoryAction(id, { isVisible: checked }));
   };
   const handleDeleteArray = async (data) => {
     await Promise.all(data.map(async (id) => dispatch(deleteCategory(id))));

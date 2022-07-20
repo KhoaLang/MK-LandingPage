@@ -6,8 +6,16 @@
   position: relative;
 }
 
-//sidebar starts
-.active {
+.createHiring{
+  .ant-input-number{
+    width: calc((100% - 250px) / 2)!important;
+  }
+
+  .ant-input-number-input-wrap{
+    input{
+      width: 100%!important;
+    }
+  }
 }
 //sidebar ends
 @media (max-width: 575.98px) {
