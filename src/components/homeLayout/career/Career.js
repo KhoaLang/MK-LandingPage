@@ -39,7 +39,7 @@ const Career = () => {
     },
   ];
   return (
-    <section className="career">
+    <section className="career scrollingAnimate">
       <h2>Tuyển dụng</h2>
       <div className="career__card-slider">
         <Carousel

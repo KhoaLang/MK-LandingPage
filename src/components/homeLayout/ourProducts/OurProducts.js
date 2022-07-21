@@ -1,5 +1,6 @@
 import { Row, Col } from "antd";
 import "./ourProducts.scss";
+// import { useRef } from "react";
 //Import Images
 import plusstinv from "../../../assets/plusstinv.png";
 import bookingstudio from "../../../assets/bookingstudio.png";
@@ -8,9 +9,9 @@ import plustrip from "../../../assets/plustrip.png";
 import gardenie from "../../../assets/gardenie.png";
 import plusfood from "../../../assets/plusfood.png";
 import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
-import Item from "antd/lib/list/Item";
 
 const OurProducts = (props) => {
+  // const ref = useRef(null);
   const products = [
     {
       logo: plusstinv,
@@ -45,7 +46,10 @@ const OurProducts = (props) => {
   ];
   return (
     <section className="our-products d-flex justify-content-center align-items-center flex-column">
-      <div className="our-products__container container">
+      <div
+        // ref={ref}
+        className="our-products__container container"
+      >
         <h2 className="our-products__container__title">Sản phẩm của VNPLUS</h2>
         <Row gutter={[48, 48]}>
           {products.map((item, idx) => (

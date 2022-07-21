@@ -22,18 +22,21 @@ import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
 import { Suspense, useEffect } from "react";
-import axios from "axios";
-import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { getAllLanguage } from "./stores/actions/languageAction";
+
+
+import Scrollbar from "smooth-scrollbar";
 
 function App() {
-  // const dispatch = useDispatch()
   // useEffect(() => {
-  //   dispatch(getAllLanguage())
+  //   Scrollbar.init(document.querySelector(".App"), {
+  //     damping: 0.1,
+  //     thumbMinSize: 20,
+  //     renderByPixels: true,
+  //     alwaysShowTracks: false,
+  //     continuousScrolling: false,
+  //   });
   // }, []);
-  // const { t, i18n } = useTranslation();
-  // console.log(i18n.t("Home"));
+
 
   return (
     <div className="App">
