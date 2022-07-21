@@ -1,7 +1,10 @@
 import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPostAction } from "../../../../stores/actions/postAction";
+import {
+  getAllPostAction,
+  deletePostAction,
+} from "../../../../stores/actions/postAction";
 import styles from "./managePost.module.scss";
 import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
 import {
@@ -16,12 +19,18 @@ const { RangePicker } = DatePicker;
 const cx = classNames.bind(styles);
 
 const ManagePost = () => {
-  const dispatch = useDispatch();
+  const [searchKeyword, setSearchKeyword] = useState("");
   const { listPost } = useSelector((state) => state.postReducer);
+  const { listCategory } = useSelector((state) => state.categoryReducer);
+  const dispatch = useDispatch();
 
   const [form] = Form.useForm();
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getAllPostAction());
+  }, [dispatch, listPost]);
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -30,16 +39,23 @@ const ManagePost = () => {
     console.log("id", id);
     console.log("checked", checked);
   };
-  const data = listPost?.map((item, idx) => {
-    const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`;
-    return {
-      ...item,
-      key: item.id,
-      avatar: imgURL,
-      category: item.Category?.name,
-      visible: item.isVisible,
-    };
-  });
+  const data = listPost
+    ?.filter((item, idx) =>
+      searchKeyword === "" ||
+      item.title.toLowerCase().includes(searchKeyword.toLowerCase())
+        ? true
+        : false
+    )
+    ?.map((item, idx) => {
+      const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`;
+      return {
+        ...item,
+        key: item.id,
+        avatar: imgURL,
+        category: item.Category?.name,
+        visible: item.isVisible,
+      };
+    });
   const columns = [
     {
       title: "Avatar",
@@ -77,15 +93,21 @@ const ManagePost = () => {
     },
     {
       title: "Thao tác",
-      render: () => {
+      render: (item) => {
         return (
           <div>
-            <Button shape="circle" size="large" icon={<DeleteOutlined />} />
+            <Button
+              shape="circle"
+              size="large"
+              onClick={() => dispatch(deletePostAction(item.id))}
+              icon={<DeleteOutlined />}
+            />
             <Button
               style={{ marginLeft: "20px" }}
               shape="circle"
               size="large"
               type="primary"
+              onClick={() => navigate(`detail/${item.id}`)}
               icon={<EditOutlined />}
             />
           </div>
@@ -108,10 +130,6 @@ const ManagePost = () => {
       navigate("posts/newpost");
     } else navigate("newpost");
   };
-
-  useEffect(() => {
-    dispatch(getAllPostAction());
-  }, [dispatch]);
 
   return (
     <div className={cx("ManagePost")}>
@@ -156,6 +174,8 @@ const ManagePost = () => {
       >
         <Form.Item label="Tìm kiếm" className="w-20" name="title">
           <Input
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
             size="large"
             placeholder="Tìm tiêu đề"
             prefix={<SearchOutlined />}
@@ -163,10 +183,14 @@ const ManagePost = () => {
         </Form.Item>
         <Form.Item label="Phân loại" className="w-20" name="type">
           <Select size="large" defaultValue="">
-            <Option value="">Tất cả</Option>
-            <Option value="Category1">Category1</Option>
+            {listCategory?.map((item, idx) => (
+              <Option key={item.id} value={item.id}>
+                {item.name}
+              </Option>
+            ))}
+            {/* <Option value="Category1">Category1</Option>
             <Option value="Category2">Category2</Option>
-            <Option value="Category3">Category3</Option>
+            <Option value="Category3">Category3</Option> */}
           </Select>
         </Form.Item>
         <Form.Item label="Ngày" className="w-20" name="range-date">

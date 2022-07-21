@@ -10,9 +10,10 @@ import EventDetail from "./components/eventDetail/EventDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
 import ManagePost from "./pages/admin/Post/ManagePost";
+import NewPost from "./pages/admin/Post/New";
+import DetailPost from "./pages/admin/Post/Detail";
 
 import ManageCategories from "./pages/admin/Category/ManageCategories";
-import NewPost from "./pages/admin/Post/New";
 import { CategorytNew } from "./pages/admin/Category/New";
 import { CatetgorytDetail } from "./pages/admin/Category/Detail";
 import { Banner } from "./pages/admin/banner";
@@ -22,23 +23,8 @@ import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
 import { Suspense } from "react";
-// import Scrollbar from "react-smooth-scrollbar";
-import { gsap, ScrollTrigger, ScrollSmoother } from "gsap/all";
-
-gsap.register(ScrollTrigger, ScrollSmoother);
 
 function App() {
-  // var fixedHeader = document.getElementById("header");
-
-  // var scrollbar = Scrollbar.init(document.getElementById("scroll"));
-
-  // scrollbar.addListener(function (status) {
-  //   var offset = status.offset;
-
-  //   fixedHeader.style.top = offset.y + "px";
-  //   fixedHeader.style.left = offset.x + "px";
-  // });
-
   return (
     <div className="App">
       <Routes>
@@ -60,8 +46,8 @@ function App() {
           </Route>
           <Route path="posts">
             <Route index element={<ManagePost />} />
-
             <Route path="newpost" element={<NewPost />} />
+            <Route path="detail/:id" element={<DetailPost />} />
           </Route>
 
           <Route path="banners">

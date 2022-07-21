@@ -32,3 +32,41 @@ export const createPostAction = (data, resetForm) => {
     }
   };
 };
+
+export const getPostDetailAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await postService.getPostDetailById(id);
+      dispatch({ type: GET_DETAIL_POST, data: data.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+export const updatePostAction = (id, data, resetForm) => {
+  return async (dispatch) => {
+    try {
+      dispatch({ type: SHOW_LOADING });
+      await postService.updatePost(id, data);
+      dispatch({ type: HIDE_LOADING });
+      dispatch(getAllPostAction);
+      resetForm();
+
+      openNotification("success", "Change Post success!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+export const deletePostAction = (id) => {
+  return async (dispatch) => {
+    try {
+      await postService.detelePost(id);
+      dispatch(getAllPostAction);
+
+      openNotification("success", "Delete post success!");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

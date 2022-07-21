@@ -6,6 +6,7 @@
   height: 100vh;
   z-index: 2;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  position: relative;
   &__bg {
     position: fixed;
     width: 100%;
