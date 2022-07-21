@@ -1,31 +1,64 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-
-import Backend from "i18next-http-backend";
+import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
-// don't want to use this?
-// have a look at the Quick start guide
-// for passing in lng and translations on init
+import axios from "axios";
+import _ from "lodash";
+
+const convertArrayToObject = (array, key) => {
+  return array.reduce((obj, item) => {
+    return {
+      ...obj,
+      [item[key]]: item.value,
+    };
+  }, {});
+};
+const backendOptions = {
+  loadPath: "https://landing-page-vnplus.herokuapp.com/api/language-text",
+  request: async (options, url, payload, callback) => {
+    try {
+      axios.get(url).then((result) => {
+        const data = convertArrayToObject(result.data.data, "key");
+        console.log(data);
+
+        // console.log(result1);
+        const obj = Object.assign({}, result.data.data);
+        // console.log(obj);
+        // console.log(JSON.parse(obj));
+        callback(null, {
+          data: data,
+          status: 200,
+        });
+      });
+    } catch (e) {
+      console.error(e);
+      callback(null, {
+        status: 500,
+      });
+    }
+  },
+};
 
 i18n
-  // load translation using http -> see /public/locales (i.e. https://github.com/i18next/react-i18next/tree/master/example/react/public/locales)
-  // learn more: https://github.com/i18next/i18next-http-backend
-  // want your translations to be loaded from a professional CDN? => https://github.com/locize/react-tutorial#step-2---use-the-locize-cdn
-  .use(Backend)
-  // detect user language
-  // learn more: https://github.com/i18next/i18next-browser-languageDetector
+  .use(HttpApi)
   .use(LanguageDetector)
-  // pass the i18n instance to react-i18next.
   .use(initReactI18next)
-  // init i18next
-  // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    fallbackLng: "vi",
-    debug: true,
-    whitelist: ["en", "vi"], //Liệt kê các ngôn ngữ
+    backend: backendOptions,
+    fallbackLng: "en",
+    debug: false,
+    load: "languageOnly",
+    // ns: ["translations"],
+    // defaultNS: "translations",
+    keySeparator: false,
     interpolation: {
-      escapeValue: false, // not needed for react as it escapes by default
+      escapeValue: false,
+      formatSeparator: ",",
     },
+    react: {
+      wait: true,
+    },
+    backend: backendOptions,
   });
 
 export default i18n;

@@ -23,6 +23,7 @@ import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
 import { Suspense, useEffect } from "react";
 
+
 import Scrollbar from "smooth-scrollbar";
 
 function App() {
@@ -36,9 +37,10 @@ function App() {
   //   });
   // }, []);
 
+
   return (
     <div className="App">
-      <Suspense fallback={<div>Loading....</div>}>
+      
         <Routes>
           <Route path="/" element={<ClientLayout></ClientLayout>}>
             <Route index element={<Home />} />
@@ -74,7 +76,6 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </Suspense>
     </div>
   );
 }

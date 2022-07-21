@@ -132,7 +132,7 @@ const Footer = () => {
               <Option value="en">
                 <LanguageSelect icon={UK} name="English" />
               </Option>
-              <Option value="vn">
+              <Option value="vi">
                 <LanguageSelect icon={VN} name="Tiếng Việt" />
               </Option>
             </Select>
