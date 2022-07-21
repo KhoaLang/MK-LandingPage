@@ -21,20 +21,23 @@ import { BannerDetail } from "./pages/admin/banner/Detail";
 import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
+// import Scrollbar from "react-smooth-scrollbar";
+import { gsap, ScrollTrigger, ScrollSmoother } from "gsap/all";
 
-import Scrollbar from "smooth-scrollbar";
+gsap.register(ScrollTrigger, ScrollSmoother);
 
 function App() {
-  // useEffect(() => {
-  //   Scrollbar.init(document.querySelector(".App"), {
-  //     damping: 0.1,
-  //     thumbMinSize: 20,
-  //     renderByPixels: true,
-  //     alwaysShowTracks: false,
-  //     continuousScrolling: false,
-  //   });
-  // }, []);
+  // var fixedHeader = document.getElementById("header");
+
+  // var scrollbar = Scrollbar.init(document.getElementById("scroll"));
+
+  // scrollbar.addListener(function (status) {
+  //   var offset = status.offset;
+
+  //   fixedHeader.style.top = offset.y + "px";
+  //   fixedHeader.style.left = offset.x + "px";
+  // });
 
   return (
     <div className="App">
