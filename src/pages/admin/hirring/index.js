@@ -39,9 +39,11 @@ const { Option } = Select;
 const cx = classNames.bind(styles);
 
 export const Hiring = () => {
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [workTime, setWorkTime] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { listHiring } = useSelector((state) => state.hiringReducer);
-  console.log(listHiring);
+  // console.log(listHiring);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllHiringAction());
@@ -50,17 +52,27 @@ export const Hiring = () => {
 
   const [form] = Form.useForm();
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     dispatch(getAllHiringAction(values.keyWord, values.type));
   };
   const handleVisible = (id, checked) => {
-    console.log(id, checked);
+    // console.log(id, checked);
     dispatch(updateHiringAction(id, { isVisible: checked }));
   };
 
-  const data = listHiring?.map((item, idx) => {
-    return { ...item };
-  });
+  const data = listHiring
+    ?.filter((item, idx) =>
+      searchKeyword === "" ||
+      item.position.toLowerCase().includes(searchKeyword.toLowerCase())
+        ? true
+        : false
+    )
+    ?.filter((item, idx) =>
+      item.type === workTime || workTime === 0 ? true : false
+    )
+    ?.map((item, idx) => {
+      return { ...item };
+    });
 
   const columns = [
     {
@@ -101,7 +113,7 @@ export const Hiring = () => {
       title: "Hiển thị",
       dataIndex: "isVisible",
       render: (text, record) => {
-        console.log(record);
+        // console.log(record);
         return (
           <Switch
             defaultChecked={text}
@@ -140,7 +152,7 @@ export const Hiring = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(newSelectedRowKeys);
+    // console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -202,6 +214,8 @@ export const Hiring = () => {
           <Input
             size="large"
             placeholder="Tìm tiêu đề"
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
             prefix={<SearchOutlined />}
           />
         </Form.Item>
@@ -211,7 +225,13 @@ export const Hiring = () => {
           className="w-20"
           name="type"
         >
-          <Select size={"large"} defaultValue={0} className={cx("upload")}>
+          <Select
+            size={"large"}
+            value={workTime}
+            onChange={(value) => setWorkTime(value)}
+            defaultValue={0}
+            className={cx("upload")}
+          >
             <Option label={"Tất cả"} value={0}>
               Tất cả
             </Option>

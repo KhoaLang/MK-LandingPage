@@ -2,7 +2,7 @@ import { GET_ALL_POST, GET_DETAIL_POST } from "../types/PostTypes";
 
 const initialState = {
   listPost: [],
-  postDetail: "",
+  postDetail: {},
 };
 
 export const postReducer = (state = initialState, action) => {
@@ -10,7 +10,7 @@ export const postReducer = (state = initialState, action) => {
     case GET_ALL_POST:
       return { ...state, listPost: action.data };
     case GET_DETAIL_POST:
-      console.log("action", action.data);
+      // console.log("action", action.data);
       return { ...state, postDetail: action.data };
 
     default:

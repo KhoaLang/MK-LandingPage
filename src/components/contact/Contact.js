@@ -6,6 +6,7 @@ import { ReactComponent as Phone } from "../../assets/phoneLogo.svg";
 import { ReactComponent as Email } from "../../assets/mail.svg";
 import img1 from "../../assets/Frame 66.png";
 import { useEffect, useState } from "react";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
 
 const contactInfo = [
   {
@@ -25,9 +26,7 @@ const contactInfo = [
 const Contact = () => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -41,6 +40,7 @@ const Contact = () => {
   };
   return (
     <section className="contact d-flex justify-content-center align-items-center">
+      <SmoothScroll />
       <div className="contact__container container d-flex flex-column justify-content-center align-items-center">
         <h2>Liên hệ với VNPLUS</h2>
         <div className="contact__container__form">
@@ -151,7 +151,7 @@ const Contact = () => {
                 <img src={img1} alt="nothing to see" onClick={showModal} />
               </div>
               <Modal
-              className="map"
+                className="map"
                 width={"100%"}
                 visible={isModalVisible}
                 onOk={handleOk}

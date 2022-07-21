@@ -1,19 +1,7 @@
-import { useState } from "react";
 import PrimaryButton from "../../layouts/primaryButton/Button";
 import "./about.scss";
 
 const About = () => {
-  // const [bgPosition, setBgPosition] = useState("");
-  // let aboutBg = document.getElementsByClassName("about__bg");
-  // window.addEventListener("scroll", (e) => {
-  //   if (window.scrollY > 1910) {
-  //     let offsetForAboutBG = -(window.scrollY - 1910);
-  //     let newPos = "0px " + offsetForAboutBG + "px";
-  //     setBgPosition(newPos);
-  //     console.log(offsetForAboutBG);
-  //   }
-  // });
-
   return (
     <section className="about d-flex justify-content-center align-items-center flex-column">
       <div
