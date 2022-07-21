@@ -21,12 +21,23 @@ import { BannerDetail } from "./pages/admin/banner/Detail";
 import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
+import axios from "axios";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { getAllLanguage } from "./stores/actions/languageAction";
 
 function App() {
+  // const dispatch = useDispatch()
+  // useEffect(() => {
+  //   dispatch(getAllLanguage())
+  // }, []);
+  // const { t, i18n } = useTranslation();
+  // console.log(i18n.t("Home"));
+
   return (
     <div className="App">
-      <Suspense fallback={<div>Loading....</div>}>
+      
         <Routes>
           <Route path="/" element={<ClientLayout></ClientLayout>}>
             <Route index element={<Home />} />
@@ -62,10 +73,8 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </Suspense>
     </div>
   );
 }
 
 export default App;
-

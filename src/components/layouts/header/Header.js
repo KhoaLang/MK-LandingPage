@@ -13,15 +13,15 @@ const Header = () => {
   const navigate = useNavigate();
 
   const { t, i18n } = useTranslation();
-  console.log(t("home"));
+  console.log(t("Home"));
 
   const navbarItems = [
-    { path: "/", page: t("home") },
-    { path: "/aboutus", page: t("about") },
-    { path: "/products", page: t("product") },
-    { path: "/event", page: t("event") },
-    { path: "/contact", page: t("contact") },
-    { path: "/career", page: t("career") },
+    { path: "/", page: t("Home") },
+    { path: "/aboutus", page: t("About Us") },
+    { path: "/products", page: t("Product") },
+    { path: "/event", page: t("Event") },
+    { path: "/contact", page: t("Contact") },
+    { path: "/career", page: t("Career") },
   ];
 
   const setActiveNavbarItem = () => {
