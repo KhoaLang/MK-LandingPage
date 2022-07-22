@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import styles from "./BannerDetail.module.scss";
+import React, { useEffect, useState } from "react";
+import styles from "./New.module.scss";
 import classNames from "classnames/bind";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,31 +9,22 @@ import {
   Form,
   Input,
   Modal,
-  Popconfirm,
   Select,
   Switch,
   Upload,
 } from "antd";
 import {
-  DeleteOutlined,
   ExclamationCircleOutlined,
-  FolderOutlined,
   LoadingOutlined,
   PlusOutlined,
-  QuestionCircleOutlined,
 } from "@ant-design/icons";
 import TextArea from "antd/lib/input/TextArea";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategoryAction } from "../../../../stores/actions/categoryAction";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  createBannerAction,
-  deleteBanner,
-  deleteBannerAction,
-  getDetailBannerAction,
-  updateBannerAction,
-} from "../../../../stores/actions/bannerAction";
+import { useNavigate } from "react-router-dom";
+import { createBannerAction } from "../../../../stores/actions/bannerAction";
 import { getAllPageAction } from "../../../../stores/actions/pageAction";
+import { createMomentAction } from "../../../../stores/actions/momentAction";
 const { Option } = Select;
 
 const cx = classNames.bind(styles);
@@ -48,28 +39,17 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-export const BannerDetail = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.loadingReducer);
-  const { listPage } = useSelector((state) => state.pageReducer);
-  const { bannerDetail, url } = useSelector((state) => state.bannerReducer);
+export const OutstandingNew = () => {
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([{ url }]);
+  const [fileList, setFileList] = useState([]);
 
-  const navigate = useNavigate();
+  const { listPage } = useSelector((state) => state.pageReducer);
+
   useEffect(() => {
     dispatch(getAllPageAction());
-    console.log("[first]");
   }, []);
-  console.log("first");
-  useEffect(() => {
-    dispatch(getDetailBannerAction(id,setFileList));
-   
-  }, [id, dispatch]);
-
   const handleCancel = () => setPreviewVisible(false);
 
   const handlePreview = async (file) => {
@@ -104,17 +84,21 @@ export const BannerDetail = () => {
 
   //test
 
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state.loadingReducer);
+  const navigate = useNavigate();
+  console.log(isLoading);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      serial: bannerDetail?.serial,
-      name: bannerDetail?.name,
-      description: bannerDetail?.description,
-      creator: bannerDetail?.creator,
-      isVisible: bannerDetail?.isVisible,
-      source: bannerDetail?.source,
-      image: bannerDetail?.image,
-      locatedAt: bannerDetail?.locatedAt,
+      serial: "",
+      name: "",
+      description: "",
+      creator: "",
+      isVisible: false,
+      source: "",
+      image: "",
+      position: listPage[0].id,
     },
     validationSchema: Yup.object({
       serial: Yup.string().required("Serial is require!"),
@@ -125,7 +109,7 @@ export const BannerDetail = () => {
       let formData = new FormData();
       for (let key in values) {
         if (key !== "image") {
-          // console.log(key, values[key]);
+          console.log(key, values[key]);
 
           formData.append(key, values[key]);
         } else {
@@ -133,7 +117,7 @@ export const BannerDetail = () => {
         }
       }
       console.log(formData.get("image"));
-      dispatch(updateBannerAction(id, formData));
+      dispatch(createMomentAction(formData, resetForm, setFileList));
     },
   });
 
@@ -149,7 +133,7 @@ export const BannerDetail = () => {
   };
 
   const handleChangeSelect = (value) => {
-    formik.setFieldValue("locatedAt", value);
+    formik.setFieldValue("position", value);
   };
 
   return (
@@ -157,15 +141,14 @@ export const BannerDetail = () => {
       <div className={cx("wrapper")}>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
-            <Breadcrumb.Item>Quản lý banner</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
               onClick={() => navigate(-1)}
             >
-              <span style={{ cursor: "pointer" }}>Banner</span>
+              <span style={{ cursor: "pointer" }}>Khoảnh khắc nổi bật</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <span style={{ color: "#1EA6FB" }}>Chi tiết banner</span>
+              <span style={{ color: "#1EA6FB" }}>Thêm ảnh</span>
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
@@ -173,47 +156,24 @@ export const BannerDetail = () => {
           <form onSubmit={formik.handleSubmit}>
             <div className={cx("top")}>
               <div className={cx("title")}>
-                <h5>THÊM BANNER</h5>
+                <h5>THÊM ẢNH </h5>
               </div>
               <div className={cx("grpBtn")}>
-                <Popconfirm
-                  title="Are you sure？"
-                  onConfirm={async () => {
-                    await dispatch(deleteBannerAction(id));
-                    navigate(-1);
-                  }}
-                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-                >
-                  <Button
-                    danger
-                    style={{
-                      color: "#C00101",
-                      borderColor: "currentcolor",
-                      fontWeight: "bold",
-                    }}
-                    size="large"
-                  >
-                    <DeleteOutlined />
-                    Xoá
-                  </Button>
-                </Popconfirm>
-
                 <Button
                   type="primary"
                   onSubmit={formik.handleSubmit}
-                  style={{ marginLeft: "20px", fontWeight: "500" }}
                   size="large"
                   htmlType="submit"
                 >
-                  {isLoading ? <LoadingOutlined /> : <FolderOutlined />}
-                  Lưu Thay Đổi
+                  {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
+                  THÊM ẢNH
                 </Button>
               </div>
             </div>
             <div className={cx("formItem")}>
               <label className={cx("label")}>Tên</label>
               <Input
-                placeholder="Nhập tên danh mục"
+                placeholder="Nhập tên"
                 name="name"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -230,29 +190,29 @@ export const BannerDetail = () => {
               <label className={cx("label")}>Menu</label>
               <Select
                 size={"large"}
-                defaultValue={formik.values.locatedAt}
-                value={formik.values.locatedAt}
+                value={formik.values.position}
                 className={cx("upload")}
                 onChange={handleChangeSelect}
               >
                 {listPage?.map((item) => {
                   return (
-                    <Option label={item.name} key={item.id} value={item.id}>
+                    <Option label={item.name} value={item.id}>
                       {item.name}
                     </Option>
                   );
                 })}
               </Select>
-              {formik.errors.locatedAt && formik.touched.locatedAt && (
+              {formik.errors.position && formik.touched.position && (
                 <div className={cx("error")}>
                   <ExclamationCircleOutlined className={cx("icon")} />
-                  <span className={cx("text")}>{formik.errors.name}</span>
+                  <span className={cx("text")}>{formik.errors.position}</span>
                 </div>
               )}
             </div>
             <div className={cx("formItem")}>
               <label className={cx("label")}>Hình ảnh</label>
               <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 listType="picture-card"
                 fileList={fileList}
                 className={cx("upload")}
@@ -260,7 +220,7 @@ export const BannerDetail = () => {
                 onChange={handleChange}
                 customRequest={dummyRequest}
               >
-                {fileList.length > 0 ? null : uploadButton}
+                {fileList.length >= 1 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
@@ -305,16 +265,6 @@ export const BannerDetail = () => {
               <Switch
                 checked={formik.values.isVisible}
                 onChange={handleChangeSwitch("isVisible")}
-              />
-            </div>
-            <div className={cx("formItem")}>
-              <label>Nguồn</label>
-              <Input
-                placeholder="Tên người tạo"
-                name="source"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.source}
               />
             </div>
             <div className={cx("formItem")}>

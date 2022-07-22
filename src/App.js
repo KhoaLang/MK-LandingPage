@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/home/Home";
 import AboutUs from "./components/about/AboutUs";
@@ -22,9 +22,23 @@ import { BannerDetail } from "./pages/admin/banner/Detail";
 import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
+
+
+import Scrollbar from "smooth-scrollbar";
+import { Outstanding } from "./pages/admin/outstanding";
+import { OutstandingNew } from "./pages/admin/outstanding/New";
+import { OutstandingDetail } from "./pages/admin/outstanding/Detail";
+import { Button, Result } from "antd";
+import { Language } from "./pages/admin/language";
+import { CreateLanguage } from "./pages/admin/language/create";
+import { DetailLanguage } from "./pages/admin/language/detail";
+
+ 
+
 import { Suspense } from "react";
 
 function App() {
+ const navigate= useNavigate()
   return (
     <div className="App">
       <Routes>
@@ -50,6 +64,7 @@ function App() {
             <Route path="detail/:id" element={<DetailPost />} />
           </Route>
 
+
           <Route path="banners">
             <Route index element={<Banner />} />
             <Route path="new" element={<BannerNew />} />
@@ -59,6 +74,34 @@ function App() {
             <Route index element={<Hiring />} />
             <Route path="new" element={<CreateHiring />} />
             <Route path="detail/:id" element={<HiringDetail />} />
+
+          </Route>
+          <Route path="outstanding">
+            <Route index element={<Outstanding />} />
+            <Route path="new" element={<OutstandingNew />} />
+            <Route path="detail/:id" element={<OutstandingDetail />} />
+          </Route>
+          <Route path="languages">
+            <Route index element={<Language />} />
+             <Route path="new" element={<CreateLanguage />} />
+            <Route path="detail/:id" element={<DetailLanguage />} /> 
+          </Route>
+        </Route>
+        <Route
+          path="*"
+          element={
+            <Result
+              status="404"
+              title="404"
+              subTitle="Sorry, the page you visited does not exist."
+              extra={
+                <Button type="primary" onClick={() => navigate("/")}>
+                  Back Home
+                </Button>
+              }
+            />
+          }
+        />
           </Route>
         </Route>
       </Routes>

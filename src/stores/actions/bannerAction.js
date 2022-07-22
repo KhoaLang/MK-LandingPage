@@ -7,17 +7,17 @@ export const getAllBannerAction = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await bannerService.getAllBanner(id);
-      console.log("data", data.data);
       dispatch({ type: GET_ALL_BANNER, data: data.data });
     } catch (error) {
       console.log(error);
     }
   };
 };
-export const getDetailBannerAction = (id) => {
+export const getDetailBannerAction = (id,setFileList) => {
   return async (dispatch) => {
     try {
       const { data } = await bannerService.getDetailById(id);
+      setFileList([{ url:` https://landing-page-vnplus.herokuapp.com/image/${data.data.image}`}]);
       dispatch({ type: GET_DETAIL_BANNER, data: data.data });
     } catch (error) {
       console.log(error);

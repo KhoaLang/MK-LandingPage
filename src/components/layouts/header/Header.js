@@ -17,7 +17,7 @@ const Header = () => {
 
   const navbarItems = [
     { path: "/", page: t("Home") },
-    { path: "/aboutus", page: t("About Us") },
+    { path: "/aboutus", page: t("About") },
     { path: "/products", page: t("Product") },
     { path: "/event", page: t("Event") },
     { path: "/contact", page: t("Contact") },

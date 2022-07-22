@@ -87,7 +87,7 @@ const Footer = () => {
             </ul>
           </Col>
           <Col md={5} xs={24} className="footer__upper__container__middle-side">
-            <h5>Theo dõi VNPLUS</h5>
+            <h5>{t("Follow")} VNPLUS</h5>
             <ul className="footer__upper__container__middle-side__follow">
               {socialMedia.map((item, idx) => (
                 <li
@@ -114,7 +114,7 @@ const Footer = () => {
             className="footer__upper__container__right-side d-flex justify-content-end"
           >
             <Select
-              defaultValue="vn"
+              defaultValue="en"
               style={{
                 width: 170,
                 height: "fit-content",
@@ -129,7 +129,7 @@ const Footer = () => {
               }
               onChange={handleChange}
             >
-              <Option value="en">
+              <Option  value="en">
                 <LanguageSelect icon={UK} name="English" />
               </Option>
               <Option value="vi">
@@ -142,8 +142,8 @@ const Footer = () => {
       <div className="footer__below d-flex justify-content-center align-items-center">
         <Row className="footer__below__container container">
           <Col md={12} xs={24} className="footer__below__container__policies ">
-            <li>Điều khoản sử dụng</li>
-            <li>Chính sách bảo mật</li>
+            <li>{t("Terms_Of_Use")}</li>
+            <li>{t("Privacy_Policy")}</li>
           </Col>
           <Col md={12} xs={24} className="footer__below__container__copyright">
             <p>Copyright &copy; 2022 VNPLUS Langing Page</p>
