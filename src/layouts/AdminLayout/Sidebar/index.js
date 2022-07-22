@@ -7,6 +7,7 @@ import {
   PictureOutlined,
   ShoppingOutlined,
   MailOutlined,
+  TranslationOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 
@@ -27,6 +28,11 @@ export const SiderbarAdmin = () => {
         mode="inline"
       >
         <Menu.SubMenu
+        className={
+          ["categories"].includes(pathname.split("/")[2])
+            ? " ant-menu-submenu-active"
+            : ""
+        }
           key={0}
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
@@ -55,6 +61,11 @@ export const SiderbarAdmin = () => {
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item
+        className={
+          ["banners"].includes(pathname.split("/")[2])
+            ? "ant-menu-item-selected"
+            : ""
+        }
           key={3}
           onClick={() => navigate("banners")}
           icon={<PictureOutlined />}
@@ -62,6 +73,11 @@ export const SiderbarAdmin = () => {
           Banner
         </Menu.Item>
         <Menu.Item
+         className={
+          ["hiring"].includes(pathname.split("/")[2])
+            ? "ant-menu-item-selected"
+            : ""
+        }
           key={4}
           onClick={() => navigate("hiring")}
           icon={<ShoppingOutlined />}
@@ -69,11 +85,28 @@ export const SiderbarAdmin = () => {
           Tuyển dụng
         </Menu.Item>
         <Menu.Item
+         className={
+          ["outstanding"].includes(pathname.split("/")[2])
+            ? "ant-menu-item-selected"
+            : ""
+        }
           key={5}
-          onClick={() => navigate("hots")}
+          onClick={() => navigate("outstanding")}
           icon={<CameraOutlined />}
         >
-          Khoảnh khắc nổi bậc
+          Khoảnh khắc nổi bật
+        </Menu.Item>
+        <Menu.Item
+         className={
+          ["languages"].includes(pathname.split("/")[2])
+            ? "ant-menu-item-selected"
+            : ""
+        }
+          key={6}
+          onClick={() => navigate("languages")}
+          icon={<TranslationOutlined />}
+        >
+         Ngôn ngữ
         </Menu.Item>
       </Menu>
     </div>

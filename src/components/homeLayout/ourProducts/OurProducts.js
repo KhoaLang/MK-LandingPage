@@ -9,9 +9,11 @@ import plustrip from "../../../assets/plustrip.png";
 import gardenie from "../../../assets/gardenie.png";
 import plusfood from "../../../assets/plusfood.png";
 import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
+import { useTranslation } from "react-i18next";
 
 const OurProducts = (props) => {
   // const ref = useRef(null);
+  const { t } = useTranslation();
   const products = [
     {
       logo: plusstinv,
@@ -50,7 +52,9 @@ const OurProducts = (props) => {
         // ref={ref}
         className="our-products__container container"
       >
-        <h2 className="our-products__container__title">Sản phẩm của VNPLUS</h2>
+        <h2 className="our-products__container__title">
+          {t("Products_Of_VNPLUS")}
+        </h2>
         <Row gutter={[48, 48]}>
           {products.map((item, idx) => (
             <Col md={8} xs={24} sm={12} key={idx}>
