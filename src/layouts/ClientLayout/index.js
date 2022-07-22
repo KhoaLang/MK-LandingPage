@@ -7,7 +7,6 @@ import SmoothScroll from "../../components/smoothScroll/SmoothScroll";
 export const ClientLayout = () => {
   return (
     <>
-      <SmoothScroll />
       <Header />
       <Outlet />
       <Footer />

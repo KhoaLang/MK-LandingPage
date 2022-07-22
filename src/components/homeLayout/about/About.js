@@ -1,12 +1,15 @@
 import PrimaryButton from "../../layouts/primaryButton/Button";
 import "./about.scss";
 
-const About = () => {
+const About = (props) => {
   return (
     <section className="about d-flex justify-content-center align-items-center flex-column">
       <div
         className="about__bg"
-        // style={bgPosition.length > 0 ? { backgroundPosition: bgPosition } : {}}
+        style={{
+          top: `${props.bgOffset?.y}px`,
+          left: `${props.bgOffset?.x}px`,
+        }}
       ></div>
       <div className="about__container container d-flex justify-content-center align-items-center flex-column">
         <h1>Về VNPLUS</h1>
