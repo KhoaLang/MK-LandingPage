@@ -6,8 +6,18 @@ import {
   deletePostAction,
 } from "../../../../stores/actions/postAction";
 import styles from "./managePost.module.scss";
-import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
 import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Select,
+  Switch,
+  Table,
+  Popconfirm,
+} from "antd";
+import {
+  QuestionCircleOutlined,
   DeleteOutlined,
   PlusOutlined,
   SearchOutlined,
@@ -23,6 +33,7 @@ const ManagePost = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [categorySelect, setCategorySelect] = useState(-1);
   const [dateSelect, setDateSelect] = useState({ start: "", end: "" });
+  const [listOrder, setListOrder] = useState(-1);
 
   const { listPost } = useSelector((state) => state.postReducer);
   const [filteredList, setFilteredList] = useState([...listPost]);
@@ -42,6 +53,11 @@ const ManagePost = () => {
       ?.filter((item, idx) =>
         searchKeyword === "" ||
         item.title.toLowerCase().includes(searchKeyword.toLowerCase())
+          ? true
+          : false
+      )
+      ?.filter((item) =>
+        categorySelect === item?.Category.id || categorySelect === -1
           ? true
           : false
       )
@@ -75,33 +91,14 @@ const ManagePost = () => {
               (selectedDayStart <= itemDay && itemDay <= selectedDayEnd) ||
               dateStartSelect === ""
             ) {
-              console.log("Filter được mà");
               return item;
             }
           }
         }
       });
-    // let comparedList = tempList?.map((item) => {
-    //   filteredList.forEach((item2) => {
-    //     if (item.id === item2.id) return item;
-    //   });
-    // });
-    setFilteredList([...tempList]);
-  }, [searchKeyword || dateSelect]);
 
-  // useEffect(() => {
-  //   let tempList = listPost?.filter((item) =>
-  //     categorySelect === item?.Category.id || categorySelect === -1
-  //       ? true
-  //       : false
-  //   );
-  //   let comparedList = tempList?.map((item) => {
-  //     filteredList.forEach((item2) => {
-  //       if (item.id === item2.id) return item;
-  //     });
-  //   });
-  //   setFilteredList([...comparedList]);
-  // }, [categorySelect]);
+    setFilteredList([...tempList]);
+  }, [searchKeyword, dateSelect, categorySelect]);
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -160,18 +157,23 @@ const ManagePost = () => {
       render: (item) => {
         return (
           <div>
-            <Button
-              shape="circle"
-              size="large"
-              onClick={() => dispatch(deletePostAction(item.id))}
-              icon={<DeleteOutlined />}
-            />
+            <Popconfirm
+              title="Are you sure？"
+              onConfirm={() => dispatch(deletePostAction(item.id))}
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            >
+              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
+            </Popconfirm>
             <Button
               style={{ marginLeft: "20px" }}
               shape="circle"
               size="large"
               type="primary"
-              onClick={() => navigate(`detail/${item.id}`)}
+              onClick={() =>
+                window.location.href.slice(-6).includes("posts")
+                  ? navigate(`detail/${item.id}`)
+                  : navigate(`posts/detail/${item.id}`)
+              }
               icon={<EditOutlined />}
             />
           </div>
@@ -181,6 +183,7 @@ const ManagePost = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
+    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -199,22 +202,34 @@ const ManagePost = () => {
     setDateSelect({ start: dateString[0], end: dateString[1] });
   };
 
+  const handleDeletePost = () => {
+    selectedRowKeys.map((item) => {
+      dispatch(deletePostAction(item));
+    });
+  };
+
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
         <h5>QUẢN LÝ BÀI VIẾT</h5>
         <div className={cx("grpBtn")}>
-          <Button
-            style={{
-              color: "#C00101",
-              borderColor: "currentcolor",
-              fontWeight: "bold",
-            }}
-            size="large"
+          <Popconfirm
+            title="Are you sure？"
+            onConfirm={handleDeletePost}
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
           >
-            <DeleteOutlined />
-            Xoá
-          </Button>
+            <Button
+              style={{
+                color: "#C00101",
+                borderColor: "currentcolor",
+                fontWeight: "bold",
+              }}
+              size="large"
+            >
+              <DeleteOutlined />
+              Xoá
+            </Button>
+          </Popconfirm>
           <Button
             onClick={handleNavigateToCreateNewPost}
             style={{ marginLeft: "20px" }}
@@ -262,19 +277,22 @@ const ManagePost = () => {
                 </Option>
               )
             )}
-            {/* <Option value="Category1">Category1</Option>
-            <Option value="Category2">Category2</Option>
-            <Option value="Category3">Category3</Option> */}
           </Select>
         </Form.Item>
         <Form.Item label="Ngày" className="w-20" name="range-date">
           <RangePicker onCalendarChange={handleCalendarChange} size="large" />
         </Form.Item>
         <Form.Item label="Xếp theo" className="w-20">
-          <Select size="large" defaultValue="" name="sort">
-            <Option value="">Tất cả</Option>
-            <Option value="Category1">Mới nhất</Option>
-            <Option value="Category2">Cũ nhất</Option>
+          <Select
+            size="large"
+            value={listOrder}
+            onChange={(value) => setListOrder(value)}
+            defaultValue={-1}
+            name="sort"
+          >
+            <Option value={-1}>Tất cả</Option>
+            <Option value={0}>Mới nhất</Option>
+            <Option value={1}>Cũ nhất</Option>
           </Select>
         </Form.Item>
         <Form.Item>

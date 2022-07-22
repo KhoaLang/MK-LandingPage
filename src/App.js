@@ -23,8 +23,6 @@ import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
 
-
-import Scrollbar from "smooth-scrollbar";
 import { Outstanding } from "./pages/admin/outstanding";
 import { OutstandingNew } from "./pages/admin/outstanding/New";
 import { OutstandingDetail } from "./pages/admin/outstanding/Detail";
@@ -33,12 +31,10 @@ import { Language } from "./pages/admin/language";
 import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
 
- 
-
 import { Suspense } from "react";
 
 function App() {
- const navigate= useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="App">
       <Routes>
@@ -64,7 +60,6 @@ function App() {
             <Route path="detail/:id" element={<DetailPost />} />
           </Route>
 
-
           <Route path="banners">
             <Route index element={<Banner />} />
             <Route path="new" element={<BannerNew />} />
@@ -74,7 +69,6 @@ function App() {
             <Route index element={<Hiring />} />
             <Route path="new" element={<CreateHiring />} />
             <Route path="detail/:id" element={<HiringDetail />} />
-
           </Route>
           <Route path="outstanding">
             <Route index element={<Outstanding />} />
@@ -83,8 +77,8 @@ function App() {
           </Route>
           <Route path="languages">
             <Route index element={<Language />} />
-             <Route path="new" element={<CreateLanguage />} />
-            <Route path="detail/:id" element={<DetailLanguage />} /> 
+            <Route path="new" element={<CreateLanguage />} />
+            <Route path="detail/:id" element={<DetailLanguage />} />
           </Route>
         </Route>
         <Route
@@ -102,8 +96,6 @@ function App() {
             />
           }
         />
-          </Route>
-        </Route>
       </Routes>
     </div>
   );

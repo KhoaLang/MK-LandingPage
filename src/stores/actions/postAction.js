@@ -33,11 +33,16 @@ export const createPostAction = (data, resetForm) => {
   };
 };
 
-export const getPostDetailAction = (id) => {
+export const getPostDetailAction = (id, setFileList) => {
   return async (dispatch) => {
     try {
       const { data } = await postService.getPostDetailById(id);
       dispatch({ type: GET_DETAIL_POST, data: data.data });
+      setFileList([
+        {
+          url: `${process.env.REACT_APP_BACKEND_BASE_URL}${data.data.image}`,
+        },
+      ]);
     } catch (error) {
       console.error(error);
     }
@@ -48,10 +53,10 @@ export const updatePostAction = (id, data, resetForm) => {
     try {
       dispatch({ type: SHOW_LOADING });
       await postService.updatePost(id, data);
-      dispatch({ type: HIDE_LOADING });
       dispatch(getAllPostAction);
       resetForm();
 
+      dispatch({ type: HIDE_LOADING });
       openNotification("success", "Change Post success!");
     } catch (error) {
       console.error(error);

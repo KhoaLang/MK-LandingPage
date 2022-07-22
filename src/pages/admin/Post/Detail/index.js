@@ -1,5 +1,5 @@
 import {
-  PageHeader,
+  Breadcrumb,
   Form,
   Button,
   Select,
@@ -48,19 +48,19 @@ const DetailPost = () => {
   const dispatch = useDispatch();
   const { postDetail } = useSelector((state) => state.postReducer);
   const { listCategory } = useSelector((state) => state.categoryReducer);
-  // const [imageUrl, setImageUrl] = useState();
-  const [uploadImg, setUploadImg] = useState([]);
+
+  const [fileList, setFileList] = useState([]);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
 
-  const [textValue, setTextValue] = useState("");
+  // const [textValue, setTextValue] = useState("");
 
   const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getPostDetailAction(id));
+    dispatch(getPostDetailAction(id, setFileList));
     // console.log(postDetail);
   }, [dispatch, id]);
 
@@ -90,9 +90,10 @@ const DetailPost = () => {
           formData.append(key, values[key]);
         } else {
           formData.append("image", values.image[0].originFileObj);
-          console.log(values.image[0].originFileObj);
+          // console.log(values.image[0].originFileObj);
         }
       }
+      // console.log(formData);
       dispatch(updatePostAction(id, formData, resetForm));
       navigate("/admin/posts");
     },
@@ -100,7 +101,8 @@ const DetailPost = () => {
 
   //image processing
   const handleFileChange = ({ fileList: info }) => {
-    setUploadImg(info.fileList);
+    // setUploadImg(info);
+    setFileList(info);
     formik.setFieldValue("image", info);
   };
   const onchangeEdit = (newValue, editor) => {
@@ -155,13 +157,15 @@ const DetailPost = () => {
   return (
     <section className={cx("edit-post")}>
       <div className={cx("edit-post__page-header")}>
-        <PageHeader
-          style={{ padding: "0px", color: "#1EA6FB" }}
-          className="site-page-header"
-          breadcrumb={{
-            routes,
-          }}
-        />
+        <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
+          <Breadcrumb.Item>Tin tức-Sự kiện</Breadcrumb.Item>
+          <Breadcrumb.Item className={cx("bread")} onClick={() => navigate(-1)}>
+            <span style={{ cursor: "pointer" }}>Bài viết</span>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <span style={{ color: "#1EA6FB" }}>Chi tiết bài viết</span>
+          </Breadcrumb.Item>
+        </Breadcrumb>
       </div>
       <div className={cx("edit-post__form")}>
         <p>ChI TIẾT BÀI VIẾT</p>
@@ -229,26 +233,28 @@ const DetailPost = () => {
             </Select>
           </Form.Item>
           <Form.Item
-            label="Avatar"
+            label="Image"
             labelAlign="left"
-            name="avatar"
+            name="image"
             // onChange={handleFileChange(event)}
             rules={[
               {
                 // required: true,
-                message: "Please choost an avatar for this post!",
+                message: "Please choost an image for this post!",
               },
             ]}
           >
             <Upload
-              fileList={uploadImg}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              fileList={fileList}
               listType="picture-card"
               className="avatar-uploader"
+              value={formik.values.image}
               onPreview={handlePreview}
               onChange={handleFileChange}
               customRequest={dummyRequest}
             >
-              {uploadImg < 1 && "+ Upload"}
+              {fileList?.length < 1 && "+ Upload"}
             </Upload>
             <Modal
               visible={previewVisible}

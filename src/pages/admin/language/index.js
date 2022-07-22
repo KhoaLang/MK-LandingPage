@@ -56,7 +56,7 @@ export const Language = () => {
     console.log("Success:", values);
   };
 
-  const data = listLanguage.map((item) => {
+  const data = listLanguage?.map((item) => {
     return {
       ...item,
       id: item.id,
@@ -135,7 +135,9 @@ export const Language = () => {
     // dispatch(getAllMomentAction(value));
   };
   const handleDeleteArray = async (data) => {
-    await Promise.all(data.map(async (id) => dispatch(deleteLanguageAction(id))));
+    await Promise.all(
+      data.map(async (id) => dispatch(deleteLanguageAction(id)))
+    );
   };
   const handleFilter = () => {
     dispatch(getAllLanguage(filter));
@@ -144,7 +146,7 @@ export const Language = () => {
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-        <h5>KHOẢNH KHẮC NỔI BẬT</h5>
+        <h5>NGÔN NGỮ</h5>
         <div className={cx("grpBtn")}>
           <Popconfirm
             title="Are you sure？"
