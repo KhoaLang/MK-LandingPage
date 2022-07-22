@@ -1,31 +1,31 @@
 import SmoothScrollbar from "smooth-scrollbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 var options = {
-  damping: 0.1,
+  damping: 0.07,
 };
 
-const SmoothScroll = () => {
+const SmoothScroll = (props) => {
+  const [urlEndpoint, setUrlEndpoint] = useState(
+    window.location.href.split("/")[3]
+  );
+  const scrollbar = SmoothScrollbar.init(document.body, options);
   useEffect(() => {
-    //Fixed header
-    let header = document.querySelector(".header");
-    //Parallax background
-    let bg = document.querySelector(".about__bg");
+    setUrlEndpoint(window.location.href.split("/")[3]);
 
-    let scrollbar = SmoothScrollbar.init(document.body, options);
+    let header = document.querySelector(".header");
 
     scrollbar.scrollTop = 0;
-    scrollbar.addListener(function (status) {
+    scrollbar.addListener((status) => {
       let offset = status.offset;
       header.style.top = offset.y + "px";
       header.style.left = offset.x + "px";
 
-      if (window.location.href.split("/")[3] === "") {
-        bg.style.top = offset.y + "px";
-        bg.style.left = offset.x + "px";
+      if (urlEndpoint.length === 0) {
+        props.setBgOffset(offset);
       }
     });
-  }, []);
+  }, [urlEndpoint]);
 
   return null;
 };
