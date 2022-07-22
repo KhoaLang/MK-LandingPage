@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/home/Home";
 import AboutUs from "./components/about/AboutUs";
@@ -21,10 +21,15 @@ import { BannerDetail } from "./pages/admin/banner/Detail";
 import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
-import { Suspense, useEffect } from "react";
-
 
 import Scrollbar from "smooth-scrollbar";
+import { Outstanding } from "./pages/admin/outstanding";
+import { OutstandingNew } from "./pages/admin/outstanding/New";
+import { OutstandingDetail } from "./pages/admin/outstanding/Detail";
+import { Button, Result } from "antd";
+import { Language } from "./pages/admin/language";
+import { CreateLanguage } from "./pages/admin/language/create";
+import { DetailLanguage } from "./pages/admin/language/detail";
 
 function App() {
   // useEffect(() => {
@@ -36,46 +41,70 @@ function App() {
   //     continuousScrolling: false,
   //   });
   // }, []);
-
+  const navigate= useNavigate()
 
   return (
     <div className="App">
-      
-        <Routes>
-          <Route path="/" element={<ClientLayout></ClientLayout>}>
-            <Route index element={<Home />} />
-            <Route path="aboutus" element={<AboutUs />} />
-            <Route path="products" element={<Products />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="event" element={<Event />} />
-            <Route path="event/:id" element={<EventDetail />} />
+      <Routes>
+        <Route path="/" element={<ClientLayout></ClientLayout>}>
+          <Route index element={<Home />} />
+          <Route path="aboutus" element={<AboutUs />} />
+          <Route path="products" element={<Products />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="event" element={<Event />} />
+          <Route path="event/:id" element={<EventDetail />} />
+        </Route>
+        <Route path="admin" element={<AdminLayout />}>
+          <Route index element={<ManagePost />} />
+
+          <Route path="categories">
+            <Route index element={<ManageCategories />} />
+            <Route path="new" element={<CategorytNew />} />
+            <Route path="detail/:id" element={<CatetgorytDetail />} />
           </Route>
-          <Route path="admin" element={<AdminLayout />}>
+          <Route path="posts">
             <Route index element={<ManagePost />} />
 
-            <Route path="categories">
-              <Route index element={<ManageCategories />} />
-              <Route path="new" element={<CategorytNew />} />
-              <Route path="detail/:id" element={<CatetgorytDetail />} />
-            </Route>
-            <Route path="posts">
-              <Route index element={<ManagePost />} />
-
-              <Route path="newpost" element={<NewPost />} />
-            </Route>
-
-            <Route path="banners">
-              <Route index element={<Banner />} />
-              <Route path="new" element={<BannerNew />} />
-              <Route path="detail/:id" element={<BannerDetail />} />
-            </Route>
-            <Route path="hiring">
-              <Route index element={<Hiring />} />
-              <Route path="new" element={<CreateHiring />} />
-              <Route path="detail/:id" element={<HiringDetail />} />
-            </Route>
+            <Route path="newpost" element={<NewPost />} />
           </Route>
-        </Routes>
+
+          <Route path="banners">
+            <Route index element={<Banner />} />
+            <Route path="new" element={<BannerNew />} />
+            <Route path="detail/:id" element={<BannerDetail />} />
+          </Route>
+          <Route path="hiring">
+            <Route index element={<Hiring />} />
+            <Route path="new" element={<CreateHiring />} />
+            <Route path="detail/:id" element={<HiringDetail />} />
+          </Route>
+          <Route path="outstanding">
+            <Route index element={<Outstanding />} />
+            <Route path="new" element={<OutstandingNew />} />
+            <Route path="detail/:id" element={<OutstandingDetail />} />
+          </Route>
+          <Route path="languages">
+            <Route index element={<Language />} />
+             <Route path="new" element={<CreateLanguage />} />
+            <Route path="detail/:id" element={<DetailLanguage />} /> 
+          </Route>
+        </Route>
+        <Route
+          path="*"
+          element={
+            <Result
+              status="404"
+              title="404"
+              subTitle="Sorry, the page you visited does not exist."
+              extra={
+                <Button type="primary" onClick={() => navigate("/")}>
+                  Back Home
+                </Button>
+              }
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }

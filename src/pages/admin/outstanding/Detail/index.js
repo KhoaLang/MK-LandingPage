@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import styles from "./BannerDetail.module.scss";
+import styles from "./Detail.module.scss";
 import classNames from "classnames/bind";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -34,6 +34,10 @@ import {
   updateBannerAction,
 } from "../../../../stores/actions/bannerAction";
 import { getAllPageAction } from "../../../../stores/actions/pageAction";
+import {
+  getDetailMomentAction,
+  updateMomentAction,
+} from "../../../../stores/actions/momentAction";
 const { Option } = Select;
 
 const cx = classNames.bind(styles);
@@ -48,26 +52,24 @@ const getBase64 = (file) =>
     reader.onerror = (error) => reject(error);
   });
 
-export const BannerDetail = () => {
+export const OutstandingDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
   const { listPage } = useSelector((state) => state.pageReducer);
-  const { bannerDetail, url } = useSelector((state) => state.bannerReducer);
+  const { momentDetail, error } = useSelector((state) => state.momentReducer);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState([{ url }]);
+  const [fileList, setFileList] = useState([]);
 
+  console.log("momnetndc", momentDetail);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAllPageAction());
-    console.log("[first]");
   }, []);
-  console.log("first");
   useEffect(() => {
-    dispatch(getDetailBannerAction(id,setFileList));
-   
+    dispatch(getDetailMomentAction(id, setFileList,navigate));
   }, [id, dispatch]);
 
   const handleCancel = () => setPreviewVisible(false);
@@ -107,14 +109,13 @@ export const BannerDetail = () => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      serial: bannerDetail?.serial,
-      name: bannerDetail?.name,
-      description: bannerDetail?.description,
-      creator: bannerDetail?.creator,
-      isVisible: bannerDetail?.isVisible,
-      source: bannerDetail?.source,
-      image: bannerDetail?.image,
-      locatedAt: bannerDetail?.locatedAt,
+      serial: momentDetail?.serial,
+      name: momentDetail?.name,
+      description: momentDetail?.description,
+      creator: momentDetail?.creator,
+      isVisible: momentDetail?.isVisible,
+      image: momentDetail?.image,
+      position: momentDetail?.position,
     },
     validationSchema: Yup.object({
       serial: Yup.string().required("Serial is require!"),
@@ -133,7 +134,7 @@ export const BannerDetail = () => {
         }
       }
       console.log(formData.get("image"));
-      dispatch(updateBannerAction(id, formData));
+      dispatch(updateMomentAction(id, formData));
     },
   });
 
@@ -149,7 +150,7 @@ export const BannerDetail = () => {
   };
 
   const handleChangeSelect = (value) => {
-    formik.setFieldValue("locatedAt", value);
+    formik.setFieldValue("position", value);
   };
 
   return (
@@ -157,15 +158,14 @@ export const BannerDetail = () => {
       <div className={cx("wrapper")}>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
-            <Breadcrumb.Item>Quản lý banner</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
               onClick={() => navigate(-1)}
             >
-              <span style={{ cursor: "pointer" }}>Banner</span>
+              <span style={{ cursor: "pointer" }}>Khoảnh khắc nổi bậc</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
-              <span style={{ color: "#1EA6FB" }}>Chi tiết banner</span>
+              <span style={{ color: "#1EA6FB" }}>Chi tiết ảnh</span>
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
@@ -173,7 +173,7 @@ export const BannerDetail = () => {
           <form onSubmit={formik.handleSubmit}>
             <div className={cx("top")}>
               <div className={cx("title")}>
-                <h5>THÊM BANNER</h5>
+                <h5>Chi tiết ảnh </h5>
               </div>
               <div className={cx("grpBtn")}>
                 <Popconfirm
@@ -230,8 +230,8 @@ export const BannerDetail = () => {
               <label className={cx("label")}>Menu</label>
               <Select
                 size={"large"}
-                defaultValue={formik.values.locatedAt}
-                value={formik.values.locatedAt}
+                defaultValue={formik.values.position}
+                value={formik.values.position}
                 className={cx("upload")}
                 onChange={handleChangeSelect}
               >
@@ -243,10 +243,10 @@ export const BannerDetail = () => {
                   );
                 })}
               </Select>
-              {formik.errors.locatedAt && formik.touched.locatedAt && (
+              {formik.errors.position && formik.touched.position && (
                 <div className={cx("error")}>
                   <ExclamationCircleOutlined className={cx("icon")} />
-                  <span className={cx("text")}>{formik.errors.name}</span>
+                  <span className={cx("text")}>{formik.errors.position}</span>
                 </div>
               )}
             </div>
@@ -307,16 +307,7 @@ export const BannerDetail = () => {
                 onChange={handleChangeSwitch("isVisible")}
               />
             </div>
-            <div className={cx("formItem")}>
-              <label>Nguồn</label>
-              <Input
-                placeholder="Tên người tạo"
-                name="source"
-                onBlur={formik.handleBlur}
-                onChange={formik.handleChange}
-                value={formik.values.source}
-              />
-            </div>
+
             <div className={cx("formItem")}>
               <label>Mô tả</label>
               <TextArea

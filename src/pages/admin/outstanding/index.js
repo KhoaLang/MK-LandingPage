@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
+import styles from "./Outstanding.module.scss";
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
-import styles from "./Banner.module.scss";
+
 import {
   Button,
   DatePicker,
@@ -28,30 +29,40 @@ import {
 } from "../../../stores/actions/bannerAction";
 import { updateCategoryAction } from "../../../stores/actions/categoryAction";
 import { getAllPageAction } from "../../../stores/actions/pageAction";
+import {
+  deleteMomentAction,
+  getAllMomentAction,
+  updateMomentAction,
+} from "../../../stores/actions/momentAction";
 const { Option } = Select;
 const cx = classNames.bind(styles);
 
-export const Banner = () => {
+export const Outstanding = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const { listBanner } = useSelector((state) => state.bannerReducer);
+  const [filter, setFilter] = useState();
+  const { listMoment } = useSelector((state) => state.momentReducer);
   const { listPage } = useSelector((state) => state.pageReducer);
+  console.log("12321321", listMoment);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllBannerAction());
-    dispatch(getAllPageAction);
+    dispatch(getAllMomentAction());
+    dispatch(getAllPageAction());
   }, []);
   const navigate = useNavigate();
-  console.log("listBanner", listBanner);
 
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log("Success:", values);
   };
   const handleVisible = (id, checked) => {
-    dispatch(updateBannerAction(id, { isVisible: checked }));
+    // console.log("checked", id, checked);
+    // let formData = new FormData();
+    // formData.append("isVisible", checked);
+
+    dispatch(updateMomentAction(id, {isVisible:checked}));
   };
 
-  const data = listBanner?.map((item, idx) => {
+  const data = listMoment?.map((item, idx) => {
     return { ...item, key: item.id, locatedAt: item.Page?.name };
   });
 
@@ -86,10 +97,11 @@ export const Banner = () => {
     {
       title: "Hiển thị",
       dataIndex: "isVisible",
-      render: (text, record) => {
+      render: (isVisible, record) => {
+        console.log(isVisible);
         return (
           <Switch
-            defaultChecked={text}
+            defaultChecked={isVisible}
             onChange={(checked) => handleVisible(record.key, checked)}
           />
         );
@@ -102,7 +114,7 @@ export const Banner = () => {
           <div>
             <Popconfirm
               title="Are you sure？"
-              onConfirm={() => dispatch(deleteBannerAction(item.id))}
+              onConfirm={() => dispatch(deleteMomentAction(item.id))}
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             >
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
@@ -134,16 +146,20 @@ export const Banner = () => {
 
   const handleChangeSelect = (value) => {
     console.log(value);
-    dispatch(getAllBannerAction(value));
+    setFilter(value)
+    // dispatch(getAllMomentAction(value));
   };
   const handleDeleteArray = async (data) => {
-    await Promise.all(data.map(async (id) => dispatch(deleteBannerAction(id))));
+    await Promise.all(data.map(async (id) => dispatch(deleteMomentAction(id))));
   };
+  const handleFilter = ()=>{
+    dispatch(getAllMomentAction(filter));
+  }
 
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-        <h5>Quản lý banner</h5>
+        <h5>KHOẢNH KHẮC NỔI BẬT</h5>
         <div className={cx("grpBtn")}>
           <Popconfirm
             title="Are you sure？"
@@ -169,7 +185,7 @@ export const Banner = () => {
             size="large"
           >
             <PlusOutlined />
-            Tạo Bài Viết
+            Thêm Ảnh
           </Button>
         </div>
       </div>
@@ -211,7 +227,7 @@ export const Banner = () => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button size="large" type="primary" htmlType="submit">
+          <Button onClick={handleFilter} size="large" type="primary" htmlType="submit">
             Tìm
           </Button>
         </Form.Item>

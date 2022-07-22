@@ -3,7 +3,6 @@ import { initReactI18next } from "react-i18next";
 import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import axios from "axios";
-import _ from "lodash";
 
 const convertArrayToObject = (array, key) => {
   return array.reduce((obj, item) => {
@@ -14,17 +13,13 @@ const convertArrayToObject = (array, key) => {
   }, {});
 };
 const backendOptions = {
-  loadPath: "https://landing-page-vnplus.herokuapp.com/api/language-text",
+  loadPath:
+    "https://landing-page-vnplus.herokuapp.com/api/language-text?option={{lng}}",
   request: async (options, url, payload, callback) => {
     try {
       axios.get(url).then((result) => {
         const data = convertArrayToObject(result.data.data, "key");
-        console.log(data);
-
-        // console.log(result1);
-        const obj = Object.assign({}, result.data.data);
-        // console.log(obj);
-        // console.log(JSON.parse(obj));
+        console.log(data,url);
         callback(null, {
           data: data,
           status: 200,
@@ -46,6 +41,7 @@ i18n
   .init({
     backend: backendOptions,
     fallbackLng: "en",
+    lng:"en",
     debug: false,
     load: "languageOnly",
     // ns: ["translations"],

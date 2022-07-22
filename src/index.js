@@ -11,13 +11,6 @@ import "antd/dist/antd.min.css";
 
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-
-import i18next from "i18next";
-import { initReactI18next } from "react-i18next";
-import HttpApi from "i18next-http-backend";
-import LanguageDetector from "i18next-browser-languagedetector";
-import axios from "axios";
-import _ from "lodash";
 import "./i18n";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

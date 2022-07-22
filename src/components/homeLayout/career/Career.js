@@ -2,9 +2,12 @@ import "./career.scss";
 import Carousel from "react-multi-carousel";
 import CareerCard from "../../layouts/careerCard/CareerCard";
 import CustomButtonGroup from "../../layouts/customButtonGroup/CustomButtonGroup";
+import { t } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const Career = () => {
-  const arr = [
+  const {t} = useTranslation()
+    const arr = [
     {
       title: "Lead data engineer",
       info: "Manage a Data Engineer squad to implement Data Platform’s components (e.g., to collect and...)",
@@ -40,7 +43,7 @@ const Career = () => {
   ];
   return (
     <section className="career scrollingAnimate">
-      <h2>Tuyển dụng</h2>
+      <h2>{t("Career")}</h2>
       <div className="career__card-slider">
         <Carousel
           additionalTransfrom={0}

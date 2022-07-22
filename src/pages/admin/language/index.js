@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
+import styles from "./Language.module.scss";
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
-import styles from "./Banner.module.scss";
+
 import {
   Button,
   DatePicker,
@@ -28,73 +29,69 @@ import {
 } from "../../../stores/actions/bannerAction";
 import { updateCategoryAction } from "../../../stores/actions/categoryAction";
 import { getAllPageAction } from "../../../stores/actions/pageAction";
+import {
+  deleteMomentAction,
+  getAllMomentAction,
+  updateMomentAction,
+} from "../../../stores/actions/momentAction";
+import {
+  deleteLanguageAction,
+  getAllLanguage,
+} from "../../../stores/actions/languageAction";
 const { Option } = Select;
 const cx = classNames.bind(styles);
 
-export const Banner = () => {
+export const Language = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const { listBanner } = useSelector((state) => state.bannerReducer);
-  const { listPage } = useSelector((state) => state.pageReducer);
+  const [filter, setFilter] = useState();
+  const { listLanguage } = useSelector((state) => state.languageReducer);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getAllBannerAction());
-    dispatch(getAllPageAction);
+    dispatch(getAllLanguage());
   }, []);
   const navigate = useNavigate();
-  console.log("listBanner", listBanner);
 
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log("Success:", values);
   };
-  const handleVisible = (id, checked) => {
-    dispatch(updateBannerAction(id, { isVisible: checked }));
-  };
 
-  const data = listBanner?.map((item, idx) => {
-    return { ...item, key: item.id, locatedAt: item.Page?.name };
+  const data = listLanguage.map((item) => {
+    return {
+      ...item,
+      id: item.id,
+      Title: item.key,
+      value: item.value,
+      language: item.language,
+      key: item.id,
+    };
   });
 
   const columns = [
     {
-      title: "Hình",
-      dataIndex: "image",
-      render: (text) => {
-        return (
-          <img
-            style={{ width: "74px", height: "48px" }}
-            src={`https://landing-page-vnplus.herokuapp.com/image/${text}`}
-          />
-        );
-      },
+      title: "Id",
+      dataIndex: "id",
     },
     {
-      title: "Tên",
-      dataIndex: "name",
-      render: (text) => {
-        return <strong className={cx("title")}>{text}</strong>;
-      },
+      title: "Key",
+      dataIndex: "Title",
+      // render: (text) => {
+      //   return <strong className={cx("title")}>{text}</strong>;
+      // },
     },
     {
-      title: "Vị trí",
-      dataIndex: "locatedAt",
+      title: "Language",
+      dataIndex: "language",
     },
     {
-      title: "Số Seri",
-      dataIndex: "serial",
+      title: "Value",
+      dataIndex: "value",
     },
     {
-      title: "Hiển thị",
-      dataIndex: "isVisible",
-      render: (text, record) => {
-        return (
-          <Switch
-            defaultChecked={text}
-            onChange={(checked) => handleVisible(record.key, checked)}
-          />
-        );
-      },
+      title: "Create Date",
+      dataIndex: "createdAt",
     },
+
     {
       title: "Thao tác",
       render: (item) => {
@@ -102,7 +99,7 @@ export const Banner = () => {
           <div>
             <Popconfirm
               title="Are you sure？"
-              onConfirm={() => dispatch(deleteBannerAction(item.id))}
+              onConfirm={() => dispatch(deleteLanguageAction(item.id))}
               icon={<QuestionCircleOutlined style={{ color: "red" }} />}
             >
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
@@ -134,16 +131,20 @@ export const Banner = () => {
 
   const handleChangeSelect = (value) => {
     console.log(value);
-    dispatch(getAllBannerAction(value));
+    setFilter(value);
+    // dispatch(getAllMomentAction(value));
   };
   const handleDeleteArray = async (data) => {
-    await Promise.all(data.map(async (id) => dispatch(deleteBannerAction(id))));
+    await Promise.all(data.map(async (id) => dispatch(deleteLanguageAction(id))));
+  };
+  const handleFilter = () => {
+    dispatch(getAllLanguage(filter));
   };
 
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-        <h5>Quản lý banner</h5>
+        <h5>KHOẢNH KHẮC NỔI BẬT</h5>
         <div className={cx("grpBtn")}>
           <Popconfirm
             title="Are you sure？"
@@ -169,7 +170,7 @@ export const Banner = () => {
             size="large"
           >
             <PlusOutlined />
-            Tạo Bài Viết
+            Thêm Ngôn Ngữ
           </Button>
         </div>
       </div>
@@ -198,20 +199,24 @@ export const Banner = () => {
             className={cx("upload")}
             onChange={handleChangeSelect}
           >
-            <Option label={"Tất cả"} value={""}>
+            <Option label={"Tất Vả"} value={""}>
               Tất Cả
             </Option>
-            {listPage?.map((item) => {
-              return (
-                <Option label={item.name} key={item.id} value={item.id}>
-                  {item.name}
-                </Option>
-              );
-            })}
+            <Option label={"Tiếng Việt"} value={"vi"}>
+              Tiếng Việt
+            </Option>
+            <Option label={"Tiếng Anh"} value={"en"}>
+              Tiếng Anh
+            </Option>
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button size="large" type="primary" htmlType="submit">
+          <Button
+            onClick={handleFilter}
+            size="large"
+            type="primary"
+            htmlType="submit"
+          >
             Tìm
           </Button>
         </Form.Item>

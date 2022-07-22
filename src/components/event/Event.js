@@ -7,6 +7,7 @@ import img3 from "../../assets/Frame 54 (1).png";
 import img4 from "../../assets/Frame 54 (2).png";
 import img5 from "../../assets/Frame 54 (3).png";
 import PaginateItem from "../layouts/paginateItem/PaginateItem";
+import { useTranslation } from "react-i18next";
 
 const thread = [
   {
@@ -52,11 +53,12 @@ const categoryName = [
 
 const Event = () => {
   const [currentPage, setCurrentPage] = useState();
+  const { t, i18n } = useTranslation();
 
   return (
     <section className="event d-flex justify-content-center align-items-center">
       <div className="event__container container d-flex flex-column align-items-center justify-content-between">
-        <h2>Tin tức - Sự kiện</h2>
+        <h2>{t("New_Event")}</h2>
         <div className="event__container__pagination">
           <ul className="event__container__pagination__category d-flex align-items-center">
             {categoryName.map((item, idx) => (
