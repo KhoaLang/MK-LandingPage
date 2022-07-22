@@ -3,13 +3,12 @@ import CoreValue from "../aboutLayout/coreValue/CoreValue";
 import HighlightMoment from "../aboutLayout/highlightMoment/HighlightMoment";
 import "./aboutus.scss";
 import { useEffect } from "react";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
 
 const AboutUs = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
   return (
     <div className="about-us">
+      <SmoothScroll />
       <AboutUsMain />
       <CoreValue />
       <HighlightMoment />

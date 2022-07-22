@@ -4,15 +4,17 @@ import OurProducts from "../homeLayout/ourProducts/OurProducts";
 import Events from "../homeLayout/events/Events";
 import About from "../homeLayout/about/About";
 import Career from "../homeLayout/career/Career";
-import { useEffect } from "react";
+import { useState } from "react";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
+// import Scrollbar from "react-smooth-scrollbar";
 // import { gsap, ScrollTrigger } from "gsap/all";
 
 // gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   //Scroll animation (đừng xóa)
   // useEffect(() => {
@@ -35,13 +37,15 @@ const Home = () => {
   //     }
   //   );
   // }, []);
+  const [bgOffset, setBgOffset] = useState(null);
 
   return (
     <div className="home">
+      <SmoothScroll setBgOffset={setBgOffset} />
       <Hero />
       <OurProducts button={false} />
       <Events />
-      <About />
+      <About bgOffset={bgOffset} />
       <Career />
     </div>
   );

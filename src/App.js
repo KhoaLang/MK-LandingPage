@@ -10,9 +10,10 @@ import EventDetail from "./components/eventDetail/EventDetail";
 import { AdminLayout } from "./layouts/AdminLayout";
 import { ClientLayout } from "./layouts/ClientLayout";
 import ManagePost from "./pages/admin/Post/ManagePost";
+import NewPost from "./pages/admin/Post/New";
+import DetailPost from "./pages/admin/Post/Detail";
 
 import ManageCategories from "./pages/admin/Category/ManageCategories";
-import NewPost from "./pages/admin/Post/New";
 import { CategorytNew } from "./pages/admin/Category/New";
 import { CatetgorytDetail } from "./pages/admin/Category/Detail";
 import { Banner } from "./pages/admin/banner";
@@ -21,6 +22,7 @@ import { BannerDetail } from "./pages/admin/banner/Detail";
 import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
+
 
 import Scrollbar from "smooth-scrollbar";
 import { Outstanding } from "./pages/admin/outstanding";
@@ -31,18 +33,12 @@ import { Language } from "./pages/admin/language";
 import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
 
-function App() {
-  // useEffect(() => {
-  //   Scrollbar.init(document.querySelector(".App"), {
-  //     damping: 0.1,
-  //     thumbMinSize: 20,
-  //     renderByPixels: true,
-  //     alwaysShowTracks: false,
-  //     continuousScrolling: false,
-  //   });
-  // }, []);
-  const navigate= useNavigate()
+ 
 
+import { Suspense } from "react";
+
+function App() {
+ const navigate= useNavigate()
   return (
     <div className="App">
       <Routes>
@@ -64,9 +60,10 @@ function App() {
           </Route>
           <Route path="posts">
             <Route index element={<ManagePost />} />
-
             <Route path="newpost" element={<NewPost />} />
+            <Route path="detail/:id" element={<DetailPost />} />
           </Route>
+
 
           <Route path="banners">
             <Route index element={<Banner />} />
@@ -77,6 +74,7 @@ function App() {
             <Route index element={<Hiring />} />
             <Route path="new" element={<CreateHiring />} />
             <Route path="detail/:id" element={<HiringDetail />} />
+
           </Route>
           <Route path="outstanding">
             <Route index element={<Outstanding />} />
@@ -104,6 +102,8 @@ function App() {
             />
           }
         />
+          </Route>
+        </Route>
       </Routes>
     </div>
   );

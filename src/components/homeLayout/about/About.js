@@ -1,24 +1,15 @@
-import { useState } from "react";
 import PrimaryButton from "../../layouts/primaryButton/Button";
 import "./about.scss";
 
-const About = () => {
-  // const [bgPosition, setBgPosition] = useState("");
-  // let aboutBg = document.getElementsByClassName("about__bg");
-  // window.addEventListener("scroll", (e) => {
-  //   if (window.scrollY > 1910) {
-  //     let offsetForAboutBG = -(window.scrollY - 1910);
-  //     let newPos = "0px " + offsetForAboutBG + "px";
-  //     setBgPosition(newPos);
-  //     console.log(offsetForAboutBG);
-  //   }
-  // });
-
+const About = (props) => {
   return (
     <section className="about d-flex justify-content-center align-items-center flex-column">
       <div
         className="about__bg"
-        // style={bgPosition.length > 0 ? { backgroundPosition: bgPosition } : {}}
+        style={{
+          top: `${props.bgOffset?.y}px`,
+          left: `${props.bgOffset?.x}px`,
+        }}
       ></div>
       <div className="about__container container d-flex justify-content-center align-items-center flex-column">
         <h1>Về VNPLUS</h1>

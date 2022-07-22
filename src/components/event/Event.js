@@ -8,6 +8,7 @@ import img4 from "../../assets/Frame 54 (2).png";
 import img5 from "../../assets/Frame 54 (3).png";
 import PaginateItem from "../layouts/paginateItem/PaginateItem";
 import { useTranslation } from "react-i18next";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
 
 const thread = [
   {
@@ -57,6 +58,7 @@ const Event = () => {
 
   return (
     <section className="event d-flex justify-content-center align-items-center">
+      <SmoothScroll />
       <div className="event__container container d-flex flex-column align-items-center justify-content-between">
         <h2>{t("New_Event")}</h2>
         <div className="event__container__pagination">

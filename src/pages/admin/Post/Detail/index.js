@@ -1,17 +1,25 @@
+import {
+  PageHeader,
+  Form,
+  Button,
+  Select,
+  Input,
+  Upload,
+  Switch,
+  Modal,
+} from "antd";
+import { useParams, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
-import { useState, useEffect } from "react";
-import styles from "./NewPost.module.scss";
-import { Form, Input, PageHeader, Select, Upload, Switch, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { Editor } from "@tinymce/tinymce-react";
+import styles from "../New/NewPost.module.scss";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { createPostAction } from "../../../../stores/actions/postAction";
 import {
-  getAllCatetgoryAction,
-  updateCategoryAction,
-} from "../../../../stores/actions/categoryAction";
-import { useNavigate } from "react-router-dom";
+  getPostDetailAction,
+  updatePostAction,
+} from "../../../../stores/actions/postAction";
+import { useEffect, useState } from "react";
+import { Editor } from "@tinymce/tinymce-react";
 
 const { Option } = Select;
 
@@ -22,29 +30,58 @@ const routes = [
     breadcrumbName: "Tin tức - sự kiện",
   },
   {
-    path: "/newpost",
-    breadcrumbName: "Tạo bài viết",
+    path: "/detail",
+    breadcrumbName: "Chi tiết bài viết",
   },
 ];
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-const NewPost = () => {
+    reader.onload = () => resolve(reader.result);
+
+    reader.onerror = (error) => reject(error);
+  });
+
+const DetailPost = () => {
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state.loadingReducer);
+  const { postDetail } = useSelector((state) => state.postReducer);
   const { listCategory } = useSelector((state) => state.categoryReducer);
-  const [imageUrl, setImageUrl] = useState();
+  // const [imageUrl, setImageUrl] = useState();
   const [uploadImg, setUploadImg] = useState([]);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState("");
+  const [previewTitle, setPreviewTitle] = useState("");
+
   const [textValue, setTextValue] = useState("");
+
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getPostDetailAction(id));
+    // console.log(postDetail);
+  }, [dispatch, id]);
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      title: "",
-      Category_ID: -1,
-      image: "",
-      content: "",
-      isVisible: false,
-      source: "",
-      Category: {},
+      title: postDetail?.title,
+      Category_ID: postDetail?.Category_ID,
+      image: postDetail?.image,
+      content: postDetail?.content,
+      isVisible: postDetail?.isVisible,
+      source: postDetail?.source,
+      Category: {
+        id: postDetail?.Category?.id,
+        name: postDetail?.Category?.name,
+        serial: postDetail?.Category?.serial,
+        description: postDetail?.Category?.description,
+        isVisible: postDetail?.Category?.isVisible,
+        numberOfArticle: postDetail?.Category?.numberOfArticle,
+        creator: postDetail?.Category?.creator,
+      },
     },
     onSubmit: (values, { resetForm }) => {
       let formData = new FormData();
@@ -53,47 +90,34 @@ const NewPost = () => {
           formData.append(key, values[key]);
         } else {
           formData.append("image", values.image[0].originFileObj);
+          console.log(values.image[0].originFileObj);
         }
       }
-      dispatch(createPostAction(formData, resetForm));
-      updateCategoryNumberOfArticles(values["Category_ID"], values["Category"]);
+      dispatch(updatePostAction(id, formData, resetForm));
       navigate("/admin/posts");
     },
   });
 
-  const updateCategoryNumberOfArticles = (category_id, category) => {
-    let newCategoryForm = {
-      ...category,
-      numberOfArticle:
-        category.numberOfArticle === null ? 1 : category.numberOfArticle + 1,
-    };
-    dispatch(updateCategoryAction(category_id, newCategoryForm));
-  };
-
-  const handleFileChange = (info) => {
+  //image processing
+  const handleFileChange = ({ fileList: info }) => {
     setUploadImg(info.fileList);
-    formik.setFieldValue("image", info.fileList);
+    formik.setFieldValue("image", info);
   };
   const onchangeEdit = (newValue, editor) => {
-    setTextValue(newValue);
-    // newValue = newValue.slice(3);
-    // formik.values.content = newValue.slice(0, newValue.length - 4);
-    formik.values.content = newValue;
+    formik.setFieldValue("content", newValue);
   };
+  const handleCancel = () => setPreviewVisible(false);
 
   const handlePreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
     }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow.document.write(image.outerHTML);
+
+    setPreviewImage(file.url || file.preview);
+    setPreviewVisible(true);
+    setPreviewTitle(
+      file.name || file.url.substring(file.url.lastIndexOf("/") + 1)
+    );
   };
 
   const dummyRequest = ({ file, onSuccess }) => {
@@ -102,6 +126,7 @@ const NewPost = () => {
     }, 2000);
   };
 
+  //handle form
   const handleFormItemChange = (name, valueTemp = null) => {
     if (name === "category") {
       let categoryObjInCategoryList = listCategory.filter(
@@ -127,14 +152,6 @@ const NewPost = () => {
     };
   };
 
-  useEffect(() => {
-    setImageUrl(uploadImg[uploadImg?.length - 1] || 0);
-  }, [uploadImg]);
-
-  useEffect(() => {
-    dispatch(getAllCatetgoryAction());
-  }, []);
-
   return (
     <section className={cx("edit-post")}>
       <div className={cx("edit-post__page-header")}>
@@ -147,7 +164,7 @@ const NewPost = () => {
         />
       </div>
       <div className={cx("edit-post__form")}>
-        <p>TẠO BÀI VIẾT</p>
+        <p>ChI TIẾT BÀI VIẾT</p>
         <Form
           onFinish={formik.handleSubmit}
           // onChange={() => console.log(form)}
@@ -162,45 +179,50 @@ const NewPost = () => {
           >
             <Button type="primary" htmlType="submit">
               <PlusOutlined />
-              Tạo bài viết
+              Lưu thay đổi
             </Button>
           </Form.Item>
           <Form.Item
             label="Tiêu đề"
-            name="title"
             labelAlign="left"
-            onChange={formik.handleChange}
-            value={formik.values.title}
-            rules={[
-              {
-                required: true,
-                message: "Please enter post title!",
-              },
-            ]}
+            // name="formtitle"
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please enter post title!",
+            //   },
+            // ]}
           >
-            <Input placeholder="Nhập tiêu đề" />
+            <Input
+              name="title"
+              required
+              onChange={formik.handleChange}
+              value={formik.values.title}
+              placeholder="Nhập tiêu đề"
+            />
           </Form.Item>
           <Form.Item
             label="Danh mục"
-            name="category"
             labelAlign="left"
+            name="category"
+
             // onChange={formik.handleChange}
             // value={formik.values.Category}
-            rules={[
-              {
-                required: true,
-                message: "Please choose post category!",
-              },
-            ]}
+            // rules={[
+            //   {
+            //     required: true,
+            //     message: "Please choose post category!",
+            //   },
+            // ]}
           >
             <Select
               onChange={(value) => handleFormItemChange("category", value)}
-              value={formik.values.Category}
+              value={formik.values.Category_ID}
               defaultValue="Category 1"
               style={{ width: "fit-content" }}
             >
               {listCategory.map((item, idx) => (
-                <Option key={idx} value={item.id}>
+                <Option key={item.id} value={item.id}>
                   {item.name}
                 </Option>
               ))}
@@ -208,12 +230,12 @@ const NewPost = () => {
           </Form.Item>
           <Form.Item
             label="Avatar"
-            name="avatar"
             labelAlign="left"
+            name="avatar"
             // onChange={handleFileChange(event)}
             rules={[
               {
-                required: true,
+                // required: true,
                 message: "Please choost an avatar for this post!",
               },
             ]}
@@ -222,14 +244,26 @@ const NewPost = () => {
               fileList={uploadImg}
               listType="picture-card"
               className="avatar-uploader"
+              onPreview={handlePreview}
               onChange={handleFileChange}
-              value={formik.values.avatar}
-              // showUploadList={true}
-              previewFile={handlePreview}
               customRequest={dummyRequest}
             >
               {uploadImg < 1 && "+ Upload"}
             </Upload>
+            <Modal
+              visible={previewVisible}
+              title={previewTitle}
+              footer={null}
+              onCancel={handleCancel}
+            >
+              <img
+                alt="example"
+                style={{
+                  width: "100%",
+                }}
+                src={previewImage}
+              />
+            </Modal>
           </Form.Item>
           <Form.Item label="Hiển thị" name="visible" labelAlign="left">
             <Switch
@@ -237,17 +271,14 @@ const NewPost = () => {
               onChange={handleFormItemChange("isVisible")}
             />
           </Form.Item>
-          <Form.Item
-            onChange={formik.handleChange}
-            value={formik.values.content}
-            label="Nội dung"
-            name="content"
-            labelAlign="left"
-          >
+          <Form.Item label="Nội dung" labelAlign="left">
             <Editor
               tinymceScriptSrc={
                 process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
               }
+              name="content"
+              //   onChange={formik.handleChange}
+              //   value={formik.values.content}
               value={formik.values.content}
               onEditorChange={(newValue, editor) =>
                 onchangeEdit(newValue, editor)
@@ -281,14 +312,11 @@ const NewPost = () => {
             />
           </Form.Item>
           <Form.Item
-            onChange={formik.handleChange}
-            value={formik.values.source}
             label="Nguồn"
-            name="source"
             labelAlign="left"
             rules={[
               {
-                required: true,
+                // required: true,
                 message: "This field is required.",
               },
               {
@@ -297,7 +325,12 @@ const NewPost = () => {
               },
             ]}
           >
-            <Input placeholder="https://..." />
+            <Input
+              onChange={formik.handleChange}
+              value={formik.values.source}
+              name="source"
+              placeholder="https://..."
+            />
           </Form.Item>
         </Form>
       </div>
@@ -305,4 +338,4 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+export default DetailPost;
