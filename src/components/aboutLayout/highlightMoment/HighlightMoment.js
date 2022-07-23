@@ -1,8 +1,18 @@
 import "./highlightMoment.scss";
 import Carousel from "react-multi-carousel";
 import img1 from "../../../assets/Frame38.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllMomentAction } from "../../../stores/actions/momentAction";
+import { URL_IMAGE } from "../../../utils/constants";
 
 const HighlightMoment = () => {
+  const dispatch = useDispatch();
+  const { listMoment } = useSelector((state) => state.momentReducer);
+  console.log(listMoment);
+  useEffect(() => {
+    dispatch(getAllMomentAction);
+  });
   return (
     <section className="highlight-moment">
       <h2>Highlight moments</h2>
@@ -57,7 +67,16 @@ const HighlightMoment = () => {
           slidesToSlide={1}
           swipeable
         >
-          <img src={img1} alt="nothing to see" />
+          {listMoment?.map((img, idx) => {
+            console.log(`${URL_IMAGE}${img.image[0]}`)
+            return (
+              <img
+                src={`${URL_IMAGE}${img.image[0]}`}
+                key={img.id}
+                alt="nothing to see"
+              />
+            );
+          })}
         </Carousel>
       </div>
     </section>

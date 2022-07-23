@@ -144,7 +144,7 @@ export const Language = () => {
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-        <h5>KHOẢNH KHẮC NỔI BẬT</h5>
+        <h5>Quản lý ngôn ngữ</h5>
         <div className={cx("grpBtn")}>
           <Popconfirm
             title="Are you sure？"

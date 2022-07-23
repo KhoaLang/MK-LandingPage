@@ -95,7 +95,7 @@ export const DetailLanguage = () => {
       className={cx("post-new", { createHiring: "createHiring" })}
       onSubmit={formik.handleSubmit}
     >
-      <div className={cx("wrapper")}>
+      <div >
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item
