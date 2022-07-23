@@ -129,7 +129,7 @@ const Footer = () => {
               }
               onChange={handleChange}
             >
-              <Option  value="en">
+              <Option value="en">
                 <LanguageSelect icon={UK} name="English" />
               </Option>
               <Option value="vi">

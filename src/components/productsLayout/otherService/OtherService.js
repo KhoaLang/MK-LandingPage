@@ -4,14 +4,16 @@ import img1 from "../../../assets/Frame22(1).png";
 import img2 from "../../../assets/Frame22(2).png";
 import img3 from "../../../assets/Frame22(3).png";
 import Button from "../../layouts/primaryButton/Button";
+import { useTranslation } from "react-i18next";
 
 const image = [img1, img2, img3];
 
 const OtherService = () => {
+  const {t} = useTranslation()
   return (
     <section className="other-service d-flex justify-content-center align-items-center">
       <div className="other-service__container container d-flex flex-column justify-content-center align-items-center">
-        <h2>Các dịch vụ khác</h2>
+        <h2>{t("Other_Services")}</h2>
         <Row gutter={[24, 24]}>
           {image.map((item, idx) => (
             <Col key={idx} md={8} xs={24}>
