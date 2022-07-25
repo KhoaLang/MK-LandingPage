@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
-import { EventCard } from "../layouts/eventCard/EventCard";
+import { CardEvent } from "../Card";
 import { getAllPostAction } from "../../stores/actions/postAction";
 const { TabPane } = Tabs;
 const pageSize = 8;
@@ -35,7 +35,7 @@ const Event = () => {
     });
   }, [listPost]);
   const onChange = (key) => {
-    console.log(key);
+    // console.log(key);
     dispatch(getAllPostAction(key));
     setState({
       data: listPost?.filter((category) => category.isVisible === true),
@@ -76,7 +76,7 @@ const Event = () => {
             //     listPost?.filter((category) => category.isVisible === true)
             //   )
             // }
-            tab="Tất Cả"
+            tab={t("All")}
             key=""
           >
             <Row

@@ -11,7 +11,7 @@ export const Banner = (props) => {
   const { banner } = props;
   const { listBanner } = useSelector((state) => state.bannerReducer);
   const dispatch = useDispatch();
-  console.log(listBanner);
+  // console.log(listBanner);
   useEffect(() => {
     dispatch(getAllBannerAction());
   }, []);

@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 const image = [img1, img2, img3];
 
 const OtherService = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <section className="other-service d-flex justify-content-center align-items-center">
       <div className="other-service__container container d-flex flex-column justify-content-center align-items-center">
@@ -30,7 +30,7 @@ const OtherService = () => {
             </Col>
           ))}
         </Row>
-        <Button style={{ marginTop: "70px" }}>Liên hệ VNPLUS</Button>
+        <Button style={{ marginTop: "70px" }}>{t("ContactVNPLUS")}</Button>
       </div>
     </section>
   );

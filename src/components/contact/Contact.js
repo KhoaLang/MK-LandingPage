@@ -7,6 +7,7 @@ import { ReactComponent as Email } from "../../assets/mail.svg";
 import img1 from "../../assets/Frame 66.png";
 import { useEffect, useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
+import { useTranslation } from "react-i18next";
 
 const contactInfo = [
   {
@@ -26,6 +27,7 @@ const contactInfo = [
 const Contact = () => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { t } = useTranslation();
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -42,7 +44,7 @@ const Contact = () => {
     <section className="contact d-flex justify-content-center align-items-center">
       <SmoothScroll />
       <div className="contact__container container d-flex flex-column justify-content-center align-items-center">
-        <h2>Liên hệ với VNPLUS</h2>
+        <h2>{t("ContactVNPLUS")}</h2>
         <div className="contact__container__form">
           <Row gutter={[48]}>
             <Col md={14} xs={24}>
@@ -59,7 +61,7 @@ const Contact = () => {
                 <Row gutter={[24, 24]}>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label="Họ và tên"
+                      label={t("FullName")}
                       name="name"
                       rules={[
                         {
@@ -89,7 +91,7 @@ const Contact = () => {
                 <Row gutter={[24, 24]}>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label="Tên doanh nghiệp"
+                      label={t("EnterpriseName")}
                       name="enterprisename"
                       rules={[
                         {
@@ -103,7 +105,7 @@ const Contact = () => {
                   </Col>
                   <Col md={12} xs={24}>
                     <Form.Item
-                      label="Số điện thoại"
+                      label={t("PhoneNumber")}
                       name="phonenumber"
                       rules={[
                         {
@@ -118,7 +120,7 @@ const Contact = () => {
                 </Row>
 
                 <Form.Item
-                  label="Chúng tôi có thể giúp gì cho bạn?"
+                  label={t("WhatCanWeHelpYou")}
                   name="help"
                   rules={[
                     {
@@ -129,12 +131,12 @@ const Contact = () => {
                 >
                   <Input.TextArea />
                 </Form.Item>
-                <Button style={{ marginTop: "26px" }}>Gửi</Button>
+                <Button style={{ marginTop: "26px" }}>{t("Send")}</Button>
               </Form>
             </Col>
             <Col md={10} xs={24}>
               <div className="contact__container__form__company-info d-flex flex-column">
-                <h5>Công ty Cổ phần Công nghệ và Đầu tư VNPLUS</h5>
+                <h5>{t("CompanyName")}</h5>
                 <ul className="footer__upper__container__left-side__contact-info">
                   {contactInfo.map((item, idx) => (
                     <li
