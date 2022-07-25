@@ -55,7 +55,7 @@ const Event = () => {
     //   /* you can also use 'auto' behaviour
     //      in place of 'smooth' */
     // });
-    console.log("page2wdsad-sad-sa", page);
+    // console.log("page2wdsad-sad-sa", page);
     setState((prev) => ({
       ...prev,
       current: page,
