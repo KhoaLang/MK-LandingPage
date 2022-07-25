@@ -8,7 +8,7 @@ import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
 import { EventCard } from "../layouts/eventCard/EventCard";
 import { getAllPostAction } from "../../stores/actions/postAction";
 const { TabPane } = Tabs;
-const pageSize = 3;
+const pageSize = 8;
 const Event = () => {
   const [state, setState] = useState({
     data: [],
@@ -21,43 +21,47 @@ const Event = () => {
   const dispatch = useDispatch();
   const { listCategory } = useSelector((state) => state.categoryReducer);
   const { listPost } = useSelector((state) => state.postReducer);
-  const [currentPage, setCurrentPage] = useState();
   const { t, i18n } = useTranslation();
-  // console.log("state--------ư-q-ưq-", state);
   useEffect(() => {
     dispatch(getAllCatetgoryAction);
     dispatch(getAllPostAction);
+  }, []);
+  useEffect(() => {
     setState({
       data: listPost?.filter((category) => category.isVisible === true),
       totalPage: listPost.length / pageSize,
       minIndex: 0,
       maxIndex: pageSize,
     });
-  }, []);
-  const onChange = (item1) => {
-    // console.log(item1);
+  }, [listPost]);
+  const onChange = (key) => {
+    console.log(key);
+    dispatch(getAllPostAction(key));
+    setState({
+      data: listPost?.filter((category) => category.isVisible === true),
+      totalPage: listPost.length / pageSize,
+      minIndex: 0,
+      maxIndex: pageSize,
+    });
   };
   const style = {
     background: "#0092ff",
     padding: "8px 0",
   };
   const handleChange = (page) => {
-    // console.log("page2wdsad-sad-sa", page);
-    setState({
-      ...state,
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: "smooth",
+    //   /* you can also use 'auto' behaviour
+    //      in place of 'smooth' */
+    // });
+    console.log("page2wdsad-sad-sa", page);
+    setState((prev) => ({
+      ...prev,
       current: page,
       minIndex: (page - 1) * pageSize,
       maxIndex: page * pageSize,
-    });
-  };
-  const handleChangeTab = (item1) => {
-    // console.log(item1, "item1");
-    setState({
-      data: item1?.Posts,
-      totalPage: item1?.Posts.length / pageSize,
-      minIndex: 0,
-      maxIndex: pageSize,
-    });
+    }));
   };
 
   return (
@@ -67,13 +71,13 @@ const Event = () => {
         <h2 className="title">{t("New_Event")}</h2>
         <Tabs size="large" defaultActiveKey="1" onChange={onChange}>
           <TabPane
-            onClick={() =>
-              handleChangeTab(
-                listPost?.filter((category) => category.isVisible === true)
-              )
-            }
-            tab={t("All")}
-            key="1"
+            // onClick={() =>
+            //   handleChangeTab(
+            //     listPost?.filter((category) => category.isVisible === true)
+            //   )
+            // }
+            tab="Tất Cả"
+            key=""
           >
             <Row
               gutter={[
@@ -81,17 +85,24 @@ const Event = () => {
                 { xs: 2, sm: 4, md: 10, lg: 16 },
               ]}
             >
-              {listCategory
+              {listPost
                 ?.filter((category) => category.isVisible === true)
-                .map((item, idx) => {
-                  return <EventCard key={item.id} item={item} idxItem={idx} />;
+                .map((item, index) => {
+                  return (
+                    index >= minIndex &&
+                    index < maxIndex && (
+                      <CardEvent item={item} idxItem={index} />
+                    )
+                  );
                 })}
             </Row>
             <Pagination
+              defaultCurrent={1}
               pageSize={pageSize}
               current={current}
               total={data.length}
               onChange={handleChange}
+              responsive={true}
               style={{ marginTop: "5rem", textAlign: "center" }}
             />
           </TabPane>
@@ -100,7 +111,7 @@ const Event = () => {
             .map((item1, idx) => {
               return (
                 <TabPane
-                  onClick={() => handleChangeTab(item1)}
+                  // onClick={() => handleChangeTab(item1)}
                   tab={item1.name}
                   key={item1.id}
                 >
@@ -110,19 +121,24 @@ const Event = () => {
                       { xs: 2, sm: 4, md: 10, lg: 16 },
                     ]}
                   >
-                    {[item1].map((item, idx) => {
-                      return (
-                        <EventCard
-                          key={item.id}
-                          item={item}
-                          // key={idx}
-                          idxItem={idx}
-                        />
-                      );
-                    })}
+                    {listPost
+                      ?.filter((category) => category.isVisible === true)
+                      .map((item, index) => {
+                        return (
+                          index >= minIndex &&
+                          index < maxIndex && (
+                            <CardEvent
+                              key={item.id}
+                              item={item}
+                              idxItem={index}
+                            />
+                          )
+                        );
+                      })}
                   </Row>
                   <Pagination
                     pageSize={pageSize}
+                    defaultCurrent={1}
                     current={current}
                     total={data.length}
                     onChange={handleChange}

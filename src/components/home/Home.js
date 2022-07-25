@@ -6,6 +6,7 @@ import About from "../homeLayout/about/About";
 import Career from "../homeLayout/career/Career";
 import { useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
+import { Banner } from "../banner/Banner";
 // import Scrollbar from "react-smooth-scrollbar";
 // import { gsap, ScrollTrigger } from "gsap/all";
 
@@ -42,7 +43,8 @@ const Home = () => {
   return (
     <div className="home">
       <SmoothScroll setBgOffset={setBgOffset} />
-      <Hero />
+      {/* <Hero /> */}
+      <Banner />
       <OurProducts button={false} />
       <Events />
       <About bgOffset={bgOffset} />

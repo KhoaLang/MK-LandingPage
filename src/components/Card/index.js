@@ -14,11 +14,40 @@ export const CardEvent = ({ item, size, idxItem }) => {
   const styles = size ? { bacground: "#ffff" } : "";
   return (
     <>
-      {item?.Posts?.filter((item1) => item1.isVisible === true).map(
+      {idxItem === 0 ? (
+        <Col className="gutter-row" xs={24} lg={16} xl={16} span={16}>
+          <div className="card-event">
+            <img src={`${URL_IMAGE}${item.image}`} />
+            <div style={{ styles }} className="content">
+              <p>{item.Category.name}</p>
+              {size ? (
+                <h3> {truncateString(item.title, 40)}</h3>
+              ) : (
+                <h3>{item.title}</h3>
+              )}
+              <p>{item.createdAt}</p>
+            </div>
+          </div>
+        </Col>
+      ) : (
+        <Col xs={24} lg={8} xl={8} className="gutter-row" span={8}>
+          <div className="card-event">
+            <img src={`${URL_IMAGE}${item.image}`} />
+            <div style={{ background: "#ffff" }} className="content">
+              <p style={{ color: "#7B7B7B" }}>{item.Category.name}</p>
+              <h3 style={{ color: "#333" }}>
+                {truncateString(item.title, 22)}
+              </h3>
+              <p style={{ color: "#7B7B7B" }}>{item.createdAt}</p>
+            </div>
+          </div>
+        </Col>
+      )}
+      {/* {item?.Psts?.filter((item1) => item1.isVisible === true).map(
         (item2, idx) => {
           if (idx === 0 && idxItem === 0) {
             return (
-              <Col className="gutter-row" span={16}>
+              <Col className="gutter-row" xs={24} xl={16} span={16}>
                 <div className="card-event">
                   <img src={`${URL_IMAGE}${item2.image}`} />
                   <div style={{ styles }} className="content">
@@ -35,7 +64,7 @@ export const CardEvent = ({ item, size, idxItem }) => {
             );
           } else {
             return (
-              <Col className="gutter-row" span={8}>
+              <Col xs={24} xl={8} className="gutter-row" span={8}>
                 <div className="card-event">
                   <img src={`${URL_IMAGE}${item2.image}`} />
                   <div style={{ background: "#ffff" }} className="content">
@@ -50,7 +79,7 @@ export const CardEvent = ({ item, size, idxItem }) => {
             );
           }
         }
-      )}
+      )} */}
     </>
   );
 };
