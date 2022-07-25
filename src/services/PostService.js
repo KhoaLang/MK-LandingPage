@@ -7,7 +7,10 @@ export class PostService extends baseService {
   updatePost = (id, data) => {
     return this.patch(`/api/poster/${id}`, data);
   };
-  getAllPost = () => {
+  getAllPost = (id = "") => {
+    if (id.trim !== "") {
+      return this.get(`/api/poster?CategoryId=${id}`);
+    }
     return this.get(`/api/poster`);
   };
   getPostDetailById = (id) => {
