@@ -118,7 +118,6 @@ const Footer = () => {
               style={{
                 width: 170,
                 height: "fit-content",
-                color: "#fff",
               }}
               dropdownStyle={{
                 width: "100%",
@@ -129,7 +128,7 @@ const Footer = () => {
               }
               onChange={handleChange}
             >
-              <Option  value="en">
+              <Option value="en">
                 <LanguageSelect icon={UK} name="English" />
               </Option>
               <Option value="vi">
