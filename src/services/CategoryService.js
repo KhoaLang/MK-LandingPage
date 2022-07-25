@@ -7,7 +7,10 @@ export class CatetgoryService extends baseService {
   updateCategory = (id, data) => {
     return this.patch(`/api/category/${id}`, data);
   };
-  getAllCategory = () => {
+  getAllCategory = (id = "") => {
+    if (id.trim() !== "") {
+      return this.get(`/api/category?option=${id}`);
+    }
     return this.get(`/api/category`);
   };
   getDetailById = (id) => {

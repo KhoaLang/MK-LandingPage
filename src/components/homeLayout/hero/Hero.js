@@ -1,4 +1,5 @@
 import "./hero.scss";
+import { useState } from "react";
 import { useRef } from "react";
 const Hero = () => {
   return (

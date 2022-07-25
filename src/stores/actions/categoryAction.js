@@ -21,10 +21,10 @@ export const createCategoryAction = (data, resetForm) => {
     }
   };
 };
-export const getAllCatetgoryAction = () => {
+export const getAllCatetgoryAction = (id) => {
   return async (dispatch) => {
     try {
-      const { data } = await catetgoryService.getAllCategory();
+      const { data } = await catetgoryService.getAllCategory(id);
       dispatch({ type: GET_ALL_CATEGORY, data: data.data });
     } catch (error) {
       // console.log(error.response?.data);

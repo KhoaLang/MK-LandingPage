@@ -1,0 +1,182 @@
+.banner {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    padding: 0 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    // margin-top: 9rem;
+
+    .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .content {
+        position: relative;
+        z-index: 1;
+
+        h4 {
+            color: rgba(255, 255, 255, 0.753);
+            font-weight: 600;
+            font-size: 22px;
+            margin: 0;
+
+            span {
+                padding: 0 10px;
+                border-right: 1px solid rgba(255, 255, 255, 0.5);
+
+                &:last-child {
+                    border-right: none;
+                }
+                &:first-child {
+                    padding-left: 0;
+                }
+
+                i {
+                    background-color: #de0611;
+                    color: #fff;
+                    padding: 0 8px;
+                    font-style: normal;
+                    border-radius: 2px;
+                    display: inline-block;
+                }
+            }
+        }
+        p {
+            font-size: 17px;
+            font-weight: 300;
+            line-height: 1.5em;
+            color: #fff;
+            margin: 10px 0 20px;
+            max-width: 600px;
+        }
+        .buttons {
+            position: relative;
+
+            a {
+                position: relative;
+                display: inline-block;
+                margin-left: 10px;
+                background-color: #de0611;
+                color: #ffff;
+                padding: 6px 20px;
+                text-decoration: none;
+                font-weight: 500;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+
+                &:nth-child(2) {
+                    background-color: rgba(0, 0, 0, 0.5);
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+                &:hover:nth-child(2) {
+                    background-color: #de0611;
+                }
+            }
+            i {
+                margin-right: 6px;
+            }
+        }
+    }
+    .play {
+        position: absolute;
+        left: 100px;
+        bottom: 50px;
+        display: inline-flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: 1px;
+        font-size: 1.2em;
+        cursor: pointer;
+
+        .icon {
+            font-size: 50px;
+            margin-right: 10px;
+        }
+    }
+}
+.trailer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s linear;
+
+    &.chay {
+        opacity: 1;
+        visibility: visible;
+    }
+    video {
+        max-width: 900px;
+        outline: none;
+    }
+    .close {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        cursor: pointer;
+        font-size: 33px;
+        color: #fff;
+    }
+}
+
+
+
+.bannerSwiper {
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        border-radius: 50%;
+        background-color: rgba(128, 128, 128, 0.562);
+
+        &:hover {
+            background-color: #43464b;
+        }
+
+        &::after {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+    .swiper-button-prev {
+        left: 30px;
+    }
+    .swiper-button-next {
+        right: 30px;
+    }
+    .swiper-horizontal > .swiper-pagination-bullets,
+    .swiper-pagination-bullets.swiper-pagination-horizontal,
+    .swiper-pagination-custom,
+    .swiper-pagination-fraction {
+        bottom: 30px;
+    }
+    .swiper-pagination-bullet {
+        width: 40px;
+        height: 2px;
+        border-radius: 0%;
+        color: lightgray;
+    }
+    .swiper-pagination-bullet-active {
+        background-color: #de0611;
+    }
+}
