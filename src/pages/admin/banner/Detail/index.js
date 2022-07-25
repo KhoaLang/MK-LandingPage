@@ -62,12 +62,11 @@ export const BannerDetail = () => {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAllPageAction());
-    console.log("[first]");
+    // console.log("[first]");
   }, []);
-  console.log("first");
+  // console.log("first");
   useEffect(() => {
-    dispatch(getDetailBannerAction(id,setFileList));
-   
+    dispatch(getDetailBannerAction(id, setFileList));
   }, [id, dispatch]);
 
   const handleCancel = () => setPreviewVisible(false);
@@ -121,7 +120,7 @@ export const BannerDetail = () => {
       name: Yup.string().required("Name is require!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
+      // console.log(values);
       let formData = new FormData();
       for (let key in values) {
         if (key !== "image") {
@@ -132,7 +131,7 @@ export const BannerDetail = () => {
           formData.append("image", values.image[0].originFileObj);
         }
       }
-      console.log(formData.get("image"));
+      // console.log(formData.get("image"));
       dispatch(updateBannerAction(id, formData));
     },
   });

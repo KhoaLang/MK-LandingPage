@@ -6,21 +6,37 @@ import {
   deletePostAction,
 } from "../../../../stores/actions/postAction";
 import styles from "./managePost.module.scss";
-import { Button, DatePicker, Form, Input, Select, Switch, Table } from "antd";
 import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Select,
+  Switch,
+  Table,
+  Popconfirm,
+} from "antd";
+import {
+  QuestionCircleOutlined,
   DeleteOutlined,
   PlusOutlined,
   SearchOutlined,
   EditOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { filter } from "lodash";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const cx = classNames.bind(styles);
 
 const ManagePost = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [categorySelect, setCategorySelect] = useState(-1);
+  const [dateSelect, setDateSelect] = useState({ start: "", end: "" });
+  const [listOrder, setListOrder] = useState(-1);
+
   const { listPost } = useSelector((state) => state.postReducer);
+  const [filteredList, setFilteredList] = useState([...listPost]);
   const { listCategory } = useSelector((state) => state.categoryReducer);
   const dispatch = useDispatch();
 
@@ -32,6 +48,58 @@ const ManagePost = () => {
     dispatch(getAllPostAction());
   }, [dispatch, listPost]);
 
+  useEffect(() => {
+    let tempList = listPost
+      ?.filter((item, idx) =>
+        searchKeyword === "" ||
+        item.title.toLowerCase().includes(searchKeyword.toLowerCase())
+          ? true
+          : false
+      )
+      ?.filter((item) =>
+        categorySelect === item?.Category.id || categorySelect === -1
+          ? true
+          : false
+      )
+      ?.filter((item) => {
+        let date = item.createdAt.slice(0, 10);
+        let dateStartSelect = dateSelect?.start;
+        let dateEndSelect = dateSelect?.end;
+
+        let itemDay = date.slice(-2);
+        let itemMonth = date.slice(5, 7);
+        let itemYear = date.slice(0, 4);
+
+        let selectedDayStart = dateStartSelect?.slice(-2);
+        let selectedMonthStart = dateStartSelect?.slice(5, 7);
+        let selectedYearStart = dateStartSelect?.slice(0, 4);
+
+        let selectedDayEnd = dateEndSelect?.slice(-2);
+        let selectedMonthEnd = dateEndSelect?.slice(5, 7);
+        let selectedYearEnd = dateEndSelect?.slice(0, 4);
+
+        if (
+          (selectedYearStart <= itemYear && itemYear <= selectedYearEnd) ||
+          dateStartSelect === ""
+        ) {
+          if (
+            (selectedMonthStart <= itemMonth &&
+              itemMonth <= selectedMonthEnd) ||
+            dateStartSelect === ""
+          ) {
+            if (
+              (selectedDayStart <= itemDay && itemDay <= selectedDayEnd) ||
+              dateStartSelect === ""
+            ) {
+              return item;
+            }
+          }
+        }
+      });
+
+    setFilteredList([...tempList]);
+  }, [searchKeyword, dateSelect, categorySelect]);
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -39,23 +107,16 @@ const ManagePost = () => {
     console.log("id", id);
     console.log("checked", checked);
   };
-  const data = listPost
-    ?.filter((item, idx) =>
-      searchKeyword === "" ||
-      item.title.toLowerCase().includes(searchKeyword.toLowerCase())
-        ? true
-        : false
-    )
-    ?.map((item, idx) => {
-      const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`;
-      return {
-        ...item,
-        key: item.id,
-        avatar: imgURL,
-        category: item.Category?.name,
-        visible: item.isVisible,
-      };
-    });
+  const data = filteredList?.map((item, idx) => {
+    const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.image}`;
+    return {
+      ...item,
+      key: item?.id,
+      avatar: imgURL,
+      category: item?.Category?.name,
+      visible: item?.isVisible,
+    };
+  });
   const columns = [
     {
       title: "Avatar",
@@ -96,18 +157,23 @@ const ManagePost = () => {
       render: (item) => {
         return (
           <div>
-            <Button
-              shape="circle"
-              size="large"
-              onClick={() => dispatch(deletePostAction(item.id))}
-              icon={<DeleteOutlined />}
-            />
+            <Popconfirm
+              title="Are you sure？"
+              onConfirm={() => dispatch(deletePostAction(item.id))}
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            >
+              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
+            </Popconfirm>
             <Button
               style={{ marginLeft: "20px" }}
               shape="circle"
               size="large"
               type="primary"
-              onClick={() => navigate(`detail/${item.id}`)}
+              onClick={() =>
+                window.location.href.slice(-6).includes("posts")
+                  ? navigate(`detail/${item.id}`)
+                  : navigate(`posts/detail/${item.id}`)
+              }
               icon={<EditOutlined />}
             />
           </div>
@@ -117,6 +183,7 @@ const ManagePost = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
+    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -131,25 +198,40 @@ const ManagePost = () => {
     } else navigate("newpost");
   };
 
+  const handleCalendarChange = (date, dateString) => {
+    setDateSelect({ start: dateString[0], end: dateString[1] });
+  };
+
+  const handleDeletePost = () => {
+    selectedRowKeys.map((item) => {
+      dispatch(deletePostAction(item));
+    });
+  };
+
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
         <h5>QUẢN LÝ BÀI VIẾT</h5>
         <div className={cx("grpBtn")}>
-          <Button
-            style={{
-              color: "#C00101",
-              borderColor: "currentcolor",
-              fontWeight: "bold",
-            }}
-            size="large"
+          <Popconfirm
+            title="Are you sure？"
+            onConfirm={handleDeletePost}
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
           >
-            <DeleteOutlined />
-            Xoá
-          </Button>
+            <Button
+              style={{
+                color: "#C00101",
+                borderColor: "currentcolor",
+                fontWeight: "bold",
+              }}
+              size="large"
+            >
+              <DeleteOutlined />
+              Xoá
+            </Button>
+          </Popconfirm>
           <Button
             onClick={handleNavigateToCreateNewPost}
-            // onClick={() => console.log(listPost)}
             style={{ marginLeft: "20px" }}
             type="primary"
             size="large"
@@ -182,25 +264,35 @@ const ManagePost = () => {
           />
         </Form.Item>
         <Form.Item label="Phân loại" className="w-20" name="type">
-          <Select size="large" defaultValue="">
-            {listCategory?.map((item, idx) => (
-              <Option key={item.id} value={item.id}>
-                {item.name}
-              </Option>
-            ))}
-            {/* <Option value="Category1">Category1</Option>
-            <Option value="Category2">Category2</Option>
-            <Option value="Category3">Category3</Option> */}
+          <Select
+            size="large"
+            value={categorySelect}
+            onChange={(val) => setCategorySelect(val)}
+            defaultValue={-1}
+          >
+            {[{ id: -1, name: "All category" }, ...listCategory]?.map(
+              (item, idx) => (
+                <Option key={item.id} value={item.id}>
+                  {item.name}
+                </Option>
+              )
+            )}
           </Select>
         </Form.Item>
         <Form.Item label="Ngày" className="w-20" name="range-date">
-          <RangePicker size="large" />
+          <RangePicker onCalendarChange={handleCalendarChange} size="large" />
         </Form.Item>
         <Form.Item label="Xếp theo" className="w-20">
-          <Select size="large" defaultValue="" name="sort">
-            <Option value="">Tất cả</Option>
-            <Option value="Category1">Mới nhất</Option>
-            <Option value="Category2">Cũ nhất</Option>
+          <Select
+            size="large"
+            value={listOrder}
+            onChange={(value) => setListOrder(value)}
+            defaultValue={-1}
+            name="sort"
+          >
+            <Option value={-1}>Tất cả</Option>
+            <Option value={0}>Mới nhất</Option>
+            <Option value={1}>Cũ nhất</Option>
           </Select>
         </Form.Item>
         <Form.Item>

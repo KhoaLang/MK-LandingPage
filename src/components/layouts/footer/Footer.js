@@ -118,7 +118,6 @@ const Footer = () => {
               style={{
                 width: 170,
                 height: "fit-content",
-                color: "#fff",
               }}
               dropdownStyle={{
                 width: "100%",

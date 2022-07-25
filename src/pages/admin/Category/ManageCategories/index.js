@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategory,
-  getAllCatetgoryAction,
+  // getAllCatetgoryAction,
   updateCategoryAction,
 } from "../../../../stores/actions/categoryAction";
 const { Option } = Select;
@@ -26,12 +26,12 @@ const ManageCategories = () => {
   // const { isLoading } = useSelector((state) => state.loadingReducer);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  useEffect(() => {
-    dispatch(getAllCatetgoryAction());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllCatetgoryAction());
+  // }, [dispatch]);
 
   const handleVisible = (id, checked) => {
-    console.log(id,checked)
+    console.log(id, checked);
     dispatch(updateCategoryAction(id, { isVisible: checked }));
   };
   const handleDeleteArray = async (data) => {
@@ -108,7 +108,7 @@ const ManageCategories = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(newSelectedRowKeys);
+    // console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {

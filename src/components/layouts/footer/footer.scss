@@ -79,8 +79,8 @@
       }
       &__right-side {
         .ant-select-selector {
-          padding: 0px !important;
-          border: 0px !important;
+          // padding: 0px !important;
+          // border: 0px !important;
           background-color: #17243c !important;
         }
       }
@@ -157,4 +157,10 @@
   }
 }
 
+.ant-select-item-option-active:hover {
+  background-color: #101a2c !important;
+}
+.ant-select-item-option-active {
+  background-color: #17243c !important;
+}
 
