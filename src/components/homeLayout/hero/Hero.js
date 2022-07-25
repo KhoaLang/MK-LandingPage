@@ -1,10 +1,11 @@
 import "./hero.scss";
-import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 const Hero = () => {
+  const { t } = useTranslation();
   return (
     <section className="hero d-flex justify-content-center align-items-center">
       <div className="hero__container">
-        <h1>Mang đến những trải nghiệm mới mẻ</h1>
+        <h1>{t("HeroQuote")}</h1>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, odio
           quo eveniet voluptatum aspernatur deleniti quisquam blanditiis

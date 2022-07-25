@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 
 const Events = () => {
   const cardImage = [image1, image2, image3];
-const {t} = useTranslation()
+  const { t } = useTranslation();
   return (
     <section className="events d-flex justify-content-center align-items-center">
       <div className="events__container container d-flex justify-content-center align-items-center flex-column">
@@ -23,7 +23,7 @@ const {t} = useTranslation()
           ))}
         </Row>
         <PrimaryButton path="/event" style={{ margin: "67px auto" }}>
-          Xem thêm
+          {t("More")}
         </PrimaryButton>
       </div>
     </section>

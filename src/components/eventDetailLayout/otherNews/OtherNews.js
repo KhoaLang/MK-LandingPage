@@ -1,25 +1,39 @@
 import { Row, Col } from "antd";
 import "./otherNews.scss";
-import img1 from "../../../assets/Frame 54 (4).png";
-import img2 from "../../../assets/Frame 54 (5).png";
-import img3 from "../../../assets/Frame 54 (6).png";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { EventCard } from "../../layouts/eventCard/EventCard";
 
-const articles = [img1, img2, img3];
-
-const OtherNews = () => {
+const OtherNews = ({ id, postCategoryName }) => {
+  const [listFilteredPost, setListFilteredPost] = useState([]);
+  const navigate = useNavigate();
+  const { listPost } = useSelector((state) => state.postReducer);
+  useEffect(() => {
+    let temp = [];
+    for (let i = 0; i < 3; ++i) {
+      let randomPos = Math.floor(Math.random() * listPost.length);
+      while (temp.includes(listPost[randomPos])) {
+        randomPos = Math.floor(Math.random() * listPost.length);
+      }
+      temp.push(listPost[randomPos]);
+    }
+    setListFilteredPost([...temp]);
+  }, [window.location.href]);
   return (
     <section className="other-news">
       <h3>Tin tức khác</h3>
       <Row gutter={[28, 28]}>
-        {articles.map((item, idx) => (
-          <Col md={8} key={idx}>
+        {listFilteredPost.map((item, idx) => (
+          <Col onClick={() => navigate(`/event/${item.id}`)} md={8} key={idx}>
             <div className="other-news__card">
-              <img src={item} alt="" />
+              <img
+                src={process.env.REACT_APP_BACKEND_BASE_URL + item.image}
+                alt=""
+              />
               <div className="other-news__card__content">
-                <p>Category 1</p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                </p>
+                <p>{item.Category.name}</p>
+                <p>{item.title}</p>
                 <p>28/6/2022</p>
               </div>
             </div>

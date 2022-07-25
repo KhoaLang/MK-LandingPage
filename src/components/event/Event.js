@@ -1,18 +1,11 @@
 import "./event.scss";
 import { useState, useEffect } from "react";
-import { Card, Col, Pagination, Row, Tabs } from "antd";
-import img1 from "../../assets/Frame 51.png";
-import img2 from "../../assets/Frame 54.png";
-import img3 from "../../assets/Frame 54 (1).png";
-import img4 from "../../assets/Frame 54 (2).png";
-import img5 from "../../assets/Frame 54 (3).png";
-import PaginateItem from "../layouts/paginateItem/PaginateItem";
+import { Pagination, Row, Tabs } from "antd";
 import { useTranslation } from "react-i18next";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
-import Meta from "antd/lib/card/Meta";
-import { CardEvent } from "../Cart";
+import { EventCard } from "../layouts/eventCard/EventCard";
 import { getAllPostAction } from "../../stores/actions/postAction";
 const { TabPane } = Tabs;
 const pageSize = 3;
@@ -30,7 +23,7 @@ const Event = () => {
   const { listPost } = useSelector((state) => state.postReducer);
   const [currentPage, setCurrentPage] = useState();
   const { t, i18n } = useTranslation();
-  console.log("state--------ư-q-ưq-", state);
+  // console.log("state--------ư-q-ưq-", state);
   useEffect(() => {
     dispatch(getAllCatetgoryAction);
     dispatch(getAllPostAction);
@@ -42,14 +35,14 @@ const Event = () => {
     });
   }, []);
   const onChange = (item1) => {
-    console.log(item1);
+    // console.log(item1);
   };
   const style = {
     background: "#0092ff",
     padding: "8px 0",
   };
   const handleChange = (page) => {
-    console.log("page2wdsad-sad-sa", page);
+    // console.log("page2wdsad-sad-sa", page);
     setState({
       ...state,
       current: page,
@@ -58,7 +51,7 @@ const Event = () => {
     });
   };
   const handleChangeTab = (item1) => {
-    console.log(item1, "item1");
+    // console.log(item1, "item1");
     setState({
       data: item1?.Posts,
       totalPage: item1?.Posts.length / pageSize,
@@ -72,15 +65,14 @@ const Event = () => {
       <SmoothScroll />
       <div className="wrapperEvent">
         <h2 className="title">{t("New_Event")}</h2>
-        <Tabs size="large"   defaultActiveKey="1" onChange={onChange}>
+        <Tabs size="large" defaultActiveKey="1" onChange={onChange}>
           <TabPane
-          
             onClick={() =>
               handleChangeTab(
                 listPost?.filter((category) => category.isVisible === true)
               )
             }
-            tab="Tất Cả"
+            tab={t("All")}
             key="1"
           >
             <Row
@@ -92,7 +84,7 @@ const Event = () => {
               {listCategory
                 ?.filter((category) => category.isVisible === true)
                 .map((item, idx) => {
-                  return <CardEvent item={item} idxItem={idx} />;
+                  return <EventCard key={item.id} item={item} idxItem={idx} />;
                 })}
             </Row>
             <Pagination
@@ -119,7 +111,14 @@ const Event = () => {
                     ]}
                   >
                     {[item1].map((item, idx) => {
-                      return <CardEvent item={item} key={idx} idxItem={idx} />;
+                      return (
+                        <EventCard
+                          key={item.id}
+                          item={item}
+                          // key={idx}
+                          idxItem={idx}
+                        />
+                      );
                     })}
                   </Row>
                   <Pagination

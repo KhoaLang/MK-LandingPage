@@ -23,10 +23,6 @@ import { Hiring } from "./pages/admin/hirring";
 import { CreateHiring } from "./pages/admin/hirring/create";
 import { HiringDetail } from "./pages/admin/hirring/detail";
 
-
-
-import Scrollbar from "smooth-scrollbar";
-
 import { Outstanding } from "./pages/admin/outstanding";
 import { OutstandingNew } from "./pages/admin/outstanding/New";
 import { OutstandingDetail } from "./pages/admin/outstanding/Detail";
@@ -34,8 +30,6 @@ import { Button, Result } from "antd";
 import { Language } from "./pages/admin/language";
 import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
-
-import { Suspense } from "react";
 
 function App() {
   const navigate = useNavigate();
