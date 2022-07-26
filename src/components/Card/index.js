@@ -1,9 +1,11 @@
 import { URL_IMAGE } from "../../utils/constants";
 import { Card, Col, Pagination, Row, Tabs } from "antd";
 import { LazyImage } from "../LazyImage";
+import { useNavigate } from "react-router-dom";
 const { TabPane } = Tabs;
 
 export const CardEvent = ({ item, size, idxItem }) => {
+  const navigate = useNavigate()
   function truncateString(str, num) {
     if (str.length > num) {
       return str.slice(0, num) + "...";
@@ -16,7 +18,7 @@ export const CardEvent = ({ item, size, idxItem }) => {
     <>
       {idxItem === 0 ? (
         <Col className="gutter-row" xs={24} lg={16} xl={16} span={16}>
-          <div className="card-event">
+          <div className="card-event"  onClick={() => navigate(`${item.id}`)} >
             {/* <img src={`${URL_IMAGE}${item.image}`} /> */}
             <LazyImage src={`${URL_IMAGE}${item.image}`} />
             <div style={{ styles }} className="content">
@@ -32,7 +34,7 @@ export const CardEvent = ({ item, size, idxItem }) => {
         </Col>
       ) : (
         <Col xs={24} lg={8} xl={8} className="gutter-row" span={8}>
-          <div className="card-event">
+          <div className="card-event" onClick={() => navigate(`${item.id}`)}>
           <LazyImage src={`${URL_IMAGE}${item.image}`} />
             {/* <img src={`${URL_IMAGE}${item.image}`} /> */}
             <div style={{ background: "#ffff" }} className="content">

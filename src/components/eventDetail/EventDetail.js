@@ -20,12 +20,11 @@ const EventDetail = () => {
   const { postDetail } = useSelector((state) => state.postReducer);
   const mainContent = parse(`${postDetail?.content}`);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [window.location.href]);
+  // useEffect(() => {}, [window.location.href]);
 
   useEffect(() => {
     dispatch(getPostDetailAction(id, setFileList));
+    window.scrollTo(0, 0);
   }, [dispatch, id]);
 
   return (
@@ -53,7 +52,7 @@ const EventDetail = () => {
                 </Breadcrumb>
               </div>
               <div className="event-detail__container__main-content__title">
-                <p>{postDetail.title}</p>
+                <p>{postDetail?.title}</p>
                 <p>28/6/2022</p>
               </div>
               <div className="event-detail__container__main-content__content">
@@ -93,7 +92,7 @@ const EventDetail = () => {
         </div>
 
         <div className="event-detail__container__other-news">
-          <OtherNews id={id} postCategoryName={postDetail.Category.name} />
+          <OtherNews id={id} postCategoryName={postDetail?.Category?.name} />
         </div>
       </div>
     </section>

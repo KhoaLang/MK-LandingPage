@@ -4,9 +4,11 @@ import "./loading.scss";
 export const Loading = () => {
   return (
     <>
-      <div class="lds-ripple">
-        <div></div>
-        <div></div>
+      <div className="wrapperLoading">
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
       </div>
     </>
   );

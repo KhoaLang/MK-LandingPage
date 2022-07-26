@@ -4,7 +4,9 @@
   box-sizing: border-box;
   font-family: "Inter", sans-serif !important;
 }
-
+html {
+  scroll-behavior: smooth !important;
+}
 p,
 ul {
   margin: 0%;
