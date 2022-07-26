@@ -98,7 +98,7 @@ export const BannerNew = () => {
       isVisible: false,
       source: "",
       image: "",
-      locatedAt: listPage[0].id,
+      locatedAt: listPage[0]?.id,
     },
     validationSchema: Yup.object({
       serial: Yup.string().required("Serial is require!"),

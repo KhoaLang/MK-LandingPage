@@ -25,16 +25,6 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const cx = classNames.bind(styles);
-const routes = [
-  {
-    path: "",
-    breadcrumbName: "Tin tức - sự kiện",
-  },
-  {
-    path: "/newpost",
-    breadcrumbName: "Tạo bài viết",
-  },
-];
 
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {

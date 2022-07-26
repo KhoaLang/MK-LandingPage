@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import PrimaryButton from "../../layouts/primaryButton/Button";
 import "./about.scss";
+import { ParallaxBanner } from "react-scroll-parallax";
+import img from "../../../assets/753221.png";
 
 const About = (props) => {
   const { t } = useTranslation();
@@ -8,10 +10,10 @@ const About = (props) => {
     <section className="about d-flex justify-content-center align-items-center flex-column">
       <div
         className="about__bg"
-        style={{
-          top: `${props.bgOffset?.y}px`,
-          left: `${props.bgOffset?.x}px`,
-        }}
+        // style={{
+        //   top: `${props.bgOffset?.y}px`,
+        //   left: `${props.bgOffset?.x}px`,
+        // }}
       ></div>
       <div className="about__container container d-flex justify-content-center align-items-center flex-column">
         <h1>{t("AboutVNPLUS")}</h1>
