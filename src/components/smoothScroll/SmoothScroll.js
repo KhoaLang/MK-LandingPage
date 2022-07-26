@@ -1,4 +1,4 @@
-import SmoothScrollbar from "smooth-scrollbar";
+// import SmoothScrollbar from "smooth-scrollbar";
 import { useEffect, useState } from "react";
 
 var options = {
