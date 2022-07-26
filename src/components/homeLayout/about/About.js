@@ -10,7 +10,7 @@ const About = (props) => {
     <section className="about d-flex justify-content-center align-items-center flex-column">
       <div className="about__container container d-flex justify-content-center align-items-center flex-column">
         <h1>{t("AboutVNPLUS")}</h1>
-        <p>
+        <p style={{textAlign:"justify"}}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut

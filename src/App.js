@@ -26,15 +26,32 @@ import { HiringDetail } from "./pages/admin/hirring/detail";
 import { Outstanding } from "./pages/admin/outstanding";
 import { OutstandingNew } from "./pages/admin/outstanding/New";
 import { OutstandingDetail } from "./pages/admin/outstanding/Detail";
-import { Button, Result } from "antd";
+import { BackTop, Button, Result } from "antd";
 import { Language } from "./pages/admin/language";
 import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
+import { ArrowUpOutlined } from "@ant-design/icons";
 
 function App() {
   const navigate = useNavigate();
+  const style = {
+    height: 40,
+    width: 40,
+    lineHeight: "40px",
+    borderRadius: 4,
+    backgroundColor: "#1088e9",
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 14,
+  };
+
   return (
     <div className="App">
+      <BackTop style={{ right: "40px" }}>
+        <div style={style}>
+          <ArrowUpOutlined />
+        </div>
+      </BackTop>
       <Routes>
         <Route path="/" element={<ClientLayout></ClientLayout>}>
           <Route index element={<Home />} />

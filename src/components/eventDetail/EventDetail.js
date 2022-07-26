@@ -11,9 +11,11 @@ import OtherNews from "../eventDetailLayout/otherNews/OtherNews";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostDetailAction } from "../../stores/actions/postAction";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
+import { LazyImage } from "../LazyImage";
+import moment from "moment"
+import { URL_IMAGE } from "../../utils/constants";
 
 const EventDetail = () => {
-  const [fileList, setFileList] = useState([]);
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const EventDetail = () => {
   // useEffect(() => {}, [window.location.href]);
 
   useEffect(() => {
-    dispatch(getPostDetailAction(id, setFileList));
+    dispatch(getPostDetailAction(id));
     window.scrollTo(0, 0);
   }, [dispatch, id]);
 
@@ -53,10 +55,10 @@ const EventDetail = () => {
               </div>
               <div className="event-detail__container__main-content__title">
                 <p>{postDetail?.title}</p>
-                <p>28/6/2022</p>
+                <p>{moment(postDetail.createdAt).format("LLLL")}</p>
               </div>
               <div className="event-detail__container__main-content__content">
-                <img src={fileList[0]?.url} alt="nothing to see" />
+                <LazyImage src={`${URL_IMAGE}${postDetail?.image}`} />
                 <div className="event-detail__container__main-content__content__main">
                   {mainContent}
                 </div>
