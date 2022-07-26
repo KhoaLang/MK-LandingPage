@@ -12,10 +12,11 @@ import "antd/dist/antd.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import "./i18n";
+import { Loading } from "./components/Loading";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Suspense fallback={<div>Loading....</div>}>
+  <Suspense fallback={<Loading/>}>
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={<h1>Loading....</h1>} persistor={persistor}>

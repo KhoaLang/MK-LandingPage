@@ -4,9 +4,11 @@ import "./banner.scss";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/lazy";
+import "swiper/css/bundle";
 import { useDispatch, useSelector } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, Pagination } from "swiper";
+import { Autoplay, Lazy, Navigation, Pagination, Parallax } from "swiper";
 import { getAllBannerAction } from "../../stores/actions/bannerAction";
 import { URL_IMAGE } from "../../utils/constants";
 export const Banner = (props) => {
@@ -26,23 +28,31 @@ export const Banner = (props) => {
         pagination={{ clickable: true }}
         autoplay={true}
         loop={true}
-        modules={[Navigation, Pagination,Autoplay]}
+        lazy={true}
+        speed={600}
+        modules={[Navigation, Pagination, Autoplay, Lazy, Parallax]}
         className="bannerSwiper"
       >
         {listBanner?.map((banner, idx) => {
           return (
             <SwiperSlide key={banner.id}>
-              <div className="banner">
+              <div data-swiper-parallax="-300" className="banner">
                 <img
+                  data-swiper-parallax="-300"
+                  slot="container-start"
                   src={`${URL_IMAGE}${banner.image}`}
                   alt={banner.id}
-                  className="bg"
+                  className="bg swiper-lazy"
                 />
-                <div className="contentBanner">
-                  <h1>{banner.name}</h1>
-                  <p>{banner.description}</p>
+
+                <div className="contentBanner" data-swiper-parallax="-200">
+                  <h1 className="" data-swiper-parallax="-200">
+                    {banner.name}
+                  </h1>
+                  <p data-swiper-parallax="-100">{banner.description}</p>
                 </div>
               </div>
+              <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </SwiperSlide>
           );
         })}
