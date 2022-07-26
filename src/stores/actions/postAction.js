@@ -1,15 +1,22 @@
 import { postService } from "../../services/PostService";
 import { openNotification } from "../../utils/Notification";
-import { GET_ALL_POST, GET_DETAIL_POST } from "../types/PostTypes";
+import {
+  FETCH_POST,
+  FETCH_POST_FAIL,
+  GET_ALL_POST,
+  GET_DETAIL_POST,
+} from "../types/PostTypes";
 import { HIDE_LOADING, SHOW_LOADING } from "../types/LoadingType";
 
 export const getAllPostAction = (id = "") => {
   return async (dispatch) => {
+    dispatch({ type: FETCH_POST });
     try {
       const { data } = await postService.getAllPost(id);
       dispatch({ type: GET_ALL_POST, data: data.data });
     } catch (error) {
       // console.log(error.response?.data);
+      dispatch({ type: FETCH_POST_FAIL });
     }
   };
 };

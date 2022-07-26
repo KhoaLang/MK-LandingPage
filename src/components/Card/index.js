@@ -1,5 +1,6 @@
 import { URL_IMAGE } from "../../utils/constants";
 import { Card, Col, Pagination, Row, Tabs } from "antd";
+import { LazyImage } from "../LazyImage";
 const { TabPane } = Tabs;
 
 export const CardEvent = ({ item, size, idxItem }) => {
@@ -16,7 +17,8 @@ export const CardEvent = ({ item, size, idxItem }) => {
       {idxItem === 0 ? (
         <Col className="gutter-row" xs={24} lg={16} xl={16} span={16}>
           <div className="card-event">
-            <img src={`${URL_IMAGE}${item.image}`} />
+            {/* <img src={`${URL_IMAGE}${item.image}`} /> */}
+            <LazyImage src={`${URL_IMAGE}${item.image}`} />
             <div style={{ styles }} className="content">
               <p>{item.Category.name}</p>
               {size ? (
@@ -31,7 +33,8 @@ export const CardEvent = ({ item, size, idxItem }) => {
       ) : (
         <Col xs={24} lg={8} xl={8} className="gutter-row" span={8}>
           <div className="card-event">
-            <img src={`${URL_IMAGE}${item.image}`} />
+          <LazyImage src={`${URL_IMAGE}${item.image}`} />
+            {/* <img src={`${URL_IMAGE}${item.image}`} /> */}
             <div style={{ background: "#ffff" }} className="content">
               <p style={{ color: "#7B7B7B" }}>{item.Category.name}</p>
               <h3 style={{ color: "#333" }}>

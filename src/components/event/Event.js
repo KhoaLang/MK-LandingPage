@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
 import { CardEvent } from "../Card";
 import { getAllPostAction } from "../../stores/actions/postAction";
+import { Loading } from "../Loading";
 const { TabPane } = Tabs;
 const pageSize = 8;
 const Event = () => {
@@ -20,8 +21,9 @@ const Event = () => {
   const { data, current, minIndex, maxIndex } = state;
   const dispatch = useDispatch();
   const { listCategory } = useSelector((state) => state.categoryReducer);
-  const { listPost } = useSelector((state) => state.postReducer);
+  const { listPost, isLoading } = useSelector((state) => state.postReducer);
   const { t, i18n } = useTranslation();
+  console.log("dwdsadsadsa", isLoading);
   useEffect(() => {
     dispatch(getAllCatetgoryAction);
     dispatch(getAllPostAction);
@@ -69,7 +71,12 @@ const Event = () => {
       <SmoothScroll />
       <div className="wrapperEvent">
         <h2 className="title">{t("New_Event")}</h2>
-        <Tabs size="large" defaultActiveKey="1" onChange={onChange}>
+        <Tabs
+          className="tabEvent"
+          size="large"
+          defaultActiveKey="1"
+          onChange={onChange}
+        >
           <TabPane
             // onClick={() =>
             //   handleChangeTab(
@@ -85,16 +92,22 @@ const Event = () => {
                 { xs: 2, sm: 4, md: 10, lg: 16 },
               ]}
             >
-              {listPost
-                ?.filter((category) => category.isVisible === true)
-                .map((item, index) => {
-                  return (
-                    index >= minIndex &&
-                    index < maxIndex && (
-                      <CardEvent item={item} idxItem={index} />
-                    )
-                  );
-                })}
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <>
+                  {listPost
+                    ?.filter((category) => category.isVisible === true)
+                    .map((item, index) => {
+                      return (
+                        index >= minIndex &&
+                        index < maxIndex && (
+                          <CardEvent item={item} idxItem={index} />
+                        )
+                      );
+                    })}
+                </>
+              )}
             </Row>
             <Pagination
               defaultCurrent={1}
@@ -121,20 +134,22 @@ const Event = () => {
                       { xs: 2, sm: 4, md: 10, lg: 16 },
                     ]}
                   >
-                    {listPost
-                      ?.filter((category) => category.isVisible === true)
-                      .map((item, index) => {
-                        return (
-                          index >= minIndex &&
-                          index < maxIndex && (
-                            <CardEvent
-                              key={item.id}
-                              item={item}
-                              idxItem={index}
-                            />
-                          )
-                        );
-                      })}
+                    {isLoading ? (
+                      <Loading />
+                    ) : (
+                      <>
+                        {listPost
+                          ?.filter((category) => category.isVisible === true)
+                          .map((item, index) => {
+                            return (
+                              index >= minIndex &&
+                              index < maxIndex && (
+                                <CardEvent item={item} idxItem={index} />
+                              )
+                            );
+                          })}
+                      </>
+                    )}
                   </Row>
                   <Pagination
                     pageSize={pageSize}
