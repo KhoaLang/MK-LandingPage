@@ -48,57 +48,57 @@ const ManagePost = () => {
     dispatch(getAllPostAction());
   }, [dispatch, listPost]);
 
-  useEffect(() => {
-    let tempList = listPost
-      ?.filter((item, idx) =>
-        searchKeyword === "" ||
-        item.title.toLowerCase().includes(searchKeyword.toLowerCase())
-          ? true
-          : false
-      )
-      ?.filter((item) =>
-        categorySelect === item?.Category.id || categorySelect === -1
-          ? true
-          : false
-      )
-      ?.filter((item) => {
-        let date = item.createdAt.slice(0, 10);
-        let dateStartSelect = dateSelect?.start;
-        let dateEndSelect = dateSelect?.end;
+  // useEffect(() => {
+  //   let tempList = listPost
+  //     ?.filter((item, idx) =>
+  //       searchKeyword === "" ||
+  //       item.title.toLowerCase().includes(searchKeyword.toLowerCase())
+  //         ? true
+  //         : false
+  //     )
+  //     ?.filter((item) =>
+  //       categorySelect === item?.Category.id || categorySelect === -1
+  //         ? true
+  //         : false
+  //     )
+  //     ?.filter((item) => {
+  //       let date = item.createdAt.slice(0, 10);
+  //       let dateStartSelect = dateSelect?.start;
+  //       let dateEndSelect = dateSelect?.end;
 
-        let itemDay = date.slice(-2);
-        let itemMonth = date.slice(5, 7);
-        let itemYear = date.slice(0, 4);
+  //       let itemDay = date.slice(-2);
+  //       let itemMonth = date.slice(5, 7);
+  //       let itemYear = date.slice(0, 4);
 
-        let selectedDayStart = dateStartSelect?.slice(-2);
-        let selectedMonthStart = dateStartSelect?.slice(5, 7);
-        let selectedYearStart = dateStartSelect?.slice(0, 4);
+  //       let selectedDayStart = dateStartSelect?.slice(-2);
+  //       let selectedMonthStart = dateStartSelect?.slice(5, 7);
+  //       let selectedYearStart = dateStartSelect?.slice(0, 4);
 
-        let selectedDayEnd = dateEndSelect?.slice(-2);
-        let selectedMonthEnd = dateEndSelect?.slice(5, 7);
-        let selectedYearEnd = dateEndSelect?.slice(0, 4);
+  //       let selectedDayEnd = dateEndSelect?.slice(-2);
+  //       let selectedMonthEnd = dateEndSelect?.slice(5, 7);
+  //       let selectedYearEnd = dateEndSelect?.slice(0, 4);
 
-        if (
-          (selectedYearStart <= itemYear && itemYear <= selectedYearEnd) ||
-          dateStartSelect === ""
-        ) {
-          if (
-            (selectedMonthStart <= itemMonth &&
-              itemMonth <= selectedMonthEnd) ||
-            dateStartSelect === ""
-          ) {
-            if (
-              (selectedDayStart <= itemDay && itemDay <= selectedDayEnd) ||
-              dateStartSelect === ""
-            ) {
-              return item;
-            }
-          }
-        }
-      });
+  //       if (
+  //         (selectedYearStart <= itemYear && itemYear <= selectedYearEnd) ||
+  //         dateStartSelect === ""
+  //       ) {
+  //         if (
+  //           (selectedMonthStart <= itemMonth &&
+  //             itemMonth <= selectedMonthEnd) ||
+  //           dateStartSelect === ""
+  //         ) {
+  //           if (
+  //             (selectedDayStart <= itemDay && itemDay <= selectedDayEnd) ||
+  //             dateStartSelect === ""
+  //           ) {
+  //             return item;
+  //           }
+  //         }
+  //       }
+  //     });
 
-    setFilteredList([...tempList]);
-  }, [searchKeyword, dateSelect, categorySelect]);
+  //   setFilteredList([...tempList]);
+  // }, [searchKeyword, dateSelect, categorySelect]);
 
   const onFinish = (values) => {
     console.log("Success:", values);

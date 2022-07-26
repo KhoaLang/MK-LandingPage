@@ -51,18 +51,18 @@ function App() {
           <Route path="event/:id" element={<EventDetail />} />
         </Route>
         <Route path="admin" element={<AdminLayout />}>
-          <Route index element={<ManagePost />} />
+          <Route index element={<ManageCategories />} />
 
           <Route path="categories">
             <Route index element={<ManageCategories />} />
             <Route path="new" element={<CategorytNew />} />
             <Route path="detail/:id" element={<CatetgorytDetail />} />
           </Route>
-          <Route path="posts">
+          {/* <Route path="posts">
             <Route index element={<ManagePost />} />
             <Route path="newpost" element={<NewPost />} />
             <Route path="detail/:id" element={<DetailPost />} />
-          </Route>
+          </Route> */}
 
           <Route path="banners">
             <Route index element={<Banner />} />
