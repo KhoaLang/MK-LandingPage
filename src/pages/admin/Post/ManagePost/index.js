@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getAllPostAction,
   deletePostAction,
+  filterPostAction,
 } from "../../../../stores/actions/postAction";
 import styles from "./managePost.module.scss";
 import {
@@ -32,7 +33,7 @@ const cx = classNames.bind(styles);
 const ManagePost = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [categorySelect, setCategorySelect] = useState(-1);
-  const [dateSelect, setDateSelect] = useState({ start: "", end: "" });
+  const [dateSelect, setDateSelect] = useState({ startDate: "", endDate: "" });
   const [listOrder, setListOrder] = useState(-1);
 
   const { listPost } = useSelector((state) => state.postReducer);
@@ -46,68 +47,25 @@ const ManagePost = () => {
 
   useEffect(() => {
     dispatch(getAllPostAction());
-  }, [dispatch, listPost]);
-
-  // useEffect(() => {
-  //   let tempList = listPost
-  //     ?.filter((item, idx) =>
-  //       searchKeyword === "" ||
-  //       item.title.toLowerCase().includes(searchKeyword.toLowerCase())
-  //         ? true
-  //         : false
-  //     )
-  //     ?.filter((item) =>
-  //       categorySelect === item?.Category.id || categorySelect === -1
-  //         ? true
-  //         : false
-  //     )
-  //     ?.filter((item) => {
-  //       let date = item.createdAt.slice(0, 10);
-  //       let dateStartSelect = dateSelect?.start;
-  //       let dateEndSelect = dateSelect?.end;
-
-  //       let itemDay = date.slice(-2);
-  //       let itemMonth = date.slice(5, 7);
-  //       let itemYear = date.slice(0, 4);
-
-  //       let selectedDayStart = dateStartSelect?.slice(-2);
-  //       let selectedMonthStart = dateStartSelect?.slice(5, 7);
-  //       let selectedYearStart = dateStartSelect?.slice(0, 4);
-
-  //       let selectedDayEnd = dateEndSelect?.slice(-2);
-  //       let selectedMonthEnd = dateEndSelect?.slice(5, 7);
-  //       let selectedYearEnd = dateEndSelect?.slice(0, 4);
-
-  //       if (
-  //         (selectedYearStart <= itemYear && itemYear <= selectedYearEnd) ||
-  //         dateStartSelect === ""
-  //       ) {
-  //         if (
-  //           (selectedMonthStart <= itemMonth &&
-  //             itemMonth <= selectedMonthEnd) ||
-  //           dateStartSelect === ""
-  //         ) {
-  //           if (
-  //             (selectedDayStart <= itemDay && itemDay <= selectedDayEnd) ||
-  //             dateStartSelect === ""
-  //           ) {
-  //             return item;
-  //           }
-  //         }
-  //       }
-  //     });
-
-  //   setFilteredList([...tempList]);
-  // }, [searchKeyword, dateSelect, categorySelect]);
+  }, [dispatch]);
 
   const onFinish = (values) => {
-    console.log("Success:", values);
+    // console.log(values);
+    dispatch(
+      filterPostAction(
+        values.title,
+        values.type === -1 ? "" : values.type,
+        dateSelect.startDate,
+        dateSelect.endDate,
+        values.sort === null ? 1 : values.sort
+      )
+    );
   };
   const handleVisible = (id, checked) => {
-    console.log("id", id);
-    console.log("checked", checked);
+    // console.log("id", id);
+    // console.log("checked", checked);
   };
-  const data = filteredList?.map((item, idx) => {
+  const data = listPost?.map((item, idx) => {
     const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.image}`;
     return {
       ...item,
@@ -199,7 +157,7 @@ const ManagePost = () => {
   };
 
   const handleCalendarChange = (date, dateString) => {
-    setDateSelect({ start: dateString[0], end: dateString[1] });
+    setDateSelect({ startDate: dateString[0], endDate: dateString[1] });
   };
 
   const handleDeletePost = () => {
@@ -257,7 +215,7 @@ const ManagePost = () => {
         <Form.Item label="Tìm kiếm" className="w-20" name="title">
           <Input
             value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
+            onChange={(val) => setSearchKeyword(val)}
             size="large"
             placeholder="Tìm tiêu đề"
             prefix={<SearchOutlined />}
@@ -282,17 +240,16 @@ const ManagePost = () => {
         <Form.Item label="Ngày" className="w-20" name="range-date">
           <RangePicker onCalendarChange={handleCalendarChange} size="large" />
         </Form.Item>
-        <Form.Item label="Xếp theo" className="w-20">
+        <Form.Item label="Xếp theo" className="w-20" name="sort">
           <Select
             size="large"
             value={listOrder}
             onChange={(value) => setListOrder(value)}
             defaultValue={-1}
-            name="sort"
           >
             <Option value={-1}>Tất cả</Option>
-            <Option value={0}>Mới nhất</Option>
-            <Option value={1}>Cũ nhất</Option>
+            <Option value={1}>Mới nhất</Option>
+            <Option value={0}>Cũ nhất</Option>
           </Select>
         </Form.Item>
         <Form.Item>

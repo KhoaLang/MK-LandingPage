@@ -58,11 +58,11 @@
 .upload {
   width: calc((100% - 250px) / 2);
 }
-.upload-item {
-  &:hover {
-    color: #fff;
-  }
-}
+// .upload-item {
+//   &:hover {
+//     color: #fff;
+//   }
+// }
 .error {
   display: flex;
   align-items: center;
