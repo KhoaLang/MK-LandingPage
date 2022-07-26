@@ -13,6 +13,7 @@ import "antd/dist/antd.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import "./i18n";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,9 +21,11 @@ root.render(
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={<h1>Loading....</h1>} persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <ParallaxProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ParallaxProvider>
         </PersistGate>
       </Provider>
     </React.StrictMode>
