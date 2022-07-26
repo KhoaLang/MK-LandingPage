@@ -73,7 +73,7 @@ const OurProducts = (props) => {
                       className="d-flex justify-content-center align-items-center"
                       href={item.link}
                     >
-                      <p>Xem chi tiết</p>
+                      <p>{t("More detail")}</p>
                       <GoTo />
                     </a>
                   </button>

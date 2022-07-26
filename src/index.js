@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 
 import { store, persistor } from "./stores/store";
+import Loading from "./components/layouts/Loading";
 
 import "antd/dist/antd.min.css";
 
@@ -15,7 +16,7 @@ import "./i18n";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Suspense fallback={<div>Loading....</div>}>
+  <Suspense fallback={<Loading />}>
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={<h1>Loading....</h1>} persistor={persistor}>

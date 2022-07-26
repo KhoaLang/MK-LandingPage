@@ -72,7 +72,7 @@ const Footer = () => {
         >
           <Col md={14} xs={24} className="footer__upper__container__left-side">
             <div className="footer__upper__container__left-side__company-name-box">
-              <h5>CÔNG TY CÔNG NGHỆ VÀ ĐẦU TƯ VNPLUS</h5>
+              <h5>{t("CompanyName")}</h5>
             </div>
             <ul className="footer__upper__container__left-side__contact-info">
               {contactInfo.map((item, idx) => (

@@ -14,7 +14,6 @@ const Header = () => {
 
   const { t, i18n } = useTranslation();
 
-
   const navbarItems = [
     { path: "/", page: t("Home") },
     { path: "/aboutus", page: t("About") },
@@ -69,7 +68,7 @@ const Header = () => {
     setActiveRoute(endpoint[3]);
 
     setActiveNavbarItem();
-  }, [activeRoute]);
+  }, [window.location.href.split("/")[3]]);
 
   return (
     <header className="header d-flex justify-content-center align-items-center">
