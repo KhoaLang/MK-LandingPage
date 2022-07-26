@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div className="home">
-      <SmoothScroll setBgOffset={setBgOffset} />
+      {/* <SmoothScroll setBgOffset={setBgOffset} /> */}
       {/* <Hero /> */}
       <Banner />
       <OurProducts button={false} />

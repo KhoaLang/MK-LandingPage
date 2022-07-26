@@ -68,7 +68,7 @@ const HighlightMoment = () => {
           swipeable
         >
           {listMoment?.map((img, idx) => {
-            console.log(`${URL_IMAGE}${img.image[0]}`)
+            console.log(`${URL_IMAGE}${img.image[0]}`);
             return (
               <img
                 src={`${URL_IMAGE}${img.image[0]}`}
