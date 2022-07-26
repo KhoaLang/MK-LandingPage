@@ -28,6 +28,7 @@ const Event = () => {
     (state) => state.postReducer
   );
   const { t, i18n } = useTranslation();
+  // console.log("dwdsadsadsa", isLoading);
   useEffect(() => {
     dispatch(getAllCatetgoryAction);
     dispatch(getAllPostAction);
@@ -57,10 +58,7 @@ const Event = () => {
     //   maxIndex: pageSize,
     // });
   };
-  const style = {
-    background: "#0092ff",
-    padding: "8px 0",
-  };
+
   const handleChange = (page) => {
     // window.scrollTo({
     //   top: 0,

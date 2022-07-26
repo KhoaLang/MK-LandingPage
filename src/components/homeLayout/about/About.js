@@ -8,6 +8,7 @@ const About = (props) => {
   const { t } = useTranslation();
   return (
     <section className="about d-flex justify-content-center align-items-center flex-column">
+      <div className="about__bg"></div>
       <div className="about__container container d-flex justify-content-center align-items-center flex-column">
         <h1>{t("AboutVNPLUS")}</h1>
         <p style={{textAlign:"justify"}}>

@@ -35,25 +35,27 @@ export const Banner = (props) => {
       >
         {listBanner?.map((banner, idx) => {
           return (
-            <SwiperSlide key={banner.id}>
-              <div data-swiper-parallax="-300" className="banner">
-                <img
-                  data-swiper-parallax="-300"
-                  slot="container-start"
-                  src={`${URL_IMAGE}${banner.image}`}
-                  alt={banner.id}
-                  className="bg swiper-lazy"
-                />
+            banner.isVisible && (
+              <SwiperSlide key={banner.id}>
+                <div data-swiper-parallax="-300" className="banner">
+                  <img
+                    data-swiper-parallax="-300"
+                    slot="container-start"
+                    src={`${URL_IMAGE}${banner.image}`}
+                    alt={banner.id}
+                    className="bg swiper-lazy"
+                  />
 
-                <div className="contentBanner" data-swiper-parallax="-200">
-                  <h1 className="" data-swiper-parallax="-200">
-                    {banner.name}
-                  </h1>
-                  <p data-swiper-parallax="-100">{banner.description}</p>
+                  <div className="contentBanner" data-swiper-parallax="-200">
+                    <h1 className="" data-swiper-parallax="-200">
+                      {banner.name}
+                    </h1>
+                    <p data-swiper-parallax="-100">{banner.description}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-            </SwiperSlide>
+                <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+              </SwiperSlide>
+            )
           );
         })}
       </Swiper>

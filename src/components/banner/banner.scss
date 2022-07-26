@@ -1,126 +1,126 @@
 .banner {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    // padding: 0 100px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    // margin-top: 9rem;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  //   padding-top: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 50px;
 
-    .bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .contentBanner {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 250px;
-    display: inline-block;
-    p {
-        text-align: justify;
-        color: #fff;
-    }
-    h1 {
-        text-align: center;
-        color: #fff;
-    }
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 250px;
+  display: inline-block;
+  p {
+    text-align: justify;
+    color: #fff;
+  }
+  h1 {
+    text-align: center;
+    color: #fff;
+  }
 }
 
 @media (max-width: 575.98px) {
-    .banner {
-        h1 {
-            font-size: 32px !important;
-            line-height: 39px !important;
-        }
+  .banner {
+    h1 {
+      font-size: 32px !important;
+      line-height: 39px !important;
     }
-    .contentBanner {
-        padding: 10px !important;
-    }
+  }
+  .contentBanner {
+    padding: 10px !important;
+  }
 }
 
 @media (max-width: 991px) {
-    .banner {
-        h1 {
-            font-size: 32px !important;
-            line-height: 39px !important;
-        }
+  .banner {
+    h1 {
+      font-size: 32px !important;
+      line-height: 39px !important;
     }
-    .contentBanner {
-        padding: 50px;
-    }
+  }
+  .contentBanner {
+    padding: 50px;
+  }
 }
 
 .bannerSwiper {
-    .swiper-button-prev,
-    .swiper-button-next {
-        color: #fff;
-        width: 50px;
-        height: 50px;
-        text-align: center;
-        line-height: 50px;
-        border-radius: 50%;
-        background-color: rgba(128, 128, 128, 0.562);
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    background-color: rgba(128, 128, 128, 0.562);
 
-        &:hover {
-            background-color: #43464b;
-        }
+    &:hover {
+      background-color: #43464b;
+    }
 
-        &::after {
-            font-size: 20px;
-            font-weight: bold;
-        }
+    &::after {
+      font-size: 20px;
+      font-weight: bold;
     }
-    .swiper-button-prev {
-        left: 30px;
-    }
-    .swiper-button-next {
-        right: 30px;
-    }
-    .swiper-horizontal > .swiper-pagination-bullets,
-    .swiper-pagination-bullets.swiper-pagination-horizontal,
-    .swiper-pagination-custom,
-    .swiper-pagination-fraction {
-        bottom: 30px;
-    }
-    .swiper-pagination-bullet {
-        width: 40px;
-        height: 2px;
-        border-radius: 0%;
-        color: lightgray;
-    }
-    .swiper-pagination-bullet-active {
-        background-color: #ffff;
-    }
+  }
+  .swiper-button-prev {
+    left: 30px;
+  }
+  .swiper-button-next {
+    right: 30px;
+  }
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .swiper-pagination-custom,
+  .swiper-pagination-fraction {
+    bottom: 30px;
+  }
+  .swiper-pagination-bullet {
+    width: 40px;
+    height: 2px;
+    border-radius: 0%;
+    color: lightgray;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #ffff;
+  }
 }
 
 .swiper {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #000;
+  text-align: center;
+  font-size: 18px;
+  background: #000;
 }
 
 @media (max-width: 991px) {
-    .bannerSwiper {
-        .swiper-button-prev {
-            left: 0px;
-        }
-        .swiper-button-next {
-            right: 0px;
-        }
+  .bannerSwiper {
+    .swiper-button-prev {
+      left: 0px;
     }
+    .swiper-button-next {
+      right: 0px;
+    }
+  }
 }

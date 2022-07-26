@@ -10,16 +10,16 @@ const SmoothScroll = (props) => {
     window.location.href.split("/")[3]
   );
   // const scrollbar = SmoothScrollbar.init(document.body, options);
-  useEffect(() => {
-    // scrollbar.scrollTop = 0;
-    // setUrlEndpoint(window.location.href.split("/")[3]);
-    // let header = document.querySelector(".header");
-    // scrollbar.addListener((status) => {
-    //   let offset = status.offset;
-    //   header.style.top = offset.y + "px";
-    //   header.style.left = offset.x + "px";
-    // });
-  }, [urlEndpoint]);
+  // useEffect(() => {
+  // scrollbar.scrollTop = 0;
+  // setUrlEndpoint(window.location.href.split("/")[3]);
+  // let header = document.querySelector(".header");
+  // scrollbar.addListener((status) => {
+  //   let offset = status.offset;
+  //   header.style.top = offset.y + "px";
+  //   header.style.left = offset.x + "px";
+  // });
+  // }, [urlEndpoint]);
 
   return null;
 };
