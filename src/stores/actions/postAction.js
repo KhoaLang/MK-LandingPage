@@ -55,16 +55,16 @@ export const getPostDetailAction = (id, setFileList) => {
     }
   };
 };
-export const updatePostAction = (id, data, resetForm) => {
+export const updatePostAction = (id, data, resetForm = null) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SHOW_LOADING });
       await postService.updatePost(id, data);
       dispatch(getAllPostAction);
-      resetForm();
+      resetForm !== null && resetForm();
 
       dispatch({ type: HIDE_LOADING });
-      openNotification("success", "Change Post success!");
+      openNotification("success", "Update Post success!");
     } catch (error) {
       console.error(error);
     }

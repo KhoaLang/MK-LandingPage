@@ -23,7 +23,7 @@ const Event = () => {
   const { listCategory } = useSelector((state) => state.categoryReducer);
   const { listPost, isLoading } = useSelector((state) => state.postReducer);
   const { t, i18n } = useTranslation();
-  console.log("dwdsadsadsa", isLoading);
+  // console.log("dwdsadsadsa", isLoading);
   useEffect(() => {
     dispatch(getAllCatetgoryAction);
     dispatch(getAllPostAction);
@@ -46,10 +46,7 @@ const Event = () => {
       maxIndex: pageSize,
     });
   };
-  const style = {
-    background: "#0092ff",
-    padding: "8px 0",
-  };
+
   const handleChange = (page) => {
     // window.scrollTo({
     //   top: 0,
@@ -102,7 +99,11 @@ const Event = () => {
                       return (
                         index >= minIndex &&
                         index < maxIndex && (
-                          <CardEvent item={item} idxItem={index} />
+                          <CardEvent
+                            key={item.id}
+                            item={item}
+                            idxItem={index}
+                          />
                         )
                       );
                     })}
@@ -144,7 +145,11 @@ const Event = () => {
                             return (
                               index >= minIndex &&
                               index < maxIndex && (
-                                <CardEvent item={item} idxItem={index} />
+                                <CardEvent
+                                  key={item.id}
+                                  item={item}
+                                  idxItem={index}
+                                />
                               )
                             );
                           })}

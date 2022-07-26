@@ -5,6 +5,7 @@ import {
   getAllPostAction,
   deletePostAction,
   filterPostAction,
+  updatePostAction,
 } from "../../../../stores/actions/postAction";
 import styles from "./managePost.module.scss";
 import {
@@ -25,7 +26,6 @@ import {
   EditOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { filter } from "lodash";
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const cx = classNames.bind(styles);
@@ -62,6 +62,16 @@ const ManagePost = () => {
     );
   };
   const handleVisible = (id, checked) => {
+    let updatedPost = {
+      // title: "",
+      // Category_ID: -1,
+      // image: "",
+      // content: "",
+      isVisible: checked,
+      // source: "",
+      // Category: {},
+    };
+    dispatch(updatePostAction(id, updatedPost));
     // console.log("id", id);
     // console.log("checked", checked);
   };
