@@ -8,12 +8,43 @@ import {
 } from "../types/PostTypes";
 import { HIDE_LOADING, SHOW_LOADING } from "../types/LoadingType";
 
-export const getAllPostAction = (id = "") => {
+export const getAllPostAction = (id = "", setState) => {
   return async (dispatch) => {
     dispatch({ type: FETCH_POST });
     try {
       const { data } = await postService.getAllPost(id);
       dispatch({ type: GET_ALL_POST, data: data.data });
+      if (setState) {
+        let pageSize = 5;
+        setState({
+          data: data.data?.filter((category) => category.isVisible === true),
+          totalPage: data.data.length / pageSize,
+          minIndex: 0,
+          maxIndex: pageSize,
+        });
+      }
+    } catch (error) {
+      // console.log(error.response?.data);
+      dispatch({ type: FETCH_POST_FAIL });
+    }
+  };
+};
+
+export const getFilterPost = (id = "", setState) => {
+  return async (dispatch) => {
+    dispatch({ type: FETCH_POST });
+    try {
+      const { data } = await postService.getAllPost(id);
+      dispatch({ type: "POST_FILTER", data: data.data });
+      if (setState) {
+        let pageSize = 5;
+        setState({
+          data: data.data?.filter((category) => category.isVisible === true),
+          totalPage: data.data.length / pageSize,
+          minIndex: 0,
+          maxIndex: pageSize,
+        });
+      }
     } catch (error) {
       // console.log(error.response?.data);
       dispatch({ type: FETCH_POST_FAIL });

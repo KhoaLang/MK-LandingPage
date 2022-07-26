@@ -6,7 +6,7 @@ export const LazyImage = ({ src }) => {
   const [isVisible, setIsVisible] = useState(false);
   //   const loading =
   //     "https://tom.imgix.net/imgix_logo_curvesq.png?auto=compress&q=1&blur=100";
-
+  console.log(src);
   useEffect(() => {
     const defaultIntersectionOptions = {
       threshold: 0,
@@ -33,7 +33,6 @@ export const LazyImage = ({ src }) => {
 
   return (
     <img
-      height="600px"
       src={isVisible ? src : loading}
       ref={rootRef}
       sizes="(min-width: 1240px) 30vw, 90vw"
