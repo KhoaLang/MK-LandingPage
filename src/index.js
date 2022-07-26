@@ -6,23 +6,34 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 
 import { store, persistor } from "./stores/store";
+import Loading from "./components/layouts/Loading";
 
 import "antd/dist/antd.min.css";
 
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import "./i18n";
+<<<<<<< HEAD
 import { Loading } from "./components/Loading";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Suspense fallback={<Loading/>}>
+=======
+import { ParallaxProvider } from "react-scroll-parallax";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <Suspense fallback={<Loading />}>
+>>>>>>> b6aa3d161c2fe0f4beab33473edc0ea9736ee149
     <React.StrictMode>
       <Provider store={store}>
         <PersistGate loading={<h1>Loading....</h1>} persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <ParallaxProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ParallaxProvider>
         </PersistGate>
       </Provider>
     </React.StrictMode>

@@ -1,4 +1,3 @@
-import React from "react";
 import { URL_IMAGE } from "../../utils/constants";
 import { Card, Col, Pagination, Row, Tabs } from "antd";
 import { LazyImage } from "../LazyImage";

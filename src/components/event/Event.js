@@ -1,18 +1,11 @@
 import "./event.scss";
 import { useState, useEffect } from "react";
-import { Card, Col, Pagination, Row, Tabs } from "antd";
-import img1 from "../../assets/Frame 51.png";
-import img2 from "../../assets/Frame 54.png";
-import img3 from "../../assets/Frame 54 (1).png";
-import img4 from "../../assets/Frame 54 (2).png";
-import img5 from "../../assets/Frame 54 (3).png";
-import PaginateItem from "../layouts/paginateItem/PaginateItem";
+import { Pagination, Row, Tabs } from "antd";
 import { useTranslation } from "react-i18next";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
-import Meta from "antd/lib/card/Meta";
-import { CardEvent } from "../Cart";
+import { CardEvent } from "../Card";
 import { getAllPostAction } from "../../stores/actions/postAction";
 import { Loading } from "../Loading";
 const { TabPane } = Tabs;
@@ -44,7 +37,7 @@ const Event = () => {
     });
   }, [listPost]);
   const onChange = (key) => {
-    console.log(key);
+    // console.log(key);
     dispatch(getAllPostAction(key));
     setState({
       data: listPost?.filter((category) => category.isVisible === true),
@@ -64,7 +57,7 @@ const Event = () => {
     //   /* you can also use 'auto' behaviour
     //      in place of 'smooth' */
     // });
-    console.log("page2wdsad-sad-sa", page);
+    // console.log("page2wdsad-sad-sa", page);
     setState((prev) => ({
       ...prev,
       current: page,
@@ -90,7 +83,7 @@ const Event = () => {
             //     listPost?.filter((category) => category.isVisible === true)
             //   )
             // }
-            tab="Tất Cả"
+            tab={t("All")}
             key=""
           >
             <Row

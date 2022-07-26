@@ -45,7 +45,7 @@ export const BannerNew = () => {
   const [fileList, setFileList] = useState([]);
 
   const { listPage } = useSelector((state) => state.pageReducer);
-  console.log(listPage);
+  // console.log(listPage);
 
   useEffect(() => {
     dispatch(getAllPageAction());
@@ -87,7 +87,7 @@ export const BannerNew = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
   const navigate = useNavigate();
-  console.log(isLoading);
+  // console.log(isLoading);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -98,7 +98,7 @@ export const BannerNew = () => {
       isVisible: false,
       source: "",
       image: "",
-      locatedAt: listPage[0].id,
+      locatedAt: listPage[0]?.id,
     },
     validationSchema: Yup.object({
       serial: Yup.string().required("Serial is require!"),
@@ -109,16 +109,15 @@ export const BannerNew = () => {
       let formData = new FormData();
       for (let key in values) {
         if (key !== "image") {
-          console.log(key, values[key]);
+          // console.log(key, values[key]);
 
           formData.append(key, values[key]);
         } else {
           formData.append("image", values.image[0].originFileObj);
         }
       }
-      console.log(formData.get("image"));
-      dispatch(createBannerAction(formData, resetForm,setFileList));
-      
+      // console.log(formData.get("image"));
+      dispatch(createBannerAction(formData, resetForm, setFileList));
     },
   });
 
@@ -195,10 +194,15 @@ export const BannerNew = () => {
                 defaultValue={formik.values.locatedAt}
                 className={cx("upload")}
                 onChange={handleChangeSelect}
+                dropdownStyle={{}}
               >
                 {listPage?.map((item) => {
                   return (
-                    <Option label={item.name} value={item.id}>
+                    <Option
+                      className={cx("upload-item")}
+                      label={item.name}
+                      value={item.id}
+                    >
                       {item.name}
                     </Option>
                   );

@@ -3,6 +3,7 @@ import img1 from "../../../assets/Frame22(1).png";
 import img2 from "../../../assets/Frame22(2).png";
 import img3 from "../../../assets/Frame22(3).png";
 import { Row, Col } from "antd";
+import { useTranslation } from "react-i18next";
 
 const items = [
   {
@@ -28,10 +29,11 @@ const items = [
 ];
 
 const CoreValue = () => {
+  const { t } = useTranslation();
   return (
     <section className="core-value d-flex justify-content-center align-items-center">
       <div className="core-value__container container d-flex flex-column justify-content-center align-items-center">
-        <h2>Giá trị cốt lõi</h2>
+        <h2>{t("CoreValue")}</h2>
         <Row className="core-value__container__list">
           {items.map((item, idx) => (
             <Col

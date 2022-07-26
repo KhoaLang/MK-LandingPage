@@ -1,18 +1,22 @@
+import { useTranslation } from "react-i18next";
 import PrimaryButton from "../../layouts/primaryButton/Button";
 import "./about.scss";
+import { ParallaxBanner } from "react-scroll-parallax";
+import img from "../../../assets/753221.png";
 
 const About = (props) => {
+  const { t } = useTranslation();
   return (
     <section className="about d-flex justify-content-center align-items-center flex-column">
       <div
         className="about__bg"
-        style={{
-          top: `${props.bgOffset?.y}px`,
-          left: `${props.bgOffset?.x}px`,
-        }}
+        // style={{
+        //   top: `${props.bgOffset?.y}px`,
+        //   left: `${props.bgOffset?.x}px`,
+        // }}
       ></div>
       <div className="about__container container d-flex justify-content-center align-items-center flex-column">
-        <h1>Về VNPLUS</h1>
+        <h1>{t("AboutVNPLUS")}</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -24,7 +28,7 @@ const About = (props) => {
           qui officia
         </p>
         <PrimaryButton path="/aboutus" style={{ margin: "70px auto" }}>
-          Xem thêm
+          {t("More")}
         </PrimaryButton>
       </div>
     </section>

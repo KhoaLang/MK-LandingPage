@@ -82,3 +82,26 @@ export const deletePostAction = (id) => {
     }
   };
 };
+export const filterPostAction = (
+  keyString = "",
+  categoryId = "",
+  startDate = "",
+  endDate = "",
+  sort = 1
+) => {
+  return async (dispatch) => {
+    try {
+      let formData = {
+        keyString,
+        category: categoryId,
+        createdAt: { startDate, endDate },
+        sort,
+      };
+      console.log(formData);
+      let { data } = await postService.filterPost(formData);
+      dispatch({ type: GET_ALL_POST, data: data.data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};

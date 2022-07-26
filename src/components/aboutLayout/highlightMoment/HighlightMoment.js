@@ -9,10 +9,9 @@ import { URL_IMAGE } from "../../../utils/constants";
 const HighlightMoment = () => {
   const dispatch = useDispatch();
   const { listMoment } = useSelector((state) => state.momentReducer);
-  console.log(listMoment);
   useEffect(() => {
-    dispatch(getAllMomentAction);
-  });
+    dispatch(getAllMomentAction());
+  }, [dispatch]);
   return (
     <section className="highlight-moment">
       <h2>Highlight moments</h2>
