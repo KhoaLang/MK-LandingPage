@@ -31,7 +31,6 @@ const ManageCategories = () => {
   // }, [dispatch]);
 
   const handleVisible = (id, checked) => {
-    console.log(id, checked);
     dispatch(updateCategoryAction(id, { isVisible: checked }));
   };
   const handleDeleteArray = async (data) => {
@@ -89,8 +88,7 @@ const ManageCategories = () => {
             <Popconfirm
               title="Are you sure？"
               onConfirm={() => dispatch(deleteCategory(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             </Popconfirm>
             <Button
@@ -108,7 +106,6 @@ const ManageCategories = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    // console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -123,16 +120,14 @@ const ManageCategories = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -142,8 +137,7 @@ const ManageCategories = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Tạo danh mục
           </Button>

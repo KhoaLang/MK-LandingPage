@@ -21,7 +21,6 @@ export const CategorytNew = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
   const navigate = useNavigate();
-  console.log(isLoading);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -36,7 +35,6 @@ export const CategorytNew = () => {
       name: Yup.string().required("Name is require!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       dispatch(createCategoryAction(values, resetForm));
     },
   });
@@ -55,8 +53,7 @@ export const CategorytNew = () => {
             <Breadcrumb.Item>Tin tức-Sự kiện</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}>Danh mục</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -75,8 +72,7 @@ export const CategorytNew = () => {
                   type="primary"
                   onSubmit={formik.handleSubmit}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   Tạo Danh Mục
                 </Button>

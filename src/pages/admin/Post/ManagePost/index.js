@@ -50,7 +50,6 @@ const ManagePost = () => {
   }, [dispatch]);
 
   const onFinish = (values) => {
-    // console.log(values);
     dispatch(
       filterPostAction(
         values.title,
@@ -72,8 +71,6 @@ const ManagePost = () => {
       // Category: {},
     };
     dispatch(updatePostAction(id, updatedPost));
-    // console.log("id", id);
-    // console.log("checked", checked);
   };
   const data = listPost?.map((item, idx) => {
     const imgURL = `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.image}`;
@@ -128,8 +125,7 @@ const ManagePost = () => {
             <Popconfirm
               title="Are you sure？"
               onConfirm={() => dispatch(deletePostAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             </Popconfirm>
             <Button
@@ -151,7 +147,6 @@ const ManagePost = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -184,16 +179,14 @@ const ManagePost = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={handleDeletePost}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -202,8 +195,7 @@ const ManagePost = () => {
             onClick={handleNavigateToCreateNewPost}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Tạo Bài Viết
           </Button>
@@ -220,8 +212,7 @@ const ManagePost = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}
-      >
+        onFinish={onFinish}>
         <Form.Item label="Tìm kiếm" className="w-20" name="title">
           <Input
             value={searchKeyword}
@@ -236,8 +227,7 @@ const ManagePost = () => {
             size="large"
             value={categorySelect}
             onChange={(val) => setCategorySelect(val)}
-            defaultValue={-1}
-          >
+            defaultValue={-1}>
             {[{ id: -1, name: "All category" }, ...listCategory]?.map(
               (item, idx) => (
                 <Option key={item.id} value={item.id}>
@@ -255,8 +245,7 @@ const ManagePost = () => {
             size="large"
             value={listOrder}
             onChange={(value) => setListOrder(value)}
-            defaultValue={-1}
-          >
+            defaultValue={-1}>
             <Option value={-1}>Tất cả</Option>
             <Option value={1}>Mới nhất</Option>
             <Option value={0}>Cũ nhất</Option>

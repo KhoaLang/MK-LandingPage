@@ -13,11 +13,15 @@ export const getAllBannerAction = (id) => {
     }
   };
 };
-export const getDetailBannerAction = (id,setFileList) => {
+export const getDetailBannerAction = (id, setFileList) => {
   return async (dispatch) => {
     try {
       const { data } = await bannerService.getDetailById(id);
-      setFileList([{ url:` https://landing-page-vnplus.herokuapp.com/image/${data.data.image}`}]);
+      setFileList([
+        {
+          url: ` https://landing-page-vnplus.herokuapp.com/image/${data.data.image}`,
+        },
+      ]);
       dispatch({ type: GET_DETAIL_BANNER, data: data.data });
     } catch (error) {
       console.log(error);
@@ -28,7 +32,7 @@ export const createBannerAction = (data, resetForm, setFileList) => {
   return async (dispatch) => {
     try {
       dispatch({ type: SHOW_LOADING });
-       await bannerService.createBanner(data);
+      await bannerService.createBanner(data);
       dispatch({ type: HIDE_LOADING });
       // dispatch(getAllCatetgoryAction);
       resetForm();
@@ -49,7 +53,7 @@ export const updateBannerAction = (id, data) => {
     try {
       dispatch({ type: SHOW_LOADING });
       await bannerService.updateBanner(id, data);
-      dispatch(getAllBannerAction)
+      dispatch(getAllBannerAction);
       openNotification("success", "Update banner success!");
       dispatch({ type: HIDE_LOADING });
     } catch (error) {

@@ -64,10 +64,8 @@ const HighlightMoment = () => {
           showDots
           sliderClass=""
           slidesToSlide={1}
-          swipeable
-        >
+          swipeable>
           {listMoment?.map((img, idx) => {
-            console.log(`${URL_IMAGE}${img.image[0]}`);
             return (
               <img
                 src={`${URL_IMAGE}${img.image[0]}`}

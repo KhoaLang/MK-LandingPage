@@ -10,6 +10,7 @@ import gardenie from "../../../assets/gardenie.png";
 import plusfood from "../../../assets/plusfood.png";
 import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
 import { useTranslation } from "react-i18next";
+import { Parallax } from "rc-scroll-anim";
 
 const OurProducts = (props) => {
   // const ref = useRef(null);
@@ -50,38 +51,45 @@ const OurProducts = (props) => {
     <section className="our-products d-flex justify-content-center align-items-center flex-column">
       <div
         // ref={ref}
-        className="our-products__container container"
-      >
-        <h2 className="our-products__container__title">
-          {t("Products_Of_VNPLUS")}
-        </h2>
-        <Row gutter={[48, 48]}>
-          {products.map((item, idx) => (
-            <Col md={8} xs={24} sm={12} key={idx}>
-              <div className="our-products__container__items">
-                <div className="our-products__container__items__image-section">
-                  <img src={item.logo} alt="nothing to see" />
+        className="our-products__container container">
+        <Parallax
+          animation={[
+            { x: 0, opacity: 1, playScale: [0.2, 0.5] },
+            { blur: "10px", playScale: [0.9, 1] },
+          ]}
+          style={{ transform: "translateX(100px)", opacity: 0 }}>
+          <h2 className="our-products__container__title">
+            {t("Products_Of_VNPLUS")}
+          </h2>
+
+          <Row gutter={[48, 48]}>
+            {products.map((item, idx) => (
+              <Col md={8} xs={24} sm={12} key={idx}>
+                <div className="our-products__container__items">
+                  <div className="our-products__container__items__image-section">
+                    <img src={item.logo} alt="nothing to see" />
+                  </div>
+                  <h3>{item.name}</h3>
+                  <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                    Hic magnam laborum cum illum ipsum placeat vitae labore
+                    nostrum
+                  </p>
+                  {props.button && (
+                    <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
+                      <a
+                        className="d-flex justify-content-center align-items-center"
+                        href={item.link}>
+                        <p>{t("More detail")}</p>
+                        <GoTo />
+                      </a>
+                    </button>
+                  )}
                 </div>
-                <h3>{item.name}</h3>
-                <p>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic
-                  magnam laborum cum illum ipsum placeat vitae labore nostrum
-                </p>
-                {props.button && (
-                  <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
-                    <a
-                      className="d-flex justify-content-center align-items-center"
-                      href={item.link}
-                    >
-                      <p>{t("More detail")}</p>
-                      <GoTo />
-                    </a>
-                  </button>
-                )}
-              </div>
-            </Col>
-          ))}
-        </Row>
+              </Col>
+            ))}
+          </Row>
+        </Parallax>
       </div>
     </section>
   );

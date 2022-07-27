@@ -4,12 +4,6 @@ import { EventCard } from "../eventCard/EventCard";
 import "./paginateItem.scss";
 
 const PaginateItem = ({ currentItems }) => {
-  console.log(
-    "first",
-    currentItems
-      ?.filter((category) => category.isVisible === true)[0]
-      .Posts?.filter((category) => category.isVisible === true)
-  );
   return (
     <div className="paginate-item">
       <Row gutter={[24, 24]} className="d-flex justify-content-center">

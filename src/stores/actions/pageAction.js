@@ -6,8 +6,6 @@ export const getAllPageAction = () => {
     try {
       const { data } = await pageService.getAllPage();
       dispatch({ type: GET_ALL_PAGE, data: data.data });
-    } catch (error) {
-      // console.log(error.response?.data);
-    }
+    } catch (error) {}
   };
 };

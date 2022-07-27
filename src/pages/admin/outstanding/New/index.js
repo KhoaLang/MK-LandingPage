@@ -75,8 +75,7 @@ export const OutstandingNew = () => {
       <div
         style={{
           marginTop: 8,
-        }}
-      >
+        }}>
         Upload
       </div>
     </div>
@@ -87,7 +86,6 @@ export const OutstandingNew = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
   const navigate = useNavigate();
-  console.log(isLoading);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -105,18 +103,14 @@ export const OutstandingNew = () => {
       name: Yup.string().required("Name is require!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       let formData = new FormData();
       for (let key in values) {
         if (key !== "image") {
-          console.log(key, values[key]);
-
           formData.append(key, values[key]);
         } else {
           formData.append("image", values.image[0].originFileObj);
         }
       }
-      console.log(formData.get("image"));
       dispatch(createMomentAction(formData, resetForm, setFileList));
     },
   });
@@ -143,8 +137,7 @@ export const OutstandingNew = () => {
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}>Khoảnh khắc nổi bật</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -163,8 +156,7 @@ export const OutstandingNew = () => {
                   type="primary"
                   onSubmit={formik.handleSubmit}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   THÊM ẢNH
                 </Button>
@@ -192,8 +184,7 @@ export const OutstandingNew = () => {
                 size={"large"}
                 value={formik.values.position}
                 className={cx("upload")}
-                onChange={handleChangeSelect}
-              >
+                onChange={handleChangeSelect}>
                 {listPage?.map((item) => {
                   return (
                     <Option label={item.name} value={item.id}>
@@ -218,16 +209,14 @@ export const OutstandingNew = () => {
                 className={cx("upload")}
                 onPreview={handlePreview}
                 onChange={handleChange}
-                customRequest={dummyRequest}
-              >
+                customRequest={dummyRequest}>
                 {fileList.length >= 1 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
                 title={previewTitle}
                 footer={null}
-                onCancel={handleCancel}
-              >
+                onCancel={handleCancel}>
                 <img
                   alt="example"
                   style={{

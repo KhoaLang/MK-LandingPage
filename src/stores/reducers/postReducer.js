@@ -9,7 +9,7 @@ const initialState = {
   listPost: [],
   isLoading: false,
   postDetail: {},
-  postFilter:[]
+  postFilter: [],
 };
 
 export const postReducer = (state = initialState, action) => {
@@ -21,10 +21,9 @@ export const postReducer = (state = initialState, action) => {
     case FETCH_POST_FAIL:
       return { ...state, isLoading: false };
     case "POST_FILTER":
-      return { ...state,postFilter:action.data, isLoading: false };
+      return { ...state, postFilter: action.data, isLoading: false };
 
     case GET_DETAIL_POST:
-      // console.log("action", action.data);
       return { ...state, postDetail: action.data };
 
     default:
