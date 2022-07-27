@@ -15,28 +15,49 @@ const Events = () => {
   return (
     <section className="events d-flex justify-content-center align-items-center">
       <div className="events__container container d-flex justify-content-center align-items-center flex-column">
-        <Parallax
-          animation={{ x: 0, opacity: 1, playScale: [0.2, 0.5] }}
-          style={{ transform: "translateX(-100px)", opacity: 0 }}>
+        {window.innerWidth > 1000 ? (
+          <Parallax
+            animation={{ x: 0, opacity: 1, playScale: [0.2, 0.5] }}
+            style={{ transform: "translateX(-100px)", opacity: 0 }}
+          >
+            <h2>{t("New_Event")}</h2>
+          </Parallax>
+        ) : (
           <h2>{t("New_Event")}</h2>
-        </Parallax>
-        <Parallax
-          animation={[
-            { scale: 1, playScale: [0, 0.7] },
-            { blur: "10px", playScale: [0.7, 1] },
-          ]}
-          style={{ transform: "scale(0)" }}>
-          <Row gutter={[48, 48]}>
-            {cardImage.map((item, idx) => (
-              <Col key={idx} md={8} xs={24}>
-                <Card image={item} />
-              </Col>
-            ))}
-          </Row>
-          <PrimaryButton path="/event" style={{ margin: "67px auto" }}>
-            {t("More")}
-          </PrimaryButton>
-        </Parallax>
+        )}
+        {window.innerWidth > 1000 ? (
+          <Parallax
+            animation={[
+              { scale: 1, playScale: [0, 0.7] },
+              { blur: "10px", playScale: [0.7, 1] },
+            ]}
+            style={{ transform: "scale(0)" }}
+          >
+            <Row gutter={[48, 48]}>
+              {cardImage.map((item, idx) => (
+                <Col key={idx} md={8} xs={24}>
+                  <Card image={item} />
+                </Col>
+              ))}
+            </Row>
+            <PrimaryButton path="/event" style={{ margin: "67px auto" }}>
+              {t("More")}
+            </PrimaryButton>
+          </Parallax>
+        ) : (
+          <>
+            <Row gutter={[48, 48]}>
+              {cardImage.map((item, idx) => (
+                <Col key={idx} md={8} xs={24}>
+                  <Card image={item} />
+                </Col>
+              ))}
+            </Row>
+            <PrimaryButton path="/event" style={{ margin: "67px auto" }}>
+              {t("More")}
+            </PrimaryButton>
+          </>
+        )}
       </div>
     </section>
   );

@@ -32,6 +32,7 @@ import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import { Parallax } from "rc-scroll-anim";
+import { useEffect } from "react";
 
 function App() {
   const navigate = useNavigate();
@@ -45,6 +46,10 @@ function App() {
     textAlign: "center",
     fontSize: 14,
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="App">

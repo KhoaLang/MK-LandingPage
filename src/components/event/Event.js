@@ -29,8 +29,8 @@ const Event = () => {
   );
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    dispatch(getAllCatetgoryAction);
-    dispatch(getAllPostAction);
+    dispatch(getAllCatetgoryAction());
+    dispatch(getAllPostAction());
   }, []);
   useEffect(() => {
     setState({
@@ -66,13 +66,15 @@ const Event = () => {
           className="tabEvent"
           size="large"
           defaultActiveKey="1"
-          onChange={onChange}>
+          onChange={onChange}
+        >
           <TabPane tab={t("All")} key="">
             <Row
               gutter={[
                 { xs: 2, sm: 4, md: 10, lg: 16 },
                 { xs: 2, sm: 4, md: 10, lg: 16 },
-              ]}>
+              ]}
+            >
               {isLoading ? (
                 <Loading />
               ) : (
@@ -113,12 +115,14 @@ const Event = () => {
                 <TabPane
                   // onClick={() => handleChangeTab(item1)}
                   tab={item1.name}
-                  key={item1.id}>
+                  key={item1.id}
+                >
                   <Row
                     gutter={[
                       { xs: 2, sm: 4, md: 10, lg: 16 },
                       { xs: 2, sm: 4, md: 10, lg: 16 },
-                    ]}>
+                    ]}
+                  >
                     {isLoading ? (
                       <Loading />
                     ) : (

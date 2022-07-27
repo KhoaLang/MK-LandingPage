@@ -17,8 +17,10 @@
     background: url("../../../assets/753221.png") no-repeat center center/cover;
   }
   &__container {
+    position: relative;
     padding: 60px;
-    z-index: 2;
+    z-index: 5;
+    // opacity: 1 !important;
     h1,
     p {
       width: 50%;
