@@ -14,12 +14,10 @@ export const getAllMomentAction = (id) => {
     }
   };
 };
-export const getDetailMomentAction = (id, setFileList,navigate) => {
+export const getDetailMomentAction = (id, setFileList, navigate) => {
   return async (dispatch) => {
     try {
       const { data } = await momentService.getDetailById(id);
-
-      console.log(data.data.image[0]);
       setFileList([
         {
           url: ` https://landing-page-vnplus.herokuapp.com/image/${data.data.image[0]}`,
@@ -27,11 +25,10 @@ export const getDetailMomentAction = (id, setFileList,navigate) => {
       ]);
       dispatch({ type: GET_DETAIL_MOMENT, data: data.data });
     } catch (error) {
-      console.log(error)
-      if(error.response.status ===404){
-        navigate("/not-found")
+      console.log(error);
+      if (error.response.status === 404) {
+        navigate("/not-found");
       }
-      
     }
   };
 };
@@ -56,7 +53,6 @@ export const createMomentAction = (data, resetForm, setFileList) => {
 };
 
 export const updateMomentAction = (id, data) => {
-  console.log(id, data);
   return async (dispatch) => {
     try {
       dispatch({ type: SHOW_LOADING });

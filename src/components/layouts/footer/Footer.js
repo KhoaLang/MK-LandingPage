@@ -60,7 +60,6 @@ const Footer = () => {
   const { t, i18n } = useTranslation();
 
   const handleChange = (value) => {
-    console.log("languae", value);
     i18n.changeLanguage(value);
   };
   return (
@@ -68,8 +67,7 @@ const Footer = () => {
       <div className="footer__upper d-flex justify-content-center align-items-center">
         <Row
           gutter={[0, 48]}
-          className="footer__upper__container container d-flex justify-content-between"
-        >
+          className="footer__upper__container container d-flex justify-content-between">
           <Col md={14} xs={24} className="footer__upper__container__left-side">
             <div className="footer__upper__container__left-side__company-name-box">
               <h5>{t("CompanyName")}</h5>
@@ -78,8 +76,7 @@ const Footer = () => {
               {contactInfo.map((item, idx) => (
                 <li
                   className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
-                  key={idx}
-                >
+                  key={idx}>
                   {item.logo}
                   <p>{item.info}</p>
                 </li>
@@ -92,8 +89,7 @@ const Footer = () => {
               {socialMedia.map((item, idx) => (
                 <li
                   className="footer__upper__container__middle-side__follow__item d-flex align-items-center"
-                  key={idx}
-                >
+                  key={idx}>
                   {item.logo}
                   <p>{item.name}</p>
                 </li>
@@ -101,8 +97,7 @@ const Footer = () => {
               {socialMediaResponsive.map((item, idx) => (
                 <li
                   className="footer__upper__container__middle-side__follow__item-responsive d-flex align-items-center"
-                  key={idx}
-                >
+                  key={idx}>
                   {item.logo}
                 </li>
               ))}
@@ -111,8 +106,7 @@ const Footer = () => {
           <Col
             md={5}
             xs={24}
-            className="footer__upper__container__right-side d-flex justify-content-end"
-          >
+            className="footer__upper__container__right-side d-flex justify-content-end">
             <Select
               defaultValue="en"
               style={{
@@ -126,8 +120,7 @@ const Footer = () => {
               suffixIcon={
                 <DownOutlined style={{ fontSize: "15px", color: "#fff" }} />
               }
-              onChange={handleChange}
-            >
+              onChange={handleChange}>
               <Option value="en">
                 <LanguageSelect icon={UK} name="English" />
               </Option>

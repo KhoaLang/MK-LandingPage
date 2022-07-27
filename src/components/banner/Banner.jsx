@@ -16,7 +16,6 @@ export const Banner = (props) => {
   const { banner } = props;
   const { listBanner } = useSelector((state) => state.bannerReducer);
   const dispatch = useDispatch();
-  // console.log(listBanner);
   useEffect(() => {
     dispatch(getAllBannerAction());
   }, []);
@@ -31,8 +30,7 @@ export const Banner = (props) => {
         lazy={true}
         speed={600}
         modules={[Navigation, Pagination, Autoplay, Lazy, Parallax]}
-        className="bannerSwiper"
-      >
+        className="bannerSwiper">
         {listBanner?.map((banner, idx) => {
           return (
             banner.isVisible && (

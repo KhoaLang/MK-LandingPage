@@ -24,7 +24,6 @@ export const getAllPostAction = (id = "", setState) => {
         });
       }
     } catch (error) {
-      // console.log(error.response?.data);
       dispatch({ type: FETCH_POST_FAIL });
     }
   };
@@ -128,7 +127,6 @@ export const filterPostAction = (
         createdAt: { startDate, endDate },
         sort,
       };
-      console.log(formData);
       let { data } = await postService.filterPost(formData);
       dispatch({ type: GET_ALL_POST, data: data.data });
     } catch (error) {

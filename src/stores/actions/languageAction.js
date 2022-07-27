@@ -75,7 +75,6 @@ export const createLanguageAction = (data, resetForm) => {
 };
 
 export const updateLanguageAction = (id, data) => {
-  console.log(id, data);
   return async (dispatch) => {
     try {
       dispatch({ type: SHOW_LOADING });

@@ -45,7 +45,6 @@ export const BannerNew = () => {
   const [fileList, setFileList] = useState([]);
 
   const { listPage } = useSelector((state) => state.pageReducer);
-  // console.log(listPage);
 
   useEffect(() => {
     dispatch(getAllPageAction());
@@ -75,8 +74,7 @@ export const BannerNew = () => {
       <div
         style={{
           marginTop: 8,
-        }}
-      >
+        }}>
         Upload
       </div>
     </div>
@@ -87,7 +85,6 @@ export const BannerNew = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
   const navigate = useNavigate();
-  // console.log(isLoading);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -105,18 +102,14 @@ export const BannerNew = () => {
       name: Yup.string().required("Name is require!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       let formData = new FormData();
       for (let key in values) {
         if (key !== "image") {
-          // console.log(key, values[key]);
-
           formData.append(key, values[key]);
         } else {
           formData.append("image", values.image[0].originFileObj);
         }
       }
-      // console.log(formData.get("image"));
       dispatch(createBannerAction(formData, resetForm, setFileList));
     },
   });
@@ -144,8 +137,7 @@ export const BannerNew = () => {
             <Breadcrumb.Item>Quản lý banner</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}>Danh mục</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -164,8 +156,7 @@ export const BannerNew = () => {
                   type="primary"
                   onSubmit={formik.handleSubmit}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   THÊM BANNER
                 </Button>
@@ -194,15 +185,13 @@ export const BannerNew = () => {
                 defaultValue={formik.values.locatedAt}
                 className={cx("upload")}
                 onChange={handleChangeSelect}
-                dropdownStyle={{}}
-              >
+                dropdownStyle={{}}>
                 {listPage?.map((item) => {
                   return (
                     <Option
                       className={cx("upload-item")}
                       label={item.name}
-                      value={item.id}
-                    >
+                      value={item.id}>
                       {item.name}
                     </Option>
                   );
@@ -224,16 +213,14 @@ export const BannerNew = () => {
                 className={cx("upload")}
                 onPreview={handlePreview}
                 onChange={handleChange}
-                customRequest={dummyRequest}
-              >
+                customRequest={dummyRequest}>
                 {fileList.length >= 1 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
                 title={previewTitle}
                 footer={null}
-                onCancel={handleCancel}
-              >
+                onCancel={handleCancel}>
                 <img
                   alt="example"
                   style={{

@@ -6,12 +6,8 @@ export class HiringService extends baseService {
   };
   getAllHiring = (keyString, type) => {
     if (keyString || type) {
-      console.log("ds-ad-sa-d-sad-sa-d-sa-");
-      console.log(keyString, type);
-
       return this.get(`/api/career?keyString=${keyString}&type=${type}`);
     }
-    console.log(keyString, type, "server");
     return this.get(`/api/career`);
   };
   getDetailById = (id) => {

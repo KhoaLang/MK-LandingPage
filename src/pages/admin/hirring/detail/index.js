@@ -45,7 +45,6 @@ export const HiringDetail = () => {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.loadingReducer);
   const { hiringDetail } = useSelector((state) => state.hiringReducer);
-  console.log(hiringDetail);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getDetailHiringAction(id));
@@ -77,7 +76,6 @@ export const HiringDetail = () => {
       description: Yup.string().required("Name is require!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       dispatch(updateHiringAction(id, values));
     },
   });
@@ -87,7 +85,6 @@ export const HiringDetail = () => {
       formik.setFieldValue(name, value);
     };
   };
- 
 
   const handleChangeSelect = (value) => {
     formik.setFieldValue("type", value);
@@ -102,16 +99,14 @@ export const HiringDetail = () => {
   return (
     <div
       className={cx("post-new", { createHiring: "createHiring" })}
-      onSubmit={formik.handleSubmit}
-    >
+      onSubmit={formik.handleSubmit}>
       <div className={cx("wrapper")}>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item>Quản lý banner</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}>Tuyển dụng</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -132,8 +127,7 @@ export const HiringDetail = () => {
                     await dispatch(deleteHiringAction(id));
                     navigate(-1);
                   }}
-                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-                >
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
                   <Button
                     danger
                     style={{
@@ -141,8 +135,7 @@ export const HiringDetail = () => {
                       borderColor: "currentcolor",
                       fontWeight: "bold",
                     }}
-                    size="large"
-                  >
+                    size="large">
                     <DeleteOutlined />
                     Xoá
                   </Button>
@@ -153,8 +146,7 @@ export const HiringDetail = () => {
                   onSubmit={formik.handleSubmit}
                   style={{ marginLeft: "20px", fontWeight: "500" }}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <FolderOutlined />}
                   Lưu Thay Đổi
                 </Button>
@@ -182,8 +174,7 @@ export const HiringDetail = () => {
                 size={"large"}
                 defaultValue={formik.values.type}
                 className={cx("upload")}
-                onChange={handleChangeSelect}
-              >
+                onChange={handleChangeSelect}>
                 <Option value={0}>Fulltime</Option>
                 <Option value={1}>Intern</Option>
               </Select>
@@ -280,8 +271,7 @@ export const HiringDetail = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}
-              >
+                }}>
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -337,8 +327,7 @@ export const HiringDetail = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}
-              >
+                }}>
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -394,8 +383,7 @@ export const HiringDetail = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}
-              >
+                }}>
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"

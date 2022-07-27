@@ -50,7 +50,6 @@ export const CreateLanguage = () => {
       language: Yup.string().required("required!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       dispatch(createLanguageAction(values, resetForm));
     },
   });
@@ -79,15 +78,13 @@ export const CreateLanguage = () => {
   return (
     <div
       className={cx("post-new", { createHiring: "createHiring" })}
-      onSubmit={formik.handleSubmit}
-    >
-      <div >
+      onSubmit={formik.handleSubmit}>
+      <div>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}> Ngôn Ngữ</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -106,8 +103,7 @@ export const CreateLanguage = () => {
                   type="primary"
                   onSubmit={formik.handleSubmit}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   Tạo ngôn ngữ
                 </Button>
@@ -135,8 +131,7 @@ export const CreateLanguage = () => {
                 size={"large"}
                 defaultValue={formik.values.language}
                 className={cx("upload")}
-                onChange={handleChangeSelect}
-              >
+                onChange={handleChangeSelect}>
                 <Option value={"vi"}>Tiếng Việt</Option>
                 <Option value={"en"}>Tiếng Anh</Option>
               </Select>

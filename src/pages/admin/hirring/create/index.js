@@ -63,7 +63,6 @@ export const CreateHiring = () => {
       description: Yup.string().required("required!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       dispatch(createHiringAction(values, resetForm));
     },
   });
@@ -92,16 +91,14 @@ export const CreateHiring = () => {
   return (
     <div
       className={cx("post-new", { createHiring: "createHiring" })}
-      onSubmit={formik.handleSubmit}
-    >
+      onSubmit={formik.handleSubmit}>
       <div className={cx("wrapper")}>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item>Quản lý banner</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}>Tuyển dụng</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -120,8 +117,7 @@ export const CreateHiring = () => {
                   type="primary"
                   onSubmit={formik.handleSubmit}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   Tạo Bài Đăng
                 </Button>
@@ -149,8 +145,7 @@ export const CreateHiring = () => {
                 size={"large"}
                 defaultValue={formik.values.type}
                 className={cx("upload")}
-                onChange={handleChangeSelect}
-              >
+                onChange={handleChangeSelect}>
                 <Option value={1}>Fulltime</Option>
                 <Option value={2}>Intern</Option>
               </Select>
@@ -247,8 +242,7 @@ export const CreateHiring = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}
-              >
+                }}>
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -304,8 +298,7 @@ export const CreateHiring = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}
-              >
+                }}>
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -361,8 +354,7 @@ export const CreateHiring = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}
-              >
+                }}>
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"

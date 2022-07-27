@@ -31,6 +31,7 @@ import { Language } from "./pages/admin/language";
 import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
 import { ArrowUpOutlined } from "@ant-design/icons";
+import { Parallax } from "rc-scroll-anim";
 
 function App() {
   const navigate = useNavigate();

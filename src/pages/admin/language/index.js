@@ -52,9 +52,7 @@ export const Language = () => {
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  const onFinish = (values) => {};
 
   const data = listLanguage?.map((item) => {
     return {
@@ -100,8 +98,7 @@ export const Language = () => {
             <Popconfirm
               title="Are you sure？"
               onConfirm={() => dispatch(deleteLanguageAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             </Popconfirm>
             <Button
@@ -121,7 +118,6 @@ export const Language = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -130,7 +126,6 @@ export const Language = () => {
   };
 
   const handleChangeSelect = (value) => {
-    console.log(value);
     setFilter(value);
     // dispatch(getAllMomentAction(value));
   };
@@ -146,23 +141,20 @@ export const Language = () => {
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-
         <h5>Quản lý ngôn ngữ</h5>
 
         <div className={cx("grpBtn")}>
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -171,8 +163,7 @@ export const Language = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Thêm Ngôn Ngữ
           </Button>
@@ -189,20 +180,17 @@ export const Language = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}
-      >
+        onFinish={onFinish}>
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type"
-        >
+          name="type">
           <Select
             size={"large"}
             defaultValue=""
             className={cx("upload")}
-            onChange={handleChangeSelect}
-          >
+            onChange={handleChangeSelect}>
             <Option label={"Tất Vả"} value={""}>
               Tất Cả
             </Option>
@@ -219,8 +207,7 @@ export const Language = () => {
             onClick={handleFilter}
             size="large"
             type="primary"
-            htmlType="submit"
-          >
+            htmlType="submit">
             Tìm
           </Button>
         </Form.Item>

@@ -13,11 +13,9 @@ export const createCategoryAction = (data, resetForm) => {
       resetForm();
 
       openNotification("success", "Create Category success!");
-      // dispatch({ type: HIDE_LOADING });
     } catch (error) {
       openNotification("error", `Create fail!`);
       dispatch({ type: HIDE_LOADING });
-      // console.log(error.response?.data);
     }
   };
 };
@@ -26,9 +24,7 @@ export const getAllCatetgoryAction = (id) => {
     try {
       const { data } = await catetgoryService.getAllCategory(id);
       dispatch({ type: GET_ALL_CATEGORY, data: data.data });
-    } catch (error) {
-      // console.log(error.response?.data);
-    }
+    } catch (error) {}
   };
 };
 export const getDetailCatetgoryAction = (id) => {
@@ -36,9 +32,7 @@ export const getDetailCatetgoryAction = (id) => {
     try {
       const { data } = await catetgoryService.getDetailById(id);
       dispatch({ type: GET_DETAIL_CATEGORY, data: data.data });
-    } catch (error) {
-      // console.log(error.response?.data);
-    }
+    } catch (error) {}
   };
 };
 
@@ -47,7 +41,7 @@ export const updateCategoryAction = (id, data) => {
     try {
       dispatch({ type: SHOW_LOADING });
       await catetgoryService.updateCategory(id, data);
-      dispatch(getAllCatetgoryAction)
+      dispatch(getAllCatetgoryAction);
       openNotification("success", "Update Category success!");
       dispatch({ type: HIDE_LOADING });
     } catch (error) {

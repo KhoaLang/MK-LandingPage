@@ -134,7 +134,6 @@ const NewPost = () => {
       let categoryObjInCategoryList = listCategory.filter(
         (item, idx) => item.id === valueTemp
       );
-      // console.log(categoryObjInCategoryList);
       let categoryTemp = {
         id: categoryObjInCategoryList.id,
         serial: categoryObjInCategoryList.serial,
@@ -179,16 +178,12 @@ const NewPost = () => {
         <p>TẠO BÀI VIẾT</p>
         <Form
           onFinish={formik.handleSubmit}
-          // onChange={() => console.log(form)}
-          // form={form}
           labelCol={{ span: 3 }}
-          wrapperCol={{ span: 21 }}
-        >
+          wrapperCol={{ span: 21 }}>
           <Form.Item
             wrapperCol={{
               offset: 21,
-            }}
-          >
+            }}>
             <Button type="primary" htmlType="submit">
               {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
               Tạo bài viết
@@ -205,8 +200,7 @@ const NewPost = () => {
                 required: true,
                 message: "Please enter post title!",
               },
-            ]}
-          >
+            ]}>
             <Input placeholder="Nhập tiêu đề" />
           </Form.Item>
           <Form.Item
@@ -220,14 +214,12 @@ const NewPost = () => {
                 required: true,
                 message: "Please choose post category!",
               },
-            ]}
-          >
+            ]}>
             <Select
               onChange={(value) => handleFormItemChange("category", value)}
               value={formik.values.Category}
               defaultValue="Category 1"
-              style={{ width: "fit-content" }}
-            >
+              style={{ width: "fit-content" }}>
               {listCategory.map((item, idx) => (
                 <Option key={idx} value={item.id}>
                   {item.name}
@@ -246,8 +238,7 @@ const NewPost = () => {
                 // required: true,
                 message: "Please choost an image for this post!",
               },
-            ]}
-          >
+            ]}>
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               fileList={fileList}
@@ -259,8 +250,7 @@ const NewPost = () => {
               // showUploadList={true}
               // previewFile={handlePreview}
               onPreview={handlePreview}
-              customRequest={dummyRequest}
-            >
+              customRequest={dummyRequest}>
               {/* {uploadImg < 1 && "+ Upload"} */}
               {fileList?.length < 1 && "+ Upload"}
             </Upload>
@@ -268,8 +258,7 @@ const NewPost = () => {
               visible={previewVisible}
               title={previewTitle}
               footer={null}
-              onCancel={handleCancel}
-            >
+              onCancel={handleCancel}>
               <img
                 alt="example"
                 style={{
@@ -290,8 +279,7 @@ const NewPost = () => {
             value={formik.values.content}
             label="Nội dung"
             name="content"
-            labelAlign="left"
-          >
+            labelAlign="left">
             <Editor
               tinymceScriptSrc={
                 process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -343,8 +331,7 @@ const NewPost = () => {
                 type: "url",
                 message: "This field must be a valid url.",
               },
-            ]}
-          >
+            ]}>
             <Input placeholder="https://..." />
           </Form.Item>
         </Form>

@@ -19,7 +19,6 @@ const backendOptions = {
     try {
       axios.get(url).then((result) => {
         const data = convertArrayToObject(result.data.data, "key");
-        console.log(data,url);
         callback(null, {
           data: data,
           status: 200,
@@ -41,7 +40,7 @@ i18n
   .init({
     backend: backendOptions,
     fallbackLng: "en",
-    lng:"en",
+    lng: "en",
     debug: false,
     load: "languageOnly",
     // ns: ["translations"],

@@ -63,13 +63,12 @@ export const OutstandingDetail = () => {
   const [previewTitle, setPreviewTitle] = useState("");
   const [fileList, setFileList] = useState([]);
 
-  console.log("momnetndc", momentDetail);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getAllPageAction());
   }, []);
   useEffect(() => {
-    dispatch(getDetailMomentAction(id, setFileList,navigate));
+    dispatch(getDetailMomentAction(id, setFileList, navigate));
   }, [id, dispatch]);
 
   const handleCancel = () => setPreviewVisible(false);
@@ -97,8 +96,7 @@ export const OutstandingDetail = () => {
       <div
         style={{
           marginTop: 8,
-        }}
-      >
+        }}>
         Upload
       </div>
     </div>
@@ -122,18 +120,14 @@ export const OutstandingDetail = () => {
       name: Yup.string().required("Name is require!"),
     }),
     onSubmit: (values, { resetForm }) => {
-      console.log(values);
       let formData = new FormData();
       for (let key in values) {
         if (key !== "image") {
-          // console.log(key, values[key]);
-
           formData.append(key, values[key]);
         } else {
           formData.append("image", values.image[0].originFileObj);
         }
       }
-      console.log(formData.get("image"));
       dispatch(updateMomentAction(id, formData));
     },
   });
@@ -160,8 +154,7 @@ export const OutstandingDetail = () => {
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}
-            >
+              onClick={() => navigate(-1)}>
               <span style={{ cursor: "pointer" }}>Khoảnh khắc nổi bậc</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -182,8 +175,7 @@ export const OutstandingDetail = () => {
                     await dispatch(deleteBannerAction(id));
                     navigate(-1);
                   }}
-                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-                >
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
                   <Button
                     danger
                     style={{
@@ -191,8 +183,7 @@ export const OutstandingDetail = () => {
                       borderColor: "currentcolor",
                       fontWeight: "bold",
                     }}
-                    size="large"
-                  >
+                    size="large">
                     <DeleteOutlined />
                     Xoá
                   </Button>
@@ -203,8 +194,7 @@ export const OutstandingDetail = () => {
                   onSubmit={formik.handleSubmit}
                   style={{ marginLeft: "20px", fontWeight: "500" }}
                   size="large"
-                  htmlType="submit"
-                >
+                  htmlType="submit">
                   {isLoading ? <LoadingOutlined /> : <FolderOutlined />}
                   Lưu Thay Đổi
                 </Button>
@@ -233,8 +223,7 @@ export const OutstandingDetail = () => {
                 defaultValue={formik.values.position}
                 value={formik.values.position}
                 className={cx("upload")}
-                onChange={handleChangeSelect}
-              >
+                onChange={handleChangeSelect}>
                 {listPage?.map((item) => {
                   return (
                     <Option label={item.name} key={item.id} value={item.id}>
@@ -258,16 +247,14 @@ export const OutstandingDetail = () => {
                 className={cx("upload")}
                 onPreview={handlePreview}
                 onChange={handleChange}
-                customRequest={dummyRequest}
-              >
+                customRequest={dummyRequest}>
                 {fileList.length > 0 ? null : uploadButton}
               </Upload>
               <Modal
                 visible={previewVisible}
                 title={previewTitle}
                 footer={null}
-                onCancel={handleCancel}
-              >
+                onCancel={handleCancel}>
                 <img
                   alt="example"
                   style={{

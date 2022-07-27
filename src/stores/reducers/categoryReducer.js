@@ -10,7 +10,6 @@ export const categoryReducer = (state = initialState, action) => {
     case GET_ALL_CATEGORY:
       return { ...state, listCategory: action.data };
     case GET_DETAIL_CATEGORY:
-      console.log("action", action.data);
       return { ...state, categoryDetail: action.data };
 
     default:

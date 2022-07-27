@@ -28,7 +28,6 @@ const Event = () => {
     (state) => state.postReducer
   );
   const { t, i18n } = useTranslation();
-  // console.log("dwdsadsadsa", isLoading);
   useEffect(() => {
     dispatch(getAllCatetgoryAction);
     dispatch(getAllPostAction);
@@ -42,31 +41,14 @@ const Event = () => {
     });
   }, [listPost]);
   const onChange = (key) => {
-    console.log(key == "");
     if (key === "") {
-      console.log("alllllalalalal");
       dispatch(getAllPostAction(key, setState));
     } else {
-      console.log("alllllalalala2l");
       dispatch(getFilterPost(key, setState));
     }
-    // console.log(key);
-    // setState({
-    //   data: postFilter?.filter((category) => category.isVisible === true),
-    //   totalPage: postFilter.length / pageSize,
-    //   minIndex: 0,
-    //   maxIndex: pageSize,
-    // });
   };
 
   const handleChange = (page) => {
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth",
-    //   /* you can also use 'auto' behaviour
-    //      in place of 'smooth' */
-    // });
-    // console.log("page2wdsad-sad-sa", page);
     setState((prev) => ({
       ...prev,
       current: page,
@@ -84,23 +66,13 @@ const Event = () => {
           className="tabEvent"
           size="large"
           defaultActiveKey="1"
-          onChange={onChange}
-        >
-          <TabPane
-            // onClick={() =>
-            //   handleChangeTab(
-            //     listPost?.filter((category) => category.isVisible === true)
-            //   )
-            // }
-            tab={t("All")}
-            key=""
-          >
+          onChange={onChange}>
+          <TabPane tab={t("All")} key="">
             <Row
               gutter={[
                 { xs: 2, sm: 4, md: 10, lg: 16 },
                 { xs: 2, sm: 4, md: 10, lg: 16 },
-              ]}
-            >
+              ]}>
               {isLoading ? (
                 <Loading />
               ) : (
@@ -141,14 +113,12 @@ const Event = () => {
                 <TabPane
                   // onClick={() => handleChangeTab(item1)}
                   tab={item1.name}
-                  key={item1.id}
-                >
+                  key={item1.id}>
                   <Row
                     gutter={[
                       { xs: 2, sm: 4, md: 10, lg: 16 },
                       { xs: 2, sm: 4, md: 10, lg: 16 },
-                    ]}
-                  >
+                    ]}>
                     {isLoading ? (
                       <Loading />
                     ) : (

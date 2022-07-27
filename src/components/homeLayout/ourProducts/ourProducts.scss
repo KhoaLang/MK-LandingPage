@@ -5,8 +5,6 @@
   padding: 60px 0 60px 0;
   position: relative;
   &__container {
-    opacity: 1;
-    // transition: all 0.2s ease;
     &__title {
       text-align: center;
     }
@@ -26,6 +24,7 @@
         }
       }
       p {
+        text-align: justify;
         color: $black400;
         font-size: 16px;
         font-weight: 400;

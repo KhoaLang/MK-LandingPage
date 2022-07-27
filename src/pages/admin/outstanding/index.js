@@ -42,7 +42,6 @@ export const Outstanding = () => {
   const [filter, setFilter] = useState();
   const { listMoment } = useSelector((state) => state.momentReducer);
   const { listPage } = useSelector((state) => state.pageReducer);
-  console.log("12321321", listMoment);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllMomentAction());
@@ -51,15 +50,9 @@ export const Outstanding = () => {
   const navigate = useNavigate();
 
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  const onFinish = (values) => {};
   const handleVisible = (id, checked) => {
-    // console.log("checked", id, checked);
-    // let formData = new FormData();
-    // formData.append("isVisible", checked);
-
-    dispatch(updateMomentAction(id, {isVisible:checked}));
+    dispatch(updateMomentAction(id, { isVisible: checked }));
   };
 
   const data = listMoment?.map((item, idx) => {
@@ -98,7 +91,6 @@ export const Outstanding = () => {
       title: "Hiển thị",
       dataIndex: "isVisible",
       render: (isVisible, record) => {
-        console.log(isVisible);
         return (
           <Switch
             defaultChecked={isVisible}
@@ -115,8 +107,7 @@ export const Outstanding = () => {
             <Popconfirm
               title="Are you sure？"
               onConfirm={() => dispatch(deleteMomentAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             </Popconfirm>
             <Button
@@ -136,7 +127,6 @@ export const Outstanding = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -145,16 +135,15 @@ export const Outstanding = () => {
   };
 
   const handleChangeSelect = (value) => {
-    console.log(value);
-    setFilter(value)
+    setFilter(value);
     // dispatch(getAllMomentAction(value));
   };
   const handleDeleteArray = async (data) => {
     await Promise.all(data.map(async (id) => dispatch(deleteMomentAction(id))));
   };
-  const handleFilter = ()=>{
+  const handleFilter = () => {
     dispatch(getAllMomentAction(filter));
-  }
+  };
 
   return (
     <div className={cx("ManagePost")}>
@@ -164,16 +153,14 @@ export const Outstanding = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -182,8 +169,7 @@ export const Outstanding = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Thêm Ảnh
           </Button>
@@ -200,20 +186,17 @@ export const Outstanding = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}
-      >
+        onFinish={onFinish}>
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type"
-        >
+          name="type">
           <Select
             size={"large"}
             defaultValue=""
             className={cx("upload")}
-            onChange={handleChangeSelect}
-          >
+            onChange={handleChangeSelect}>
             <Option label={"Tất cả"} value={""}>
               Tất Cả
             </Option>
@@ -227,7 +210,11 @@ export const Outstanding = () => {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button onClick={handleFilter} size="large" type="primary" htmlType="submit">
+          <Button
+            onClick={handleFilter}
+            size="large"
+            type="primary"
+            htmlType="submit">
             Tìm
           </Button>
         </Form.Item>

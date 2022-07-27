@@ -41,12 +41,8 @@ export const Banner = () => {
     dispatch(getAllPageAction);
   }, []);
   const navigate = useNavigate();
-  console.log("listBanner", listBanner);
-
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
+  const onFinish = (values) => {};
   const handleVisible = (id, checked) => {
     dispatch(updateBannerAction(id, { isVisible: checked }));
   };
@@ -103,8 +99,7 @@ export const Banner = () => {
             <Popconfirm
               title="Are you sure？"
               onConfirm={() => dispatch(deleteBannerAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             </Popconfirm>
             <Button
@@ -124,7 +119,6 @@ export const Banner = () => {
   ];
   const onSelectChange = (newSelectedRowKeys) => {
     setSelectedRowKeys(newSelectedRowKeys);
-    console.log(newSelectedRowKeys);
   };
 
   const rowSelection = {
@@ -133,7 +127,6 @@ export const Banner = () => {
   };
 
   const handleChangeSelect = (value) => {
-    console.log(value);
     dispatch(getAllBannerAction(value));
   };
   const handleDeleteArray = async (data) => {
@@ -148,16 +141,14 @@ export const Banner = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -166,8 +157,7 @@ export const Banner = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Tạo Bài Viết
           </Button>
@@ -184,20 +174,17 @@ export const Banner = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}
-      >
+        onFinish={onFinish}>
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type"
-        >
+          name="type">
           <Select
             size={"large"}
             defaultValue=""
             className={cx("upload")}
-            onChange={handleChangeSelect}
-          >
+            onChange={handleChangeSelect}>
             <Option label={"Tất cả"} value={""}>
               Tất Cả
             </Option>

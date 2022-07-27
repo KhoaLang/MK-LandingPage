@@ -4,9 +4,6 @@ import loading from "../../assets/loading.png";
 export const LazyImage = ({ src }) => {
   const rootRef = useRef();
   const [isVisible, setIsVisible] = useState(false);
-  //   const loading =
-  //     "https://tom.imgix.net/imgix_logo_curvesq.png?auto=compress&q=1&blur=100";
-  console.log(src);
   useEffect(() => {
     const defaultIntersectionOptions = {
       threshold: 0,
