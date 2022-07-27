@@ -20,13 +20,11 @@ root.render(
   <Suspense fallback={<Loading />}>
     <React.StrictMode>
       <Provider store={store}>
-        <PersistGate loading={<h1>Loading....</h1>} persistor={persistor}>
-          <ParallaxProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ParallaxProvider>
-        </PersistGate>
+        <ParallaxProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ParallaxProvider>
       </Provider>
     </React.StrictMode>
   </Suspense>
