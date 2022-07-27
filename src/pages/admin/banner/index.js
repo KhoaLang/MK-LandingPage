@@ -159,7 +159,7 @@ export const Banner = () => {
             type="primary"
             size="large">
             <PlusOutlined />
-            Tạo Bài Viết
+            Tạo Banner
           </Button>
         </div>
       </div>
