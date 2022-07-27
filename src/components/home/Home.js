@@ -7,6 +7,7 @@ import Career from "../homeLayout/career/Career";
 import { useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { Banner } from "../banner/Banner";
+import { OverPack } from "rc-scroll-anim";
 // import Scrollbar from "react-smooth-scrollbar";
 // import { gsap, ScrollTrigger } from "gsap/all";
 
@@ -41,7 +42,7 @@ const Home = () => {
   const [bgOffset, setBgOffset] = useState(null);
 
   return (
-    <div className="home">
+    <OverPack className="home">
       <SmoothScroll setBgOffset={setBgOffset} />
       {/* <Hero /> */}
       <Banner />
@@ -49,7 +50,7 @@ const Home = () => {
       <Events />
       <About bgOffset={bgOffset} />
       <Career />
-    </div>
+    </OverPack>
   );
 };
 
