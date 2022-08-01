@@ -70,16 +70,16 @@ export const createPostAction = (data, resetForm) => {
   };
 };
 
-export const getPostDetailAction = (id, setFileList) => {
+export const getPostDetailAction = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await postService.getPostDetailById(id);
       dispatch({ type: GET_DETAIL_POST, data: data.data });
-      setFileList([
-        {
-          url: `${process.env.REACT_APP_BACKEND_BASE_URL}${data.data.image}`,
-        },
-      ]);
+      // setFileList([
+      //   {
+      //     url: `${process.env.REACT_APP_BACKEND_BASE_URL}${data.data?.image}`,
+      //   },
+      // ]);
     } catch (error) {
       console.error(error);
     }

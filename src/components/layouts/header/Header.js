@@ -26,21 +26,27 @@ const Header = () => {
   const setActiveNavbarItem = () => {
     if (activeRoute.length > 0) {
       switch (activeRoute) {
+        case "":
         case "/":
           setActiveItem(0);
           break;
+        case "aboutus":
         case "/aboutus":
           setActiveItem(1);
           break;
+        case "products":
         case "/products":
           setActiveItem(2);
           break;
+        case "event":
         case "/event":
           setActiveItem(3);
           break;
+        case "contact":
         case "/contact":
           setActiveItem(4);
           break;
+        case "career":
         case "/career":
           setActiveItem(5);
           break;

@@ -9,29 +9,35 @@ import { ReactComponent as Link } from "../../assets/link.svg";
 import { ReactComponent as Linkedin } from "../../assets/linkedin2.svg";
 import OtherNews from "../eventDetailLayout/otherNews/OtherNews";
 import { useDispatch, useSelector } from "react-redux";
-import { getPostDetailAction } from "../../stores/actions/postAction";
-import SmoothScroll from "../smoothScroll/SmoothScroll";
+import {
+  getPostDetailAction,
+  getAllPostAction,
+} from "../../stores/actions/postAction";
 import { LazyImage } from "../LazyImage";
-import moment from "moment"
+import moment from "moment";
 import { URL_IMAGE } from "../../utils/constants";
+import { t } from "i18next";
 
 const EventDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { listPost } = useSelector((state) => state.postReducer);
   const { postDetail } = useSelector((state) => state.postReducer);
   const mainContent = parse(`${postDetail?.content}`);
 
   // useEffect(() => {}, [window.location.href]);
 
   useEffect(() => {
+    if (listPost.length === 0) {
+      dispatch(getAllPostAction());
+    }
     dispatch(getPostDetailAction(id));
     window.scrollTo(0, 0);
-  }, [dispatch, id]);
+  }, [dispatch]);
 
   return (
     <section className="event-detail d-flex justify-content-center align-items-center">
-      <SmoothScroll />
       <div className="event-detail__container">
         <div className="event-detail__container__main-content">
           <Row gutter={[16, 16]}>
@@ -59,12 +65,20 @@ const EventDetail = () => {
               </div>
               <div className="event-detail__container__main-content__content">
                 <LazyImage src={`${URL_IMAGE}${postDetail?.image}`} />
-                <div className="event-detail__container__main-content__content__main">
+                <div className="event-detail__container__main-content__content__main d-flex flex-column">
                   {mainContent}
                 </div>
               </div>
+              <div className="event-detail__container__main-content__source">
+                <p>
+                  {t("Source")}:{" "}
+                  <span>
+                    <a href={postDetail.source}>{postDetail.source}</a>
+                  </span>
+                </p>
+              </div>
               <div className="event-detail__container__main-content__share-icon d-flex justify-content-between align-items-center">
-                <p>Chia sẻ:</p>
+                <p>{t("Share")}: </p>
                 <Facebook />
                 <Envelope />
                 <Linkedin />
@@ -94,7 +108,11 @@ const EventDetail = () => {
         </div>
 
         <div className="event-detail__container__other-news">
-          <OtherNews id={id} postCategoryName={postDetail?.Category?.name} />
+          <OtherNews
+            // id={id}
+            listPost={listPost}
+            // postCategoryName={postDetail?.Category?.name}
+          />
         </div>
       </div>
     </section>

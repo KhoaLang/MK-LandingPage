@@ -60,7 +60,7 @@ const DetailPost = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getPostDetailAction(id, setFileList));
+    dispatch(getPostDetailAction(id));
   }, [dispatch, id]);
 
   const formik = useFormik({
@@ -166,11 +166,13 @@ const DetailPost = () => {
         <Form
           onFinish={formik.handleSubmit}
           labelCol={{ span: 3 }}
-          wrapperCol={{ span: 21 }}>
+          wrapperCol={{ span: 21 }}
+        >
           <Form.Item
             wrapperCol={{
               offset: 21,
-            }}>
+            }}
+          >
             <Button type="primary" htmlType="submit">
               <PlusOutlined />
               Lưu thay đổi
@@ -213,7 +215,8 @@ const DetailPost = () => {
               onChange={(value) => handleFormItemChange("category", value)}
               value={formik.values.Category_ID}
               defaultValue="Category 1"
-              style={{ width: "fit-content" }}>
+              style={{ width: "fit-content" }}
+            >
               {listCategory.map((item, idx) => (
                 <Option key={item.id} value={item.id}>
                   {item.name}
@@ -231,7 +234,8 @@ const DetailPost = () => {
                 // required: true,
                 message: "Please choost an image for this post!",
               },
-            ]}>
+            ]}
+          >
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               fileList={fileList}
@@ -240,14 +244,16 @@ const DetailPost = () => {
               value={formik.values.image}
               onPreview={handlePreview}
               onChange={handleFileChange}
-              customRequest={dummyRequest}>
+              customRequest={dummyRequest}
+            >
               {fileList?.length < 1 && "+ Upload"}
             </Upload>
             <Modal
               visible={previewVisible}
               title={previewTitle}
               footer={null}
-              onCancel={handleCancel}>
+              onCancel={handleCancel}
+            >
               <img
                 alt="example"
                 style={{
@@ -315,7 +321,8 @@ const DetailPost = () => {
                 type: "url",
                 message: "This field must be a valid url.",
               },
-            ]}>
+            ]}
+          >
             <Input
               onChange={formik.handleChange}
               value={formik.values.source}

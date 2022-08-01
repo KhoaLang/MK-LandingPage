@@ -5,11 +5,13 @@ import img2 from "../../../assets/Frame22(2).png";
 import img3 from "../../../assets/Frame22(3).png";
 import Button from "../../layouts/primaryButton/Button";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const image = [img1, img2, img3];
 
 const OtherService = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   return (
     <section className="other-service d-flex justify-content-center align-items-center">
       <div className="other-service__container container d-flex flex-column justify-content-center align-items-center">
@@ -30,7 +32,9 @@ const OtherService = () => {
             </Col>
           ))}
         </Row>
-        <Button style={{ marginTop: "70px" }}>{t("ContactVNPLUS")}</Button>
+        <Button path="/contact" style={{ marginTop: "70px" }}>
+          {t("ContactVNPLUS")}
+        </Button>
       </div>
     </section>
   );
