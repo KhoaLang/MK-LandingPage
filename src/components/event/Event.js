@@ -27,7 +27,7 @@ const Event = () => {
   const { listPost, isLoading, postFilter } = useSelector(
     (state) => state.postReducer
   );
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   useEffect(() => {
     dispatch(getAllCatetgoryAction());
     dispatch(getAllPostAction());
@@ -114,7 +114,7 @@ const Event = () => {
               return (
                 <TabPane
                   // onClick={() => handleChangeTab(item1)}
-                  tab={item1.name}
+                  tab={t(item1.name)}
                   key={item1.id}
                 >
                   <Row

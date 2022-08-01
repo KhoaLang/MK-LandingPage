@@ -1,30 +1,15 @@
-import React, { useState, useEffect } from "react";
 import styles from "./CreateHiring.module.scss";
 import classNames from "classnames/bind";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Breadcrumb,
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-  Select,
-  Switch,
-  Upload,
-} from "antd";
+import { Breadcrumb, Button, Input, InputNumber, Select, Switch } from "antd";
 import {
   ExclamationCircleOutlined,
   LoadingOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import TextArea from "antd/lib/input/TextArea";
 import { useDispatch, useSelector } from "react-redux";
-import { createCategoryAction } from "../../../../stores/actions/categoryAction";
 import { useNavigate } from "react-router-dom";
-import { createBannerAction } from "../../../../stores/actions/bannerAction";
-import { getAllPageAction } from "../../../../stores/actions/pageAction";
 import { Editor } from "@tinymce/tinymce-react";
 import { createHiringAction } from "../../../../stores/actions/hiringAction";
 const { Option } = Select;
@@ -91,14 +76,16 @@ export const CreateHiring = () => {
   return (
     <div
       className={cx("post-new", { createHiring: "createHiring" })}
-      onSubmit={formik.handleSubmit}>
+      onSubmit={formik.handleSubmit}
+    >
       <div className={cx("wrapper")}>
         <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
           <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
             <Breadcrumb.Item>Quản lý banner</Breadcrumb.Item>
             <Breadcrumb.Item
               className={cx("bread")}
-              onClick={() => navigate(-1)}>
+              onClick={() => navigate(-1)}
+            >
               <span style={{ cursor: "pointer" }}>Tuyển dụng</span>
             </Breadcrumb.Item>
             <Breadcrumb.Item>
@@ -110,14 +97,15 @@ export const CreateHiring = () => {
           <form onSubmit={formik.handleSubmit}>
             <div className={cx("top")}>
               <div className={cx("title")}>
-                <h5>Dăng bài tuyển dụng</h5>
+                <h5>Đăng bài tuyển dụng</h5>
               </div>
               <div className={cx("grpBtn")}>
                 <Button
                   type="primary"
                   onSubmit={formik.handleSubmit}
                   size="large"
-                  htmlType="submit">
+                  htmlType="submit"
+                >
                   {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
                   Tạo Bài Đăng
                 </Button>
@@ -126,7 +114,6 @@ export const CreateHiring = () => {
             <div className={cx("formItem")}>
               <label className={cx("label")}>Vị trí</label>
               <Input
-                placeholder="Nhập tên danh mục"
                 name="position"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -145,7 +132,8 @@ export const CreateHiring = () => {
                 size={"large"}
                 defaultValue={formik.values.type}
                 className={cx("upload")}
-                onChange={handleChangeSelect}>
+                onChange={handleChangeSelect}
+              >
                 <Option value={1}>Fulltime</Option>
                 <Option value={2}>Intern</Option>
               </Select>
@@ -180,7 +168,6 @@ export const CreateHiring = () => {
             <div className={cx("formItem")}>
               <label className={cx("label")}>Mức lương</label>
               <Input
-                placeholder="Nhập tên danh mục"
                 name="salary"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -196,7 +183,6 @@ export const CreateHiring = () => {
             <div className={cx("formItem")}>
               <label className={cx("label")}>Địa điểm</label>
               <Input
-                placeholder="Nhập tên danh mục"
                 name="location"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -221,7 +207,6 @@ export const CreateHiring = () => {
             <div className={cx("formItem")}>
               <label className={cx("label")}>Keywords</label>
               <Input
-                placeholder="Nhập tên danh mục"
                 name="keyword"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
@@ -242,7 +227,8 @@ export const CreateHiring = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}>
+                }}
+              >
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -274,8 +260,7 @@ export const CreateHiring = () => {
                       "help",
                       "wordcount",
                     ],
-                    toolbar:
-                      "bold italic underline | link image | bullist numlist",
+                    toolbar: "bold italic underline | link | bullist numlist",
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
@@ -298,7 +283,8 @@ export const CreateHiring = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}>
+                }}
+              >
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -330,8 +316,7 @@ export const CreateHiring = () => {
                       "help",
                       "wordcount",
                     ],
-                    toolbar:
-                      "bold italic underline | link image | bullist numlist",
+                    toolbar: "bold italic underline | link | bullist numlist",
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}
@@ -354,7 +339,8 @@ export const CreateHiring = () => {
                   display: "flex",
                   flexDirection: "column",
                   rowGap: "10px",
-                }}>
+                }}
+              >
                 <Editor
                   tinymceScriptSrc={
                     process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
@@ -386,8 +372,7 @@ export const CreateHiring = () => {
                       "help",
                       "wordcount",
                     ],
-                    toolbar:
-                      "bold italic underline | link image | bullist numlist",
+                    toolbar: "bold italic underline | link | bullist numlist",
                     content_style:
                       "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                   }}

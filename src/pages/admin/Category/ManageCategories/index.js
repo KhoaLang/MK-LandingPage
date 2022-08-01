@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCategory,
-  // getAllCatetgoryAction,
+  getAllCatetgoryAction,
   updateCategoryAction,
 } from "../../../../stores/actions/categoryAction";
 const { Option } = Select;
@@ -23,12 +23,11 @@ const ManageCategories = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { listCategory } = useSelector((state) => state.categoryReducer);
-  // const { isLoading } = useSelector((state) => state.loadingReducer);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  // useEffect(() => {
-  //   dispatch(getAllCatetgoryAction());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getAllCatetgoryAction());
+  }, []);
 
   const handleVisible = (id, checked) => {
     dispatch(updateCategoryAction(id, { isVisible: checked }));
@@ -88,7 +87,8 @@ const ManageCategories = () => {
             <Popconfirm
               title="Are you sure？"
               onConfirm={() => dispatch(deleteCategory(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
+              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+            >
               <Button shape="circle" size="large" icon={<DeleteOutlined />} />
             </Popconfirm>
             <Button
@@ -120,14 +120,16 @@ const ManageCategories = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large">
+              size="large"
+            >
               <DeleteOutlined />
               Xoá
             </Button>
@@ -137,7 +139,8 @@ const ManageCategories = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large">
+            size="large"
+          >
             <PlusOutlined />
             Tạo danh mục
           </Button>

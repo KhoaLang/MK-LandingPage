@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./NewPost.module.scss";
 import {
   Form,
@@ -47,6 +47,8 @@ const NewPost = () => {
   const [fileList, setFileList] = useState([]);
   const navigate = useNavigate();
 
+  const editorRef = useRef(null);
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -81,14 +83,8 @@ const NewPost = () => {
     dispatch(updateCategoryAction(category_id, newCategoryForm));
   };
 
-  // const handleFileChange = (info) => {
-  //   setUploadImg(info.fileList);
-  //   formik.setFieldValue("image", info.fileList);
-  // };
   const onchangeEdit = (newValue, editor) => {
     setTextValue(newValue);
-    // newValue = newValue.slice(3);
-    // formik.values.content = newValue.slice(0, newValue.length - 4);
     formik.values.content = newValue;
   };
 
@@ -108,21 +104,6 @@ const NewPost = () => {
     setFileList(newFileList);
     formik.setFieldValue("image", newFileList);
   };
-  // const handlePreview = async (file) => {
-  //   let src = file.url;
-  //   if (!src) {
-  //     src = await new Promise((resolve) => {
-  //       const reader = new FileReader();
-  //       reader.readAsDataURL(file.originFileObj);
-  //       reader.onload = () => resolve(reader.result);
-  //     });
-  //   }
-  //   const image = new Image();
-  //   image.src = src;
-  //   const imgWindow = window.open(src);
-  //   imgWindow.document.write(image.outerHTML);
-  // };
-
   const dummyRequest = ({ file, onSuccess }) => {
     setTimeout(() => {
       onSuccess("ok");
@@ -179,11 +160,13 @@ const NewPost = () => {
         <Form
           onFinish={formik.handleSubmit}
           labelCol={{ span: 3 }}
-          wrapperCol={{ span: 21 }}>
+          wrapperCol={{ span: 21 }}
+        >
           <Form.Item
             wrapperCol={{
               offset: 21,
-            }}>
+            }}
+          >
             <Button type="primary" htmlType="submit">
               {isLoading ? <LoadingOutlined /> : <PlusOutlined />}
               Tạo bài viết
@@ -200,7 +183,8 @@ const NewPost = () => {
                 required: true,
                 message: "Please enter post title!",
               },
-            ]}>
+            ]}
+          >
             <Input placeholder="Nhập tiêu đề" />
           </Form.Item>
           <Form.Item
@@ -214,12 +198,14 @@ const NewPost = () => {
                 required: true,
                 message: "Please choose post category!",
               },
-            ]}>
+            ]}
+          >
             <Select
               onChange={(value) => handleFormItemChange("category", value)}
               value={formik.values.Category}
               defaultValue="Category 1"
-              style={{ width: "fit-content" }}>
+              style={{ width: "fit-content" }}
+            >
               {listCategory.map((item, idx) => (
                 <Option key={idx} value={item.id}>
                   {item.name}
@@ -238,7 +224,8 @@ const NewPost = () => {
                 // required: true,
                 message: "Please choost an image for this post!",
               },
-            ]}>
+            ]}
+          >
             <Upload
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               fileList={fileList}
@@ -250,7 +237,8 @@ const NewPost = () => {
               // showUploadList={true}
               // previewFile={handlePreview}
               onPreview={handlePreview}
-              customRequest={dummyRequest}>
+              customRequest={dummyRequest}
+            >
               {/* {uploadImg < 1 && "+ Upload"} */}
               {fileList?.length < 1 && "+ Upload"}
             </Upload>
@@ -258,7 +246,8 @@ const NewPost = () => {
               visible={previewVisible}
               title={previewTitle}
               footer={null}
-              onCancel={handleCancel}>
+              onCancel={handleCancel}
+            >
               <img
                 alt="example"
                 style={{
@@ -276,18 +265,22 @@ const NewPost = () => {
           </Form.Item>
           <Form.Item
             onChange={formik.handleChange}
-            value={formik.values.content}
+            // value={formik.values.content}
             label="Nội dung"
             name="content"
-            labelAlign="left">
+            labelAlign="left"
+          >
             <Editor
               tinymceScriptSrc={
                 process.env.PUBLIC_URL + "/tinymce/tinymce.min.js"
               }
-              value={formik.values.content}
+              // value={formik.values.content}
               onEditorChange={(newValue, editor) =>
                 onchangeEdit(newValue, editor)
               }
+              onInit={(evt, editor) => {
+                editorRef.current = editor;
+              }}
               init={{
                 height: 300,
                 menubar: false,
@@ -310,9 +303,20 @@ const NewPost = () => {
                   "help",
                   "wordcount",
                 ],
+
                 toolbar: "bold italic underline | link image | bullist numlist",
                 content_style:
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                automatic_uploads: true,
+                images_upload_url: "postAcceptor.php",
+
+                // images_upload_handler: function (blobInfo, success, failure) {
+                //   console.log(blobInfo);
+                //   // setTimeout(function () {
+                //   //   /* no matter what you upload, we will turn it into TinyMCE logo :)*/
+                //   //   success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
+                //   // }, 2000);
+                // },
               }}
             />
           </Form.Item>
@@ -331,7 +335,8 @@ const NewPost = () => {
                 type: "url",
                 message: "This field must be a valid url.",
               },
-            ]}>
+            ]}
+          >
             <Input placeholder="https://..." />
           </Form.Item>
         </Form>
