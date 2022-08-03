@@ -59,7 +59,7 @@ export const Banner = () => {
         return (
           <img
             style={{ width: "74px", height: "48px" }}
-            src={`https://landing-page-vnplus.herokuapp.com/image/${text}`}
+            src={`${process.env.REACT_APP_BACKEND_BASE_URL}${text}`}
           />
         );
       },
