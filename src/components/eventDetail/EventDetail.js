@@ -34,7 +34,7 @@ const EventDetail = () => {
     }
     dispatch(getPostDetailAction(id));
     window.scrollTo(0, 0);
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <section className="event-detail d-flex justify-content-center align-items-center">
