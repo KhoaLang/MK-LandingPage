@@ -13,8 +13,7 @@ const convertArrayToObject = (array, key) => {
   }, {});
 };
 const backendOptions = {
-  loadPath:
-    "https://landing-page-vnplus.herokuapp.com/api/language-text?option={{lng}}",
+  loadPath: `${process.env.REACT_APP_BACKEND_BASE_URL_NO_IMAGE}/api/language-text?option={{lng}}`,
   request: async (options, url, payload, callback) => {
     try {
       axios.get(url).then((result) => {
