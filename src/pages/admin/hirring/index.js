@@ -12,6 +12,7 @@ import {
   Select,
   Switch,
   Table,
+  Popover,
 } from "antd";
 import {
   DeleteOutlined,
@@ -19,6 +20,7 @@ import {
   SearchOutlined,
   EditOutlined,
   QuestionCircleOutlined,
+  MoreOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,6 +42,7 @@ const cx = classNames.bind(styles);
 
 export const Hiring = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
+  const [dimension, setDimension] = useState(window.innerWidth);
   const [workTime, setWorkTime] = useState(0);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { listHiring } = useSelector((state) => state.hiringReducer);
@@ -56,6 +59,27 @@ export const Hiring = () => {
   const handleVisible = (id, checked) => {
     dispatch(updateHiringAction(id, { isVisible: checked }));
   };
+
+  //handle screen size change
+  function debounce(fn, ms) {
+    let timer;
+    return (_) => {
+      clearTimeout(timer);
+      timer = setTimeout((_) => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, ms);
+    };
+  }
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimension(window.innerWidth);
+    }, 2000);
+    window.addEventListener("resize", debouncedHandleResize);
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
 
   const data = listHiring
     ?.filter((item, idx) =>
@@ -123,23 +147,70 @@ export const Hiring = () => {
       render: (item) => {
         return (
           <div>
-            <Popconfirm
-              title="Are you sure？"
-              onConfirm={() => dispatch(deleteHiringAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
-              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
-            </Popconfirm>
-            <Button
-              onClick={() => {
-                navigate(`detail/${item.id}`);
-                dispatch(getDetailBannerAction(item.id));
-              }}
-              style={{ marginLeft: "20px" }}
-              shape="circle"
-              size="large"
-              type="primary"
-              icon={<EditOutlined />}
-            />
+            {dimension < 1400 ? (
+              <>
+                <Popover
+                  content={
+                    <>
+                      <Popconfirm
+                        title="Are you sure？"
+                        onConfirm={() => dispatch(deleteHiringAction(item.id))}
+                        icon={
+                          <QuestionCircleOutlined style={{ color: "red" }} />
+                        }
+                      >
+                        <Button
+                          shape="circle"
+                          size="large"
+                          icon={<DeleteOutlined />}
+                        />
+                      </Popconfirm>
+                      <Button
+                        onClick={() => {
+                          navigate(`detail/${item.id}`);
+                          dispatch(getDetailBannerAction(item.id));
+                        }}
+                        style={{ marginLeft: "20px" }}
+                        shape="circle"
+                        size="large"
+                        type="primary"
+                        icon={<EditOutlined />}
+                      />
+                    </>
+                  }
+                  trigger="click"
+                >
+                  <MoreOutlined
+                    style={{ fontSize: "20px", cursor: "pointer" }}
+                  />
+                </Popover>
+              </>
+            ) : (
+              <>
+                <Popconfirm
+                  title="Are you sure？"
+                  onConfirm={() => dispatch(deleteHiringAction(item.id))}
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                >
+                  <Button
+                    shape="circle"
+                    size="large"
+                    icon={<DeleteOutlined />}
+                  />
+                </Popconfirm>
+                <Button
+                  onClick={() => {
+                    navigate(`detail/${item.id}`);
+                    dispatch(getDetailBannerAction(item.id));
+                  }}
+                  style={{ marginLeft: "20px" }}
+                  shape="circle"
+                  size="large"
+                  type="primary"
+                  icon={<EditOutlined />}
+                />
+              </>
+            )}
           </div>
         );
       },
@@ -166,14 +237,16 @@ export const Hiring = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large">
+              size="large"
+            >
               <DeleteOutlined />
               Xoá
             </Button>
@@ -182,7 +255,8 @@ export const Hiring = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large">
+            size="large"
+          >
             <PlusOutlined />
             Tạo Bài Đăng
           </Button>
@@ -199,7 +273,8 @@ export const Hiring = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}>
+        onFinish={onFinish}
+      >
         <Form.Item label="Tìm kiếm" className="w-20" name="keyWord">
           <Input
             size="large"
@@ -213,13 +288,15 @@ export const Hiring = () => {
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type">
+          name="type"
+        >
           <Select
             size={"large"}
             value={workTime}
             onChange={(value) => setWorkTime(value)}
             defaultValue={0}
-            className={cx("upload")}>
+            className={cx("upload")}
+          >
             <Option label={"Tất cả"} value={0}>
               Tất cả
             </Option>

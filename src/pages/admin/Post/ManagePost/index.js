@@ -35,7 +35,7 @@ const cx = classNames.bind(styles);
 
 const ManagePost = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [dimension, setDimension] = useState(null);
+  const [dimension, setDimension] = useState(window.innerWidth);
   const [categorySelect, setCategorySelect] = useState(-1);
   const [dateSelect, setDateSelect] = useState({ startDate: "", endDate: "" });
   const [listOrder, setListOrder] = useState(-1);
@@ -65,7 +65,7 @@ const ManagePost = () => {
   useEffect(() => {
     const debouncedHandleResize = debounce(function handleResize() {
       setDimension(window.innerWidth);
-    }, 1000);
+    }, 2000);
     window.addEventListener("resize", debouncedHandleResize);
     return () => {
       window.removeEventListener("resize", debouncedHandleResize);
@@ -144,7 +144,6 @@ const ManagePost = () => {
     },
     {
       title: "Thao tác",
-      responsive: ["lg"],
       render: (item) => {
         return (
           <div>

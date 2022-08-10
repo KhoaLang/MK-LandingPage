@@ -1,39 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Language.module.scss";
 import classNames from "classnames/bind";
 
-import {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  Popconfirm,
-  Select,
-  Switch,
-  Table,
-} from "antd";
+import { Button, Form, Popconfirm, Select, Table, Popover } from "antd";
 import {
   DeleteOutlined,
   PlusOutlined,
-  SearchOutlined,
+  MoreOutlined,
   EditOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteBannerAction,
-  getAllBannerAction,
-  getDetailBannerAction,
-  updateBannerAction,
-} from "../../../stores/actions/bannerAction";
-import { updateCategoryAction } from "../../../stores/actions/categoryAction";
-import { getAllPageAction } from "../../../stores/actions/pageAction";
-import {
-  deleteMomentAction,
-  getAllMomentAction,
-  updateMomentAction,
-} from "../../../stores/actions/momentAction";
 import {
   deleteLanguageAction,
   getAllLanguage,
@@ -43,6 +21,8 @@ const cx = classNames.bind(styles);
 
 export const Language = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [dimension, setDimension] = useState(window.innerWidth);
+
   const [filter, setFilter] = useState();
   const { listLanguage } = useSelector((state) => state.languageReducer);
   const dispatch = useDispatch();
@@ -50,6 +30,26 @@ export const Language = () => {
     dispatch(getAllLanguage());
   }, []);
   const navigate = useNavigate();
+
+  function debounce(fn, ms) {
+    let timer;
+    return (_) => {
+      clearTimeout(timer);
+      timer = setTimeout((_) => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, ms);
+    };
+  }
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimension(window.innerWidth);
+    }, 2000);
+    window.addEventListener("resize", debouncedHandleResize);
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
 
   const [form] = Form.useForm();
   const onFinish = (values) => {};
@@ -95,22 +95,63 @@ export const Language = () => {
       render: (item) => {
         return (
           <div>
-            <Popconfirm
-              title="Are you sure？"
-              onConfirm={() => dispatch(deleteLanguageAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
-              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
-            </Popconfirm>
-            <Button
-              onClick={() => {
-                navigate(`detail/${item.id}`);
-              }}
-              style={{ marginLeft: "20px" }}
-              shape="circle"
-              size="large"
-              type="primary"
-              icon={<EditOutlined />}
-            />
+            {dimension < 1400 ? (
+              <Popover
+                content={
+                  <>
+                    <Popconfirm
+                      title="Are you sure？"
+                      onConfirm={() => dispatch(deleteLanguageAction(item.id))}
+                      icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                    >
+                      <Button
+                        shape="circle"
+                        size="large"
+                        icon={<DeleteOutlined />}
+                      />
+                    </Popconfirm>
+                    <Button
+                      onClick={() => {
+                        navigate(`detail/${item.id}`);
+                      }}
+                      style={{ marginLeft: "20px" }}
+                      shape="circle"
+                      size="large"
+                      type="primary"
+                      icon={<EditOutlined />}
+                    />
+                  </>
+                }
+                trigger="click"
+              >
+                <MoreOutlined style={{ fontSize: "20px", cursor: "pointer" }} />
+              </Popover>
+            ) : (
+              <>
+                {" "}
+                <Popconfirm
+                  title="Are you sure？"
+                  onConfirm={() => dispatch(deleteLanguageAction(item.id))}
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                >
+                  <Button
+                    shape="circle"
+                    size="large"
+                    icon={<DeleteOutlined />}
+                  />
+                </Popconfirm>
+                <Button
+                  onClick={() => {
+                    navigate(`detail/${item.id}`);
+                  }}
+                  style={{ marginLeft: "20px" }}
+                  shape="circle"
+                  size="large"
+                  type="primary"
+                  icon={<EditOutlined />}
+                />
+              </>
+            )}
           </div>
         );
       },
@@ -147,14 +188,16 @@ export const Language = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large">
+              size="large"
+            >
               <DeleteOutlined />
               Xoá
             </Button>
@@ -163,7 +206,8 @@ export const Language = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large">
+            size="large"
+          >
             <PlusOutlined />
             Thêm Ngôn Ngữ
           </Button>
@@ -180,17 +224,20 @@ export const Language = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}>
+        onFinish={onFinish}
+      >
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type">
+          name="type"
+        >
           <Select
             size={"large"}
             defaultValue=""
             className={cx("upload")}
-            onChange={handleChangeSelect}>
+            onChange={handleChangeSelect}
+          >
             <Option label={"Tất Vả"} value={""}>
               Tất Cả
             </Option>
@@ -207,7 +254,8 @@ export const Language = () => {
             onClick={handleFilter}
             size="large"
             type="primary"
-            htmlType="submit">
+            htmlType="submit"
+          >
             Tìm
           </Button>
         </Form.Item>
