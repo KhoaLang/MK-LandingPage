@@ -47,7 +47,7 @@ const NewPost = () => {
   const [fileList, setFileList] = useState([]);
   const navigate = useNavigate();
 
-  const editorRef = useRef(null);
+  // const editorRef = useRef(null);
 
   const formik = useFormik({
     initialValues: {
@@ -278,9 +278,9 @@ const NewPost = () => {
               onEditorChange={(newValue, editor) =>
                 onchangeEdit(newValue, editor)
               }
-              onInit={(evt, editor) => {
-                editorRef.current = editor;
-              }}
+              // onInit={(evt, editor) => {
+              //   editorRef.current = editor;
+              // }}
               init={{
                 height: 300,
                 menubar: false,
@@ -304,19 +304,63 @@ const NewPost = () => {
                   "wordcount",
                 ],
 
-                toolbar: "bold italic underline | link image | bullist numlist",
+                toolbar: "bold italic underline | link | bullist numlist",
                 content_style:
                   "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                 automatic_uploads: true,
                 images_upload_url: "postAcceptor.php",
 
-                // images_upload_handler: function (blobInfo, success, failure) {
-                //   console.log(blobInfo);
-                //   // setTimeout(function () {
-                //   //   /* no matter what you upload, we will turn it into TinyMCE logo :)*/
-                //   //   success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');
-                //   // }, 2000);
-                // },
+                images_upload_handler: function (
+                  blobInfo,
+                  success,
+                  failure,
+                  progress
+                ) {
+                  var xhr, formData;
+
+                  xhr = new XMLHttpRequest();
+                  xhr.withCredentials = false;
+                  xhr.open("POST", "postAcceptor.php");
+
+                  xhr.upload.onprogress = function (e) {
+                    progress((e.loaded / e.total) * 100);
+                  };
+
+                  xhr.onload = function () {
+                    var json;
+
+                    if (xhr.status === 403) {
+                      failure("HTTP Error: " + xhr.status, { remove: true });
+                      return;
+                    }
+
+                    if (xhr.status < 200 || xhr.status >= 300) {
+                      failure("HTTP Error: " + xhr.status);
+                      return;
+                    }
+
+                    json = JSON.parse(xhr.responseText);
+
+                    if (!json || typeof json.location != "string") {
+                      failure("Invalid JSON: " + xhr.responseText);
+                      return;
+                    }
+
+                    success(json.location);
+                  };
+
+                  xhr.onerror = function () {
+                    failure(
+                      "Image upload failed due to a XHR Transport error. Code: " +
+                        xhr.status
+                    );
+                  };
+
+                  formData = new FormData();
+                  formData.append("file", blobInfo.blob(), blobInfo.filename());
+
+                  xhr.send(formData);
+                },
               }}
             />
           </Form.Item>
