@@ -1,11 +1,9 @@
 import { Row, Col } from "antd";
 import "./otherNews.scss";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { EventCard } from "../../layouts/eventCard/EventCard";
 
-const OtherNews = ({ listPost }) => {
+const OtherNews = ({ listPost, id }) => {
   const [listFilteredPost, setListFilteredPost] = useState([]);
   const navigate = useNavigate();
   const randomValueFromArray = () => {
@@ -35,7 +33,7 @@ const OtherNews = ({ listPost }) => {
   useEffect(() => {
     // console.log(randomValueFromArray(listPost)); //Tối ưu code lọc post khác nhau
     setListFilteredPost(randomValueFromArray());
-  }, [listPost]);
+  }, [id]);
   return (
     <section className="other-news">
       <h3>Tin tức khác</h3>

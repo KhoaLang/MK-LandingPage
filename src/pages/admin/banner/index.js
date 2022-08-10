@@ -10,6 +10,7 @@ import {
   Select,
   Switch,
   Table,
+  Popover,
 } from "antd";
 import {
   DeleteOutlined,
@@ -17,6 +18,7 @@ import {
   SearchOutlined,
   EditOutlined,
   QuestionCircleOutlined,
+  MoreOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +34,7 @@ const { Option } = Select;
 const cx = classNames.bind(styles);
 
 export const Banner = () => {
+  const [dimension, setDimension] = useState(window.innerWidth);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const { listBanner } = useSelector((state) => state.bannerReducer);
   const { listPage } = useSelector((state) => state.pageReducer);
@@ -49,6 +52,27 @@ export const Banner = () => {
 
   const data = listBanner?.map((item, idx) => {
     return { ...item, key: item.id, locatedAt: item.Page?.name };
+  });
+
+  //handle screen size change
+  function debounce(fn, ms) {
+    let timer;
+    return (_) => {
+      clearTimeout(timer);
+      timer = setTimeout((_) => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, ms);
+    };
+  }
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimension(window.innerWidth);
+    }, 2000);
+    window.addEventListener("resize", debouncedHandleResize);
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
   });
 
   const columns = [
@@ -96,23 +120,69 @@ export const Banner = () => {
       render: (item) => {
         return (
           <div>
-            <Popconfirm
-              title="Are you sure？"
-              onConfirm={() => dispatch(deleteBannerAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-            >
-              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
-            </Popconfirm>
-            <Button
-              onClick={() => {
-                navigate(`detail/${item.id}`);
-              }}
-              style={{ marginLeft: "20px" }}
-              shape="circle"
-              size="large"
-              type="primary"
-              icon={<EditOutlined />}
-            />
+            {dimension < 1400 ? (
+              <>
+                {" "}
+                <Popover
+                  content={
+                    <>
+                      <Popconfirm
+                        title="Are you sure？"
+                        onConfirm={() => dispatch(deleteBannerAction(item.id))}
+                        icon={
+                          <QuestionCircleOutlined style={{ color: "red" }} />
+                        }
+                      >
+                        <Button
+                          shape="circle"
+                          size="large"
+                          icon={<DeleteOutlined />}
+                        />
+                      </Popconfirm>
+                      <Button
+                        onClick={() => {
+                          navigate(`detail/${item.id}`);
+                        }}
+                        style={{ marginLeft: "20px" }}
+                        shape="circle"
+                        size="large"
+                        type="primary"
+                        icon={<EditOutlined />}
+                      />
+                    </>
+                  }
+                  trigger="click"
+                >
+                  <MoreOutlined
+                    style={{ fontSize: "20px", cursor: "pointer" }}
+                  />
+                </Popover>
+              </>
+            ) : (
+              <>
+                <Popconfirm
+                  title="Are you sure？"
+                  onConfirm={() => dispatch(deleteBannerAction(item.id))}
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                >
+                  <Button
+                    shape="circle"
+                    size="large"
+                    icon={<DeleteOutlined />}
+                  />
+                </Popconfirm>
+                <Button
+                  onClick={() => {
+                    navigate(`detail/${item.id}`);
+                  }}
+                  style={{ marginLeft: "20px" }}
+                  shape="circle"
+                  size="large"
+                  type="primary"
+                  icon={<EditOutlined />}
+                />
+              </>
+            )}
           </div>
         );
       },

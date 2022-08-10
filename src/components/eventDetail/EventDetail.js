@@ -109,7 +109,7 @@ const EventDetail = () => {
 
         <div className="event-detail__container__other-news">
           <OtherNews
-            // id={id}
+            id={id}
             listPost={listPost}
             // postCategoryName={postDetail?.Category?.name}
           />
