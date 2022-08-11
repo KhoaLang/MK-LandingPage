@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import axios from "axios";
+import { DOMAIN } from "./utils/constants";
 
 const convertArrayToObject = (array, key) => {
   return array.reduce((obj, item) => {
@@ -13,8 +14,7 @@ const convertArrayToObject = (array, key) => {
   }, {});
 };
 const backendOptions = {
-  loadPath:
-    "https://landing-page-vnplus.herokuapp.com/api/language-text?option={{lng}}",
+  loadPath: `${DOMAIN}/api/language-text?option={{lng}}`,
   request: async (options, url, payload, callback) => {
     try {
       axios.get(url).then((result) => {

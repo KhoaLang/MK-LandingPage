@@ -34,6 +34,7 @@ import {
   getAllMomentAction,
   updateMomentAction,
 } from "../../../stores/actions/momentAction";
+import { DOMAIN } from "../../../utils/constants";
 const { Option } = Select;
 const cx = classNames.bind(styles);
 
@@ -67,7 +68,7 @@ export const Outstanding = () => {
         return (
           <img
             style={{ width: "74px", height: "48px" }}
-            src={`https://landing-page-vnplus.herokuapp.com/image/${text}`}
+            src={`${DOMAIN}/api/image/${text}`}
           />
         );
       },

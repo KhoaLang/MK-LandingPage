@@ -3,6 +3,7 @@ import { RightOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { DOMAIN } from "../../../utils/constants";
 
 const Card = (props) => {
   const [currentPost, setCurrentPost] = useState({});
@@ -16,7 +17,7 @@ const Card = (props) => {
     <div className="card">
       <div className="card__image-container">
         <img
-          src={`${process.env.REACT_APP_BACKEND_BASE_URL}${currentPost?.image}`}
+          src={`${DOMAIN}${process.env.REACT_APP_BACKEND_BASE_URL}${currentPost?.image}`}
           alt="nothing to see"
         />
       </div>
