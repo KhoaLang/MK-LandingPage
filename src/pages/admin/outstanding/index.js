@@ -11,23 +11,17 @@ import {
   Select,
   Switch,
   Table,
+  Popover,
 } from "antd";
 import {
   DeleteOutlined,
   PlusOutlined,
-  SearchOutlined,
   EditOutlined,
   QuestionCircleOutlined,
+  MoreOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteBannerAction,
-  getAllBannerAction,
-  getDetailBannerAction,
-  updateBannerAction,
-} from "../../../stores/actions/bannerAction";
-import { updateCategoryAction } from "../../../stores/actions/categoryAction";
 import { getAllPageAction } from "../../../stores/actions/pageAction";
 import {
   deleteMomentAction,
@@ -40,6 +34,8 @@ const cx = classNames.bind(styles);
 
 export const Outstanding = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [dimension, setDimension] = useState(window.innerWidth);
+
   const [filter, setFilter] = useState();
   const { listMoment } = useSelector((state) => state.momentReducer);
   const { listPage } = useSelector((state) => state.pageReducer);
@@ -49,6 +45,27 @@ export const Outstanding = () => {
     dispatch(getAllPageAction());
   }, []);
   const navigate = useNavigate();
+
+  //handle screen size change
+  function debounce(fn, ms) {
+    let timer;
+    return (_) => {
+      clearTimeout(timer);
+      timer = setTimeout((_) => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, ms);
+    };
+  }
+  useEffect(() => {
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimension(window.innerWidth);
+    }, 2000);
+    window.addEventListener("resize", debouncedHandleResize);
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize);
+    };
+  });
 
   const [form] = Form.useForm();
   const onFinish = (values) => {};
@@ -68,7 +85,7 @@ export const Outstanding = () => {
         return (
           <img
             style={{ width: "74px", height: "48px" }}
-            src={`${DOMAIN}/api/image/${text}`}
+            src={`${process.env.REACT_APP_BACKEND_BASE_URL}${text}`}
           />
         );
       },
@@ -105,22 +122,68 @@ export const Outstanding = () => {
       render: (item) => {
         return (
           <div>
-            <Popconfirm
-              title="Are you sure？"
-              onConfirm={() => dispatch(deleteMomentAction(item.id))}
-              icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
-              <Button shape="circle" size="large" icon={<DeleteOutlined />} />
-            </Popconfirm>
-            <Button
-              onClick={() => {
-                navigate(`detail/${item.id}`);
-              }}
-              style={{ marginLeft: "20px" }}
-              shape="circle"
-              size="large"
-              type="primary"
-              icon={<EditOutlined />}
-            />
+            {dimension < 1400 ? (
+              <>
+                <Popover
+                  content={
+                    <>
+                      <Popconfirm
+                        title="Are you sure？"
+                        onConfirm={() => dispatch(deleteMomentAction(item.id))}
+                        icon={
+                          <QuestionCircleOutlined style={{ color: "red" }} />
+                        }
+                      >
+                        <Button
+                          shape="circle"
+                          size="large"
+                          icon={<DeleteOutlined />}
+                        />
+                      </Popconfirm>
+                      <Button
+                        onClick={() => {
+                          navigate(`detail/${item.id}`);
+                        }}
+                        style={{ marginLeft: "20px" }}
+                        shape="circle"
+                        size="large"
+                        type="primary"
+                        icon={<EditOutlined />}
+                      />
+                    </>
+                  }
+                  trigger="click"
+                >
+                  <MoreOutlined
+                    style={{ fontSize: "20px", cursor: "pointer" }}
+                  />
+                </Popover>
+              </>
+            ) : (
+              <>
+                <Popconfirm
+                  title="Are you sure？"
+                  onConfirm={() => dispatch(deleteMomentAction(item.id))}
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                >
+                  <Button
+                    shape="circle"
+                    size="large"
+                    icon={<DeleteOutlined />}
+                  />
+                </Popconfirm>
+                <Button
+                  onClick={() => {
+                    navigate(`detail/${item.id}`);
+                  }}
+                  style={{ marginLeft: "20px" }}
+                  shape="circle"
+                  size="large"
+                  type="primary"
+                  icon={<EditOutlined />}
+                />
+              </>
+            )}
           </div>
         );
       },
@@ -154,14 +217,16 @@ export const Outstanding = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large">
+              size="large"
+            >
               <DeleteOutlined />
               Xoá
             </Button>
@@ -170,7 +235,8 @@ export const Outstanding = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large">
+            size="large"
+          >
             <PlusOutlined />
             Thêm Ảnh
           </Button>
@@ -187,17 +253,20 @@ export const Outstanding = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}>
+        onFinish={onFinish}
+      >
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type">
+          name="type"
+        >
           <Select
             size={"large"}
             defaultValue=""
             className={cx("upload")}
-            onChange={handleChangeSelect}>
+            onChange={handleChangeSelect}
+          >
             <Option label={"Tất cả"} value={""}>
               Tất Cả
             </Option>
@@ -215,7 +284,8 @@ export const Outstanding = () => {
             onClick={handleFilter}
             size="large"
             type="primary"
-            htmlType="submit">
+            htmlType="submit"
+          >
             Tìm
           </Button>
         </Form.Item>

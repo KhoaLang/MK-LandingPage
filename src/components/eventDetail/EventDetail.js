@@ -102,7 +102,6 @@ const EventDetail = () => {
             </Col>
           </Row>
         </div>
-
         <div className="event-detail__container__other-news"></div>
       </div>
     </section>
