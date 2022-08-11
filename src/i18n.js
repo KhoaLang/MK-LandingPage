@@ -3,6 +3,7 @@ import { initReactI18next } from "react-i18next";
 import HttpApi from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
 import axios from "axios";
+import { DOMAIN } from "./utils/constants";
 
 const convertArrayToObject = (array, key) => {
   return array.reduce((obj, item) => {

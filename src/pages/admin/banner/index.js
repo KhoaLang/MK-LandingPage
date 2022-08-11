@@ -30,6 +30,7 @@ import {
 } from "../../../stores/actions/bannerAction";
 import { updateCategoryAction } from "../../../stores/actions/categoryAction";
 import { getAllPageAction } from "../../../stores/actions/pageAction";
+import { DOMAIN } from "../../../utils/constants";
 const { Option } = Select;
 const cx = classNames.bind(styles);
 
@@ -212,16 +213,14 @@ export const Banner = () => {
           <Popconfirm
             title="Are you sure？"
             onConfirm={() => handleDeleteArray(selectedRowKeys)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
                 borderColor: "currentcolor",
                 fontWeight: "bold",
               }}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -230,8 +229,7 @@ export const Banner = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Tạo Banner
           </Button>
@@ -248,20 +246,17 @@ export const Banner = () => {
         wrapperCol={{ span: 24 }}
         layout="horizontal"
         form={form}
-        onFinish={onFinish}
-      >
+        onFinish={onFinish}>
         <Form.Item
           label="Vị trí"
           style={{ fontWeight: "500" }}
           className="w-20"
-          name="type"
-        >
+          name="type">
           <Select
             size={"large"}
             defaultValue=""
             className={cx("upload")}
-            onChange={handleChangeSelect}
-          >
+            onChange={handleChangeSelect}>
             <Option label={"Tất cả"} value={""}>
               Tất Cả
             </Option>

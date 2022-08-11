@@ -1,3 +1,4 @@
+import { DOMAIN } from "../../utils/constants";
 import { GET_ALL_BANNER, GET_DETAIL_BANNER } from "../types/BannerTypes";
 
 const initialState = {
@@ -14,7 +15,7 @@ export const bannerReducer = (state = initialState, action) => {
       return {
         ...state,
         bannerDetail: action.data,
-        url: `https://landing-page-vnplus.herokuapp.com/image/${action.data.image}`,
+        url: `${DOMAIN}/api/image/${action.data.image}`,
       };
 
     default:
