@@ -40,18 +40,18 @@
         padding: 15px;
         margin-top: 30px;
         cursor: pointer;
-        transition: background-color 0.5s ease;
+        transition: background-color 0.3s ease;
         p {
           margin: 0 5px 0 0;
           color: $primary;
           font-size: 16px;
           font-weight: 500;
           line-height: 20px;
-          transition: color 0.5s ease;
+          transition: color 0.3s ease;
         }
         svg {
           path {
-            transition: fill 0.5s ease;
+            transition: fill 0.3s ease;
           }
         }
         &:hover {

@@ -1,35 +1,37 @@
 import "./coreValue.scss";
-import img1 from "../../../assets/Frame22(1).png";
-import img2 from "../../../assets/Frame22(2).png";
-import img3 from "../../../assets/Frame22(3).png";
-import { Row, Col } from "antd";
-import { useTranslation } from "react-i18next";
 
-const items = [
-  {
-    title: "Sed ut aliquip",
-    image: img1,
-    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-  },
-  {
-    title: "Sed ut aliquip",
-    image: img2,
-    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-  },
-  {
-    title: "Sed ut aliquip",
-    image: img3,
-    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-  },
-  {
-    title: "Sed ut aliquip",
-    image: img1,
-    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-  },
-];
+import ChinhPhuc from "../../../assets/Chinh phục.svg";
+import NhietHuyet from "../../../assets/Nhiệt huyết .svg";
+import DaoDuc from "../../../assets/Đạo đức .svg";
+import DoiMoi from "../../../assets/Đổi mới .svg";
+
+import { Col, Row } from "antd";
+import { useTranslation } from "react-i18next";
 
 const CoreValue = () => {
   const { t } = useTranslation();
+  const items = [
+    {
+      title: t("morality"),
+      image: DaoDuc,
+      info: t("moralitydes"),
+    },
+    {
+      title: t("innovation"),
+      image: DoiMoi,
+      info: t("innovationdes"),
+    },
+    {
+      title: t("enthusiasm"),
+      image: NhietHuyet,
+      info: t("enthusiasmdes"),
+    },
+    {
+      title: t("conquest"),
+      image: ChinhPhuc,
+      info: t("conquestdes"),
+    },
+  ];
   return (
     <section className="core-value d-flex justify-content-center align-items-center">
       <div className="core-value__container container d-flex flex-column justify-content-center align-items-center">
@@ -42,7 +44,9 @@ const CoreValue = () => {
               className="d-flex flex-column justify-content-center align-items-center"
               key={idx}
             >
-              <img src={item.image} alt="nothing to see" />
+              <div className="core-value__container__list__img d-flex justify-content-center align-items-center">
+                <img src={item.image} alt="nothing to see" />
+              </div>
               <p className="core-value__container__list__item__title">
                 {item.title}
               </p>

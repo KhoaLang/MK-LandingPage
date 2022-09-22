@@ -1,14 +1,13 @@
-import { Row, Col } from "antd";
-import "./ourProducts.scss";
-import plusstinv from "../../../assets/plusstinv.png";
+import { Col, Row } from "antd";
+import { useTranslation } from "react-i18next";
 import bookingstudio from "../../../assets/bookingstudio.png";
+import gardenie from "../../../assets/gardenie.png";
+import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
+import plusfood from "../../../assets/plusfood.png";
+import plusstinv from "../../../assets/plusstinv.png";
 import plusticket from "../../../assets/plusticket.png";
 import plustrip from "../../../assets/plustrip.png";
-import gardenie from "../../../assets/gardenie.png";
-import plusfood from "../../../assets/plusfood.png";
-import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
-import { useTranslation } from "react-i18next";
-import { Parallax } from "rc-scroll-anim";
+import "./ourProducts.scss";
 
 const OurProducts = (props) => {
   const { t } = useTranslation();
@@ -17,31 +16,37 @@ const OurProducts = (props) => {
       logo: plusstinv,
       name: "Plusstinv",
       link: "https://www.facebook.com/plusstinv",
+      des: t("plusstinvdes"),
     },
     {
       logo: bookingstudio,
       name: "Booking Studio",
       link: "https://www.facebook.com/BookingStudio.vnplus.vn",
+      des: t("bookingstudiodes"),
     },
     {
       logo: plusticket,
       name: "Plus Ticket",
       link: "#",
+      des: t("plusticketdes"),
     },
     {
       logo: plustrip,
       name: "Plus Trip",
       link: "#",
+      des: t("plustripdes"),
     },
     {
       logo: gardenie,
       name: "Gardenie",
       link: "#",
+      des: t("gardeniades"),
     },
     {
       logo: plusfood,
       name: "Plus Food",
       link: "#",
+      des: t("plusfooddes"),
     },
   ];
   return (
@@ -60,11 +65,7 @@ const OurProducts = (props) => {
                     <img src={item.logo} alt="nothing to see" />
                   </div>
                   <h3>{item.name}</h3>
-                  <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Hic magnam laborum cum illum ipsum placeat vitae labore
-                    nostrum
-                  </p>
+                  <p>{item.des}</p>
                   {props.button && (
                     <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
                       <a
