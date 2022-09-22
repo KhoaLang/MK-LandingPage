@@ -9,25 +9,25 @@ import { useEffect, useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useTranslation } from "react-i18next";
 
-const contactInfo = [
-  {
-    logo: <Location />,
-    info: "795 Folsom Ave, Suite 600 San Francisco, CA 94107",
-  },
-  {
-    logo: <Phone />,
-    info: "0938 737 999",
-  },
-  {
-    logo: <Email />,
-    info: "contact@vnplus.vn",
-  },
-];
-
 const Contact = () => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { t } = useTranslation();
+
+  const contactInfo = [
+    {
+      logo: <Location />,
+      info: t("address"),
+    },
+    {
+      logo: <Phone />,
+      info: "0286 68 68 869",
+    },
+    {
+      logo: <Email />,
+      info: "contact@vnplus.vn",
+    },
+  ];
 
   const showModal = () => {
     setIsModalVisible(true);

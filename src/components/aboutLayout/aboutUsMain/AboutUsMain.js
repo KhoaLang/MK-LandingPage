@@ -1,5 +1,5 @@
 import "./aboutUsMain.scss";
-import image from "../../../assets/about.png";
+import image from "../../../assets/aboutus.jpg";
 import { useTranslation } from "react-i18next";
 
 const AboutUsMain = () => {
@@ -10,29 +10,13 @@ const AboutUsMain = () => {
       <div className="about-us-main__content">
         <img src={image} alt="nothing to see" />
         <p className="about-us-main__content__main__first-paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {t("AboutUs1")}
         </p>
         <p className="about-us-main__content__main__second-paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          {t("AboutUs2")}
         </p>
         <p className="about-us-main__content__main__third-paragraph">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate
+          {t("AboutUs3")}
         </p>
       </div>
     </section>
