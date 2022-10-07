@@ -7,6 +7,8 @@ import { pageReducer } from "./pageReducer";
 import { hiringReducer } from "./hiringReducer";
 import { languageReducer } from "./languageReducer";
 import { momentReducer } from "./momentReducer";
+import { companyInfoReducer } from "./companyInfoReducer";
+import { socialMediaLinkReducer } from "./socialMediaLinkReducer";
 
 const rootReducer = combineReducers({
   categoryReducer,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   hiringReducer,
   languageReducer,
   momentReducer,
+  companyInfoReducer,
+  socialMediaLinkReducer,
 });
 
 export default rootReducer;

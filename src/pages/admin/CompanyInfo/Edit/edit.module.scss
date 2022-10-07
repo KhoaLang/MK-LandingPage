@@ -1,0 +1,24 @@
+@import "../../../../sass/reset.scss";
+@import "../../../../sass/variables.scss";
+
+.edit {
+  padding: 32px 20px 0 20px;
+  background-color: #fff;
+  min-height: 100vh;
+  // height: 100%;
+  .edit-form {
+    // position: relative;
+    margin-top: -60px !important;
+    .company-logo {
+      svg {
+        width: 100px !important;
+        height: 100px !important;
+      }
+    }
+  }
+}
+.bread {
+  :hover {
+    color: #1ea6fb;
+  }
+}
