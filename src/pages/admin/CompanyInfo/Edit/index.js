@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import {
   createCompanyInfoAction,
   getCompanyInfoAction,
+  updateCompanyInfoAction,
 } from "../../../../stores/actions/companyInfoAction";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -25,18 +26,29 @@ const Edit = () => {
   }, []);
 
   const onFinish = () => {
-    const res = dispatch(
-      createCompanyInfoAction(
-        {
+    // console.log(form.getFieldValue("logo"));
+    let res;
+    if (!companyInfo?.id) {
+      res = dispatch(
+        createCompanyInfoAction({
           Logo: logo,
           Name: form.getFieldValue("name"),
           Address: form.getFieldValue("address"),
           Email: form.getFieldValue("email"),
           PhoneNumber: form.getFieldValue("phonenumber"),
-        },
-        navigate
-      )
-    );
+        })
+      );
+    } else {
+      res = dispatch(
+        updateCompanyInfoAction({
+          Logo: logo,
+          Name: form.getFieldValue("name"),
+          Address: form.getFieldValue("address"),
+          Email: form.getFieldValue("email"),
+          PhoneNumber: form.getFieldValue("phonenumber"),
+        })
+      );
+    }
     if (res !== null) {
       navigate("/admin/companyInfo");
     }
@@ -105,7 +117,7 @@ const Edit = () => {
         </Form.Item>
         <Form.Item
           name="logo"
-          label="Logo công ty (để chất lượng hiển thị tốt nhất hãy chọn 1 file .svg)"
+          label="Logo công ty (để chất lượng hiển thị tốt nhất hãy chọn 1 file .svg, kích thước chuẩn 140px x 28px)"
           style={{ fontWeight: "500" }}
           rules={[
             {
@@ -114,34 +126,35 @@ const Edit = () => {
             },
           ]}
         >
-          {companyInfo?.Logo?.length > 0 ? (
-            <div
+          <Upload
+            accept=".svg"
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            fileList={fileList}
+            listType="picture-card"
+            className="avatar-uploader"
+            onChange={handleChange}
+            style={{ display: "block", width: "fit-content" }}
+            beforeUpload={(file) => {
+              const reader = new FileReader();
+
+              reader.onload = (e) => {
+                setLogo(e.target.result);
+                form.setFieldsValue({ logo: "svg" });
+              };
+              reader.readAsText(file);
+
+              // Prevent upload
+              return false;
+            }}
+          >
+            {/* {uploadImg < 1 && "+ Upload"} */}
+            {fileList?.length < 1 && "+ Upload"}
+          </Upload>
+          {companyInfo?.Logo?.length > 0 && logo.length === 0 && (
+            <span
               className={cx("company-logo")}
               dangerouslySetInnerHTML={{ __html: companyInfo?.Logo }}
-            ></div>
-          ) : (
-            <Upload
-              accept=".svg"
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              fileList={fileList}
-              listType="picture-card"
-              className="avatar-uploader"
-              onChange={handleChange}
-              beforeUpload={(file) => {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                  setLogo(e.target.result);
-                };
-                reader.readAsText(file);
-
-                // Prevent upload
-                return false;
-              }}
-            >
-              {/* {uploadImg < 1 && "+ Upload"} */}
-              {fileList?.length < 1 && "+ Upload"}
-            </Upload>
+            ></span>
           )}
         </Form.Item>
         <Form.Item

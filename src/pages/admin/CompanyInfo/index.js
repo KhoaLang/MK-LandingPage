@@ -2,8 +2,8 @@ import classNames from "classnames/bind";
 import { useEffect } from "react";
 import styles from "../language/Language.module.scss";
 
-import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { EditOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Popover } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getCompanyInfoAction } from "../../../stores/actions/companyInfoAction";
@@ -12,15 +12,45 @@ const cx = classNames.bind(styles);
 export const CompanyInfo = () => {
   const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const content = (
+    <p style={{ width: "500px" }}>
+      <span style={{ color: "#1ea6fb" }}>Lưu ý:</span> Nếu muốn sử dụng chức
+      năng chuyển đổi ngôn ngữ, bắt buộc phải thiết lập bằng tay ở mục Ngôn ngữ.
+      <br />
+      <br />
+      Tên và Địa chỉ trụ sở (2 trường thông tin được thiết lập ban đầu bằng
+      tiếng việt) sẽ được lưu lại trên database và mỗi trường thông tin tương
+      ứng sẽ có 1 key tên là CompanyName và address.
+    </p>
+  );
+
   useEffect(() => {
     dispatch(getCompanyInfoAction());
   }, []);
-  const navigate = useNavigate();
 
   return (
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
-        <h5>Quản lý thông tin công ty</h5>
+        <h5>
+          Quản lý thông tin công ty
+          <span style={{ marginLeft: "10px" }}>
+            <Popover
+              content={content}
+              title={
+                <h5 style={{ paddingTop: "10px", color: "#1ea6fb" }}>
+                  Về chuyển đổi ngôn ngữ
+                </h5>
+              }
+              placement="bottom"
+            >
+              <QuestionCircleOutlined
+                style={{ cursor: "pointer", color: "#1ea6fb" }}
+              />
+            </Popover>
+          </span>
+        </h5>
 
         <div className={cx("grpBtn")}>
           <Button

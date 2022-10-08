@@ -4,7 +4,10 @@ import { Form, Input, Breadcrumb, Button, Upload } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getCompanyInfoAction } from "../../../../stores/actions/companyInfoAction";
-import { createLink } from "../../../../stores/actions/socialMediaAction";
+import {
+  createLink,
+  updateLink,
+} from "../../../../stores/actions/socialMediaAction";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
@@ -26,16 +29,27 @@ const Edit = () => {
   }, []);
 
   const onFinish = () => {
-    const res = dispatch(
-      createLink(
-        {
+    let res;
+    if (!companyInfo?.socialLink[params.id].id) {
+      res = dispatch(
+        createLink({
           Icon: logo,
           Title: form.getFieldValue("name"),
           URL: form.getFieldValue("url"),
-        },
-        navigate
-      )
-    );
+        })
+      );
+    } else {
+      res = dispatch(
+        updateLink(
+          {
+            Icon: logo,
+            Title: form.getFieldValue("name"),
+            URL: form.getFieldValue("url"),
+          },
+          companyInfo?.socialLink[params.id]?.id
+        )
+      );
+    }
     if (res !== null) {
       navigate("/admin/socialmedia");
     }
@@ -115,37 +129,45 @@ const Edit = () => {
             },
           ]}
         >
-          {companyInfo?.socialLink[params.id]?.Icon?.length > 0 ? (
+          <Upload
+            accept=".svg"
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            fileList={fileList}
+            listType="picture-card"
+            className="avatar-uploader"
+            onChange={handleChange}
+            beforeUpload={(file) => {
+              const reader = new FileReader();
+
+              reader.onload = (e) => {
+                setLogo(e.target.result);
+              };
+              reader.readAsText(file);
+
+              // Prevent upload
+              return false;
+            }}
+          >
+            {/* {uploadImg < 1 && "+ Upload"} */}
+            {fileList?.length < 1 && "+ Upload"}
+          </Upload>
+          {/* {companyInfo?.socialLink[params.id]?.Icon?.length > 0 ? (
             <div
               className={cx("company-logo")}
               dangerouslySetInnerHTML={{
                 __html: companyInfo?.socialLink[params.id]?.Icon,
               }}
             ></div>
-          ) : (
-            <Upload
-              accept=".svg"
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              fileList={fileList}
-              listType="picture-card"
-              className="avatar-uploader"
-              onChange={handleChange}
-              beforeUpload={(file) => {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                  setLogo(e.target.result);
-                };
-                reader.readAsText(file);
-
-                // Prevent upload
-                return false;
-              }}
-            >
-              {/* {uploadImg < 1 && "+ Upload"} */}
-              {fileList?.length < 1 && "+ Upload"}
-            </Upload>
-          )}
+          ) : ( */}
+          {companyInfo?.socialLink[params.id]?.Icon?.length > 0 &&
+            logo.length === 0 && (
+              <span
+                className={cx("company-logo")}
+                dangerouslySetInnerHTML={{
+                  __html: companyInfo?.socialLink[params.id]?.Icon,
+                }}
+              ></span>
+            )}
         </Form.Item>
         <Form.Item
           name="url"

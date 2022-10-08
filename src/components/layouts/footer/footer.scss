@@ -52,6 +52,15 @@
           &__item {
             margin-bottom: 12px;
             cursor: pointer;
+            a {
+              text-decoration: none;
+              .company-logo {
+                svg {
+                  width: 20px;
+                  height: 20px;
+                }
+              }
+            }
             &:hover {
               p {
                 color: $primary;

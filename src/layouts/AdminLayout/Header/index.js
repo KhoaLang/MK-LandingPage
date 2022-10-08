@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import images from "../../../assets/images";
+import logoDefault from "../../../assets/admin.png";
 import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
@@ -21,10 +22,7 @@ export const HeaderAdmin = () => {
         <li>Plus Food</li>
       </ul>
 
-      <img
-        className={cx("avt")}
-        src="https://genk.mediacdn.vn/139269124445442048/2020/11/25/superman-angry-featured-1606319997853707582647.jpg"
-      />
+      <img className={cx("avt")} src={logoDefault} />
     </header>
   );
 };

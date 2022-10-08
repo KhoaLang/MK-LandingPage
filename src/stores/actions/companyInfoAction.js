@@ -12,7 +12,7 @@ export const getCompanyInfoAction = () => {
     }
   };
 };
-export const createCompanyInfoAction = (dataForm, navigate) => {
+export const createCompanyInfoAction = (dataForm) => {
   return async (dispatch) => {
     try {
       const data = await companyInformationService.createCompanyInfo(dataForm);
@@ -25,6 +25,24 @@ export const createCompanyInfoAction = (dataForm, navigate) => {
       }
       openNotification("success", "Create new company info successfully!");
       dispatch({ type: "GET_INFO", data: data.data.payload });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+export const updateCompanyInfoAction = (dataForm) => {
+  return async (dispatch) => {
+    try {
+      const data = await companyInformationService.updateCompanyInfo(dataForm);
+      if (!data.data.success) {
+        openNotification(
+          "error",
+          "Updating process was interrupted due to some errors!"
+        );
+        return null;
+      }
+      openNotification("success", "Update company info successfully!");
+      dispatch(getCompanyInfoAction());
     } catch (err) {
       console.error(err);
     }

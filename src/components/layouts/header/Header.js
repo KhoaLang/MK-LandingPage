@@ -1,15 +1,16 @@
-import "./header.scss";
-import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ReactComponent as Logo } from "../../../assets/logoWhite.svg";
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as Menu } from "../../../assets/GgMenuRight 1.svg";
 import { ReactComponent as Close } from "../../../assets/RadixIconsCross2 (2) 1.svg";
-import { useTranslation } from "react-i18next";
+import "./header.scss";
 
 const Header = () => {
   const [openOverlay, setOpenOverlay] = useState(false);
   const [activeRoute, setActiveRoute] = useState("");
   const [activeItem, setActiveItem] = useState(0);
+  const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const navigate = useNavigate();
 
   const { t, i18n } = useTranslation();
@@ -82,8 +83,9 @@ const Header = () => {
         <div
           onClick={handleLogoClick}
           className="header__container__logo d-flex justify-content-center align-items-center"
+          dangerouslySetInnerHTML={{ __html: companyInfo?.Logo }}
         >
-          <Logo />
+          {/* <Logo /> */}
         </div>
         <ul className="header__container__navbar d-flex justify-content-between align-items-center">
           {navbarItems.map((item, idx) => (

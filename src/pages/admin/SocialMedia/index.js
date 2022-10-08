@@ -31,6 +31,7 @@ export const SocialMedia = () => {
   const data =
     companyInfo?.socialLink?.length > 0 &&
     companyInfo?.socialLink?.map((item, index) => ({
+      key: item.id,
       id: index,
       logo: item.Icon,
       name: item.Title,
@@ -50,7 +51,7 @@ export const SocialMedia = () => {
       title: "Logo",
       dataIndex: "logo",
       render: (item) => {
-        console.log(item);
+        // console.log(item);
         return (
           <div
             className="company-logo"
@@ -74,11 +75,7 @@ export const SocialMedia = () => {
                   <>
                     <Popconfirm
                       title="Are you sure？"
-                      onConfirm={() =>
-                        dispatch(
-                          deleteLink(companyInfo?.socialLink[item.id]?.id)
-                        )
-                      }
+                      onConfirm={() => dispatch(deleteLink(item.id))}
                       icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                     >
                       <Button
@@ -140,6 +137,10 @@ export const SocialMedia = () => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
 
+  const handleDeleteArray = () => {
+    dispatch(deleteLink(selectedRowKeys));
+  };
+
   const rowSelection = {
     selectedRowKeys,
     onChange: onSelectChange,
@@ -150,6 +151,25 @@ export const SocialMedia = () => {
       <div className={cx("top")}>
         <h5>Quản lý các trang mạng xã hội của công ty</h5>
         <div className={cx("grpBtn")}>
+          <Popconfirm
+            title="Are you sure？"
+            onConfirm={handleDeleteArray}
+            disabled={!(selectedRowKeys.length > 1)}
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+          >
+            <Button
+              style={{
+                color: "#C00101",
+                borderColor: "currentcolor",
+                fontWeight: "bold",
+              }}
+              disabled={!(selectedRowKeys.length > 1)}
+              size="large"
+            >
+              <DeleteOutlined />
+              Xoá
+            </Button>
+          </Popconfirm>
           <Button
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
