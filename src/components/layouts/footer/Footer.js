@@ -15,22 +15,9 @@ import UK from "../../../assets/UK.png";
 import VN from "../../../assets/VietNam.png";
 import LanguageSelect from "../languageSelect/LanguageSelect";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 
-const socialMedia = [
-  {
-    logo: <Facebook />,
-    name: "Facebook",
-  },
-  {
-    logo: <Linkedin />,
-    name: "Linkedin",
-  },
-  {
-    logo: <Youtube />,
-    name: "Youtube",
-  },
-];
 const socialMediaResponsive = [
   {
     logo: <FacebookBlue />,
@@ -44,6 +31,7 @@ const socialMediaResponsive = [
 ];
 const Footer = () => {
   const { t, i18n } = useTranslation();
+  const { companyInfo } = useSelector((state) => state.companyInfoReducer);
 
   const contactInfo = [
     {
@@ -52,14 +40,13 @@ const Footer = () => {
     },
     {
       logo: <Phone />,
-      info: "0286 68 68 869",
+      info: companyInfo?.PhoneNumber,
     },
     {
       logo: <Email />,
-      info: "contact@vnplus.vn",
+      info: companyInfo?.Email,
     },
   ];
-
   const handleChange = (value) => {
     i18n.changeLanguage(value);
   };
@@ -89,15 +76,21 @@ const Footer = () => {
           <Col md={5} xs={24} className="footer__upper__container__middle-side">
             <h5>{t("Follow")} VNPLUS</h5>
             <ul className="footer__upper__container__middle-side__follow">
-              {socialMedia.map((item, idx) => (
-                <li
-                  className="footer__upper__container__middle-side__follow__item d-flex align-items-center"
-                  key={idx}
-                >
-                  {item.logo}
-                  <p>{item.name}</p>
-                </li>
-              ))}
+              {JSON.stringify(companyInfo) !== "{}" &&
+                companyInfo?.socialLink.map((item, idx) => (
+                  <li
+                    className="footer__upper__container__middle-side__follow__item d-flex align-items-center"
+                    key={idx}
+                  >
+                    <a href={item?.URL} className="d-flex align-items-center">
+                      <div
+                        className="company-logo d-flex justify-content-center align-items-center"
+                        dangerouslySetInnerHTML={{ __html: item.Icon }}
+                      ></div>
+                      <p>{item.Title}</p>
+                    </a>
+                  </li>
+                ))}
               {socialMediaResponsive.map((item, idx) => (
                 <li
                   className="footer__upper__container__middle-side__follow__item-responsive d-flex align-items-center"

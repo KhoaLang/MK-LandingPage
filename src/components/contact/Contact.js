@@ -8,10 +8,12 @@ import img1 from "../../assets/Frame 66.png";
 import { useEffect, useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const { t } = useTranslation();
 
   const contactInfo = [
@@ -21,11 +23,11 @@ const Contact = () => {
     },
     {
       logo: <Phone />,
-      info: "0286 68 68 869",
+      info: companyInfo?.PhoneNumber,
     },
     {
       logo: <Email />,
-      info: "contact@vnplus.vn",
+      info: companyInfo?.Email,
     },
   ];
 

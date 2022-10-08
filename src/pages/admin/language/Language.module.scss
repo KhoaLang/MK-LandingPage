@@ -1,19 +1,21 @@
+@import "../../../sass/reset.scss";
 .ManagePost {
-    background-color: #ffff;
+  background-color: #ffff;
+  padding-bottom: 20px;
 
-    .top {
-        padding: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        text-transform: uppercase;
-    }
+  .top {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: uppercase;
+  }
 }
 .title {
-    width: 300px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

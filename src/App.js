@@ -30,9 +30,14 @@ import { BackTop, Button, Result } from "antd";
 import { Language } from "./pages/admin/language";
 import { CreateLanguage } from "./pages/admin/language/create";
 import { DetailLanguage } from "./pages/admin/language/detail";
+import { CompanyInfo } from "./pages/admin/CompanyInfo";
 import { ArrowUpOutlined } from "@ant-design/icons";
 import { Parallax } from "rc-scroll-anim";
 import { useEffect } from "react";
+import CompanyInfoEdit from "./pages/admin/CompanyInfo/Edit";
+import SocialMediaEdit from "./pages/admin/SocialMedia/Edit";
+import { SocialMedia } from "./pages/admin/SocialMedia";
+import SocialMediaNew from "./pages/admin/SocialMedia/New";
 
 function App() {
   const navigate = useNavigate();
@@ -100,6 +105,15 @@ function App() {
             <Route index element={<Language />} />
             <Route path="new" element={<CreateLanguage />} />
             <Route path="detail/:id" element={<DetailLanguage />} />
+          </Route>
+          <Route path="companyinfo">
+            <Route index element={<CompanyInfo />} />
+            <Route path="edit" element={<CompanyInfoEdit />} />
+          </Route>
+          <Route path="socialmedia">
+            <Route index element={<SocialMedia />} />
+            <Route path="detail/:id" element={<SocialMediaEdit />} />
+            <Route path="new" element={<SocialMediaNew />} />
           </Route>
         </Route>
         <Route

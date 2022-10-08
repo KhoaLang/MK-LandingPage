@@ -1,15 +1,16 @@
-import classNames from "classnames/bind";
-import styles from "./Sidebar.module.scss";
-import { useLocation, useNavigate } from "react-router-dom";
 import {
-  ProfileOutlined,
   CameraOutlined,
   PictureOutlined,
+  ProfileOutlined,
   ShoppingOutlined,
-  MailOutlined,
   TranslationOutlined,
+  BankOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
+import classNames from "classnames/bind";
+import { useLocation, useNavigate } from "react-router-dom";
+import styles from "./Sidebar.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -28,11 +29,11 @@ export const SiderbarAdmin = () => {
         mode="inline"
       >
         <Menu.SubMenu
-        className={
-          ["categories"].includes(pathname.split("/")[2])
-            ? " ant-menu-submenu-active"
-            : ""
-        }
+          className={
+            ["categories"].includes(pathname.split("/")[2])
+              ? " ant-menu-submenu-active"
+              : ""
+          }
           key={0}
           icon={<ProfileOutlined />}
           title="Tin tức-Sự kiện"
@@ -61,11 +62,11 @@ export const SiderbarAdmin = () => {
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.Item
-        className={
-          ["banners"].includes(pathname.split("/")[2])
-            ? "ant-menu-item-selected"
-            : ""
-        }
+          className={
+            ["banners"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
           key={3}
           onClick={() => navigate("banners")}
           icon={<PictureOutlined />}
@@ -73,11 +74,11 @@ export const SiderbarAdmin = () => {
           Banner
         </Menu.Item>
         <Menu.Item
-         className={
-          ["hiring"].includes(pathname.split("/")[2])
-            ? "ant-menu-item-selected"
-            : ""
-        }
+          className={
+            ["hiring"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
           key={4}
           onClick={() => navigate("hiring")}
           icon={<ShoppingOutlined />}
@@ -85,11 +86,11 @@ export const SiderbarAdmin = () => {
           Tuyển dụng
         </Menu.Item>
         <Menu.Item
-         className={
-          ["outstanding"].includes(pathname.split("/")[2])
-            ? "ant-menu-item-selected"
-            : ""
-        }
+          className={
+            ["outstanding"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
           key={5}
           onClick={() => navigate("outstanding")}
           icon={<CameraOutlined />}
@@ -97,16 +98,40 @@ export const SiderbarAdmin = () => {
           Khoảnh khắc nổi bật
         </Menu.Item>
         <Menu.Item
-         className={
-          ["languages"].includes(pathname.split("/")[2])
-            ? "ant-menu-item-selected"
-            : ""
-        }
+          className={
+            ["languages"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
           key={6}
           onClick={() => navigate("languages")}
           icon={<TranslationOutlined />}
         >
-         Ngôn ngữ
+          Ngôn ngữ
+        </Menu.Item>
+        <Menu.Item
+          className={
+            ["companyinfo"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
+          key={7}
+          onClick={() => navigate("companyinfo")}
+          icon={<BankOutlined />}
+        >
+          Thông tin công ty
+        </Menu.Item>
+        <Menu.Item
+          className={
+            ["socialmedia"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
+          key={8}
+          onClick={() => navigate("socialmedia")}
+          icon={<AppstoreOutlined />}
+        >
+          Mạng xã hội
         </Menu.Item>
       </Menu>
     </div>
