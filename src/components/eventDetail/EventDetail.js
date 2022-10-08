@@ -46,14 +46,12 @@ const EventDetail = () => {
                 <Breadcrumb>
                   <Breadcrumb.Item
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate("/")}
-                  >
+                    onClick={() => navigate("/")}>
                     Trang chủ
                   </Breadcrumb.Item>
                   <Breadcrumb.Item
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate("/event")}
-                  >
+                    onClick={() => navigate("/event")}>
                     Sự kiện
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>Article {id}</Breadcrumb.Item>
@@ -94,26 +92,17 @@ const EventDetail = () => {
                 data-small-header="false"
                 data-adapt-container-width="true"
                 data-hide-cover="false"
-                data-show-facepile="false"
-              >
+                data-show-facepile="false">
                 <blockquote
                   cite="https://www.facebook.com/vnplusjsc"
-                  className="fb-xfbml-parse-ignore"
-                >
+                  className="fb-xfbml-parse-ignore">
                   <a href="https://www.facebook.com/vnplusjsc">VNPLus jsc</a>
                 </blockquote>
               </div>
             </Col>
           </Row>
         </div>
-
-        <div className="event-detail__container__other-news">
-          <OtherNews
-            id={id}
-            listPost={listPost}
-            // postCategoryName={postDetail?.Category?.name}
-          />
-        </div>
+        <div className="event-detail__container__other-news"></div>
       </div>
     </section>
   );

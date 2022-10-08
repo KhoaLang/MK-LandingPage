@@ -1,4 +1,5 @@
 import { bannerService } from "../../services/BannerService";
+import { DOMAIN } from "../../utils/constants";
 import { openNotification } from "../../utils/Notification";
 import { GET_ALL_BANNER, GET_DETAIL_BANNER } from "../types/BannerTypes";
 import { HIDE_LOADING, SHOW_LOADING } from "../types/LoadingType";
@@ -19,7 +20,7 @@ export const getDetailBannerAction = (id, setFileList) => {
       const { data } = await bannerService.getDetailById(id);
       setFileList([
         {
-          url: ` https://landing-page-vnplus.herokuapp.com/image/${data.data.image}`,
+          url: `${DOMAIN}/api/image/${data.data.image}`,
         },
       ]);
       dispatch({ type: GET_DETAIL_BANNER, data: data.data });
