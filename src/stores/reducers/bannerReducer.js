@@ -1,4 +1,3 @@
-import { DOMAIN } from "../../utils/constants";
 import { GET_ALL_BANNER, GET_DETAIL_BANNER } from "../types/BannerTypes";
 
 const initialState = {
@@ -15,7 +14,7 @@ export const bannerReducer = (state = initialState, action) => {
       return {
         ...state,
         bannerDetail: action.data,
-        url: `${DOMAIN}/api/image/${action.data.image}`,
+        url: `${process.env.REACT_APP_BACKEND_BASE_URL_NO_IMAGE}/api/image/${action.data.image}`,
       };
 
     default:

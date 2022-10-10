@@ -65,6 +65,7 @@ const NewPost = () => {
         if (key !== "image") {
           formData.append(key, values[key]);
         } else {
+          console.log(values.image[0].originFileObj);
           formData.append("image", values.image[0].originFileObj);
         }
       }
