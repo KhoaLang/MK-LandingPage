@@ -178,17 +178,7 @@ const DetailPost = () => {
               Lưu thay đổi
             </Button>
           </Form.Item>
-          <Form.Item
-            label="Tiêu đề"
-            labelAlign="left"
-            // name="formtitle"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please enter post title!",
-            //   },
-            // ]}
-          >
+          <Form.Item label="Tiêu đề" labelAlign="left">
             <Input
               name="title"
               required
@@ -197,20 +187,7 @@ const DetailPost = () => {
               placeholder="Nhập tiêu đề"
             />
           </Form.Item>
-          <Form.Item
-            label="Danh mục"
-            labelAlign="left"
-            name="category"
-
-            // onChange={formik.handleChange}
-            // value={formik.values.Category}
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Please choose post category!",
-            //   },
-            // ]}
-          >
+          <Form.Item label="Danh mục" labelAlign="left" name="category">
             <Select
               onChange={(value) => handleFormItemChange("category", value)}
               value={formik.values.Category_ID}

@@ -38,6 +38,9 @@ import CompanyInfoEdit from "./pages/admin/CompanyInfo/Edit";
 import SocialMediaEdit from "./pages/admin/SocialMedia/Edit";
 import { SocialMedia } from "./pages/admin/SocialMedia";
 import SocialMediaNew from "./pages/admin/SocialMedia/New";
+import Service from "./pages/admin/Service";
+import ServiceNew from "./pages/admin/Service/New";
+import ServiceDetail from "./pages/admin/Service/Detail";
 
 function App() {
   const navigate = useNavigate();
@@ -114,6 +117,11 @@ function App() {
             <Route index element={<SocialMedia />} />
             <Route path="detail/:id" element={<SocialMediaEdit />} />
             <Route path="new" element={<SocialMediaNew />} />
+          </Route>
+          <Route path="service">
+            <Route index element={<Service />} />
+            <Route path="detail/:id" element={<ServiceDetail />} />
+            <Route path="new" element={<ServiceNew />} />
           </Route>
         </Route>
         <Route

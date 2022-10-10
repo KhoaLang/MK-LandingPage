@@ -133,6 +133,18 @@ export const SiderbarAdmin = () => {
         >
           Mạng xã hội
         </Menu.Item>
+        <Menu.Item
+          className={
+            ["service"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
+          key={9}
+          onClick={() => navigate("service")}
+          icon={<AppstoreOutlined />}
+        >
+          Dịch vụ
+        </Menu.Item>
       </Menu>
     </div>
   );

@@ -1,5 +1,4 @@
 import { momentService } from "../../services/momentService";
-import { DOMAIN } from "../../utils/constants";
 import { openNotification } from "../../utils/Notification";
 import { GET_ALL_BANNER, GET_DETAIL_BANNER } from "../types/BannerTypes";
 import { HIDE_LOADING, SHOW_LOADING } from "../types/LoadingType";
@@ -21,7 +20,7 @@ export const getDetailMomentAction = (id, setFileList, navigate) => {
       const { data } = await momentService.getDetailById(id);
       setFileList([
         {
-          url: `${DOMAIN}/api/image/${data.data.image[0]}`,
+          url: `${process.env.REACT_APP_BACKEND_BASE_URL_NO_IMAGE}/api/image/${data.data.image[0]}`,
         },
       ]);
       dispatch({ type: GET_DETAIL_MOMENT, data: data.data });
