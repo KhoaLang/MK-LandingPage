@@ -2,25 +2,24 @@ import {
   DeleteOutlined,
   EditOutlined,
   MoreOutlined,
-  PlusOutlined,
   QuestionCircleOutlined,
 } from "@ant-design/icons";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
-import styles from "./service.module.scss";
+import styles from "./contact.module.scss";
 
 import { Button, Popconfirm, Popover, Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  deleteService,
-  getAllServiceAction,
-} from "../../../stores/actions/serviceAction";
+  deleteContactAction,
+  getAllContactAction,
+} from "../../../stores/actions/contactAction";
 
 const cx = classNames.bind(styles);
 
-const Service = () => {
-  const { listService } = useSelector((state) => state.serviceReducer);
+const Contact = () => {
+  const { listContact } = useSelector((state) => state.contactReducer);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const [dimension, setDimension] = useState(window.innerWidth);
   const dispatch = useDispatch();
@@ -39,18 +38,18 @@ const Service = () => {
   );
 
   useEffect(() => {
-    dispatch(getAllServiceAction());
+    dispatch(getAllContactAction());
   }, []);
 
   const data =
-    listService?.length > 0 &&
-    listService?.map((item, index) => ({
+    listContact?.length > 0 &&
+    listContact?.map((item, index) => ({
       key: item.id,
       id: index,
-      logo: `${process.env.REACT_APP_BACKEND_BASE_URL}${item.Image}`,
+      email: item.Email,
       name: item.Name,
       content: item.Content,
-      price: item.Price,
+      phoneNumber: item.PhoneNumber,
     }));
 
   const columns = [
@@ -59,7 +58,7 @@ const Service = () => {
       dataIndex: "id",
     },
     {
-      title: "Name",
+      title: "Full name",
       dataIndex: "name",
     },
     {
@@ -67,18 +66,12 @@ const Service = () => {
       dataIndex: "content",
     },
     {
-      title: "Price",
-      dataIndex: "price",
+      title: "Email",
+      dataIndex: "email",
     },
     {
-      title: "Logo",
-      dataIndex: "logo",
-      render: (item) => {
-        // console.log(item);
-        return (
-          <img style={{ width: "72px", height: "72px" }} src={item} alt="" />
-        );
-      },
+      title: "Phone number",
+      dataIndex: "phoneNumber",
     },
     {
       title: "Thao tác",
@@ -91,7 +84,7 @@ const Service = () => {
                   <>
                     <Popconfirm
                       title="Are you sure？"
-                      onConfirm={() => dispatch(deleteService(item.key))}
+                      onConfirm={() => dispatch(deleteContactAction(item.key))}
                       icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                     >
                       <Button
@@ -120,7 +113,7 @@ const Service = () => {
               <>
                 <Popconfirm
                   title="Are you sure？"
-                  onConfirm={() => deleteService(item.key)}
+                  onConfirm={() => dispatch(deleteContactAction(item.key))}
                   icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                 >
                   <Button
@@ -152,7 +145,7 @@ const Service = () => {
   };
 
   const handleDeleteArray = () => {
-    dispatch(deleteService(selectedRowKeys));
+    dispatch(deleteContactAction(selectedRowKeys));
   };
 
   const rowSelection = {
@@ -164,7 +157,7 @@ const Service = () => {
     <div className={cx("ManagePost")}>
       <div className={cx("top")}>
         <h5>
-          Quản lý các dịch vụ của công ty
+          Quản lý các lượt liên hệ của khách hàng
           <span style={{ marginLeft: "10px" }}>
             <Popover
               content={content}
@@ -201,15 +194,6 @@ const Service = () => {
               Xoá
             </Button>
           </Popconfirm>
-          <Button
-            onClick={() => navigate("new")}
-            style={{ marginLeft: "20px" }}
-            type="primary"
-            size="large"
-          >
-            <PlusOutlined />
-            Thêm dịch vụ
-          </Button>
         </div>
       </div>
       <p
@@ -240,4 +224,4 @@ const Service = () => {
   );
 };
 
-export default Service;
+export default Contact;

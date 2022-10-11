@@ -41,6 +41,8 @@ import SocialMediaNew from "./pages/admin/SocialMedia/New";
 import Service from "./pages/admin/Service";
 import ServiceNew from "./pages/admin/Service/New";
 import ServiceDetail from "./pages/admin/Service/Detail";
+import ContactAdmin from "./pages/admin/Contact";
+import ContactAdminDetail from "./pages/admin/Contact/Detail";
 
 function App() {
   const navigate = useNavigate();
@@ -122,6 +124,10 @@ function App() {
             <Route index element={<Service />} />
             <Route path="detail/:id" element={<ServiceDetail />} />
             <Route path="new" element={<ServiceNew />} />
+          </Route>
+          <Route path="contact">
+            <Route index element={<ContactAdmin />} />
+            <Route path="detail/:id" element={<ContactAdminDetail />} />
           </Route>
         </Route>
         <Route

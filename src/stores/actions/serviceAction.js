@@ -45,7 +45,15 @@ export const updateServiceAction = (id, dataForm) => {
 export const deleteService = (id) => {
   return async (dispatch) => {
     try {
-      await service.deteleService(id);
+      if (id.length !== undefined) {
+        await Promise.all(
+          id.map(async (item) => {
+            await service.deteleService(item);
+          })
+        );
+      } else {
+        await service.deteleService(id);
+      }
       openNotification("success", "Delete service success!");
       dispatch(getAllServiceAction());
     } catch (error) {
