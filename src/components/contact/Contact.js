@@ -8,12 +8,14 @@ import img1 from "../../assets/Frame 66.png";
 import { useEffect, useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { createContactAction } from "../../stores/actions/contactAction";
 
 const Contact = () => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { companyInfo } = useSelector((state) => state.companyInfoReducer);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const contactInfo = [
@@ -42,6 +44,19 @@ const Contact = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  const onFinish = () => {
+    dispatch(
+      createContactAction(
+        {
+          Name: form.getFieldValue("name"),
+          PhoneNumber: form.getFieldValue("phonenumber"),
+          Email: form.getFieldValue("email"),
+          Content: form.getFieldValue("help"),
+        },
+        form.resetFields
+      )
+    );
+  };
   return (
     <section className="contact d-flex justify-content-center align-items-center">
       <SmoothScroll />
@@ -59,6 +74,7 @@ const Contact = () => {
                   span: 24,
                 }}
                 layout="vertical"
+                onFinish={onFinish}
               >
                 <Row gutter={[24, 24]}>
                   <Col md={12} xs={24}>
