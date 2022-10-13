@@ -7,6 +7,7 @@ import {
   BankOutlined,
   AppstoreOutlined,
   PhoneOutlined,
+  FundProjectionScreenOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import classNames from "classnames/bind";
@@ -157,6 +158,18 @@ export const SiderbarAdmin = () => {
           icon={<PhoneOutlined />}
         >
           Thông tin liên hệ
+        </Menu.Item>
+        <Menu.Item
+          className={
+            ["product"].includes(pathname.split("/")[2])
+              ? "ant-menu-item-selected"
+              : ""
+          }
+          key={11}
+          onClick={() => navigate("product")}
+          icon={<FundProjectionScreenOutlined />}
+        >
+          Sản phẩm
         </Menu.Item>
       </Menu>
     </div>

@@ -11,6 +11,7 @@ import { companyInfoReducer } from "./companyInfoReducer";
 import { socialMediaLinkReducer } from "./socialMediaLinkReducer";
 import { serviceReducer } from "./serviceReducer";
 import { contactReducer } from "./contactReducer";
+import { productReducer } from "./productReducer";
 
 const rootReducer = combineReducers({
   categoryReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   socialMediaLinkReducer,
   serviceReducer,
   contactReducer,
+  productReducer,
 });
 
 export default rootReducer;

@@ -1,14 +1,11 @@
-import styles from "../service.module.scss";
-import classNames from "classnames/bind";
-import { Form, Input, Breadcrumb, Button, Upload, Switch } from "antd";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getCompanyInfoAction } from "../../../../stores/actions/companyInfoAction";
-import { createLink } from "../../../../stores/actions/socialMediaAction";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
-import { createServiceAction } from "../../../../stores/actions/serviceAction";
+import { Breadcrumb, Button, Form, Input, Switch, Upload } from "antd";
+import classNames from "classnames/bind";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createProductAction } from "../../../../stores/actions/productAction";
+import styles from "../products.module.scss";
 
 const cx = classNames.bind(styles);
 
@@ -23,13 +20,13 @@ const New = () => {
     formData.append("Name", form.getFieldValue("name"));
     formData.append("IsVisible", form.getFieldValue("visible"));
     formData.append("Content", form.getFieldValue("content"));
-    formData.append("Include", form.getFieldValue("include"));
-    formData.append("Price", form.getFieldValue("price"));
+    formData.append("Type", form.getFieldValue("type"));
+    formData.append("URL", form.getFieldValue("url"));
     formData.append("image", fileList[0].originFileObj);
     // console.log(fileList[0]);
-    const res = dispatch(createServiceAction(formData));
+    const res = dispatch(createProductAction(formData));
     if (res !== null) {
-      navigate("/admin/service");
+      navigate("/admin/product");
     }
   };
 
@@ -37,15 +34,21 @@ const New = () => {
     setFileList(newFileList);
   };
 
+  const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };
+
   return (
     <section className={cx("edit")}>
       <div className={cx("breadcrumb")} style={{ marginBottom: "30px" }}>
         <Breadcrumb style={{ fontSize: "16px", fontWeight: "500" }}>
           <Breadcrumb.Item className={cx("bread")} onClick={() => navigate(-1)}>
-            <span style={{ cursor: "pointer" }}>Quản lý dịch vụ</span>
+            <span style={{ cursor: "pointer" }}>Quản lý sản phẩm</span>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <span style={{ color: "#1EA6FB" }}>Thêm dịch vụ</span>
+            <span style={{ color: "#1EA6FB" }}>Thêm sản phẩm</span>
           </Breadcrumb.Item>
         </Breadcrumb>
       </div>
@@ -67,54 +70,54 @@ const New = () => {
         >
           <Button className={cx("edit-btn")} type="primary" htmlType="submit">
             <PlusOutlined />
-            Thêm thông tin
+            Thêm sản phẩm
           </Button>
         </Form.Item>
         <Form.Item
           name="name"
-          label="Tên dịch vụ"
+          label="Tên sản phẩm"
           style={{ fontWeight: "500" }}
           className="w-50"
           rules={[
             {
               required: true,
-              message: "Please input the service name!",
+              message: "Please input the product name!",
             },
           ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          name="include"
-          label="Đính kèm"
-          style={{ fontWeight: "500" }}
-          className="w-50"
-          //   rules={[
-          //     {
-          //       required: true,
-          //       message: "Please input the service name!",
-          //     },
-          //   ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="price"
-          label="Giá dịch vụ"
+          name="type"
+          label="Loại sản phẩm"
           style={{ fontWeight: "500" }}
           className="w-50"
           rules={[
             {
               required: true,
-              message: "Please input the service price!",
+              message: "Please input the product type!",
             },
           ]}
         >
-          <Input type={"number"} />
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="url"
+          label="URL sản phẩm"
+          style={{ fontWeight: "500" }}
+          className="w-50"
+          rules={[
+            {
+              required: true,
+              message: "Please input the product URL!",
+            },
+          ]}
+        >
+          <Input />
         </Form.Item>
         <Form.Item
           name="logo"
-          label="Logo dịch vụ (để chất lượng hiển thị tốt nhất hãy chọn 1 file kích thước 72px x 72px)"
+          label="Logo dịch vụ"
           style={{ fontWeight: "500" }}
           rules={[
             {
@@ -130,17 +133,18 @@ const New = () => {
             listType="picture-card"
             className="avatar-uploader"
             onChange={handleChange}
-            beforeUpload={(file) => {
-              const reader = new FileReader();
+            customRequest={dummyRequest}
+            // beforeUpload={(file) => {
+            //   const reader = new FileReader();
 
-              reader.onload = (e) => {
-                setLogo(e.target.result);
-              };
-              reader.readAsText(file);
+            //   reader.onload = (e) => {
+            //     setLogo(e.target.result);
+            //   };
+            //   reader.readAsText(file);
 
-              // Prevent upload
-              return false;
-            }}
+            //   // Prevent upload
+            //   return false;
+            // }}
           >
             {/* {uploadImg < 1 && "+ Upload"} */}
             {fileList?.length < 1 && "+ Upload"}
@@ -159,18 +163,13 @@ const New = () => {
         </Form.Item>
         <Form.Item
           name="content"
-          label="Nội dung (ngắn từ 10-60 ký tự, tính cả khoảng trắng)"
+          label="Nội dung"
           style={{ fontWeight: "500" }}
           className="w-50"
           rules={[
             {
               required: true,
               message: "Please input service content!",
-            },
-            {
-              min: 10,
-              max: 60,
-              message: "Content must be between 10-60 characters",
             },
           ]}
         >

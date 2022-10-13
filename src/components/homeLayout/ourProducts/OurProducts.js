@@ -1,5 +1,7 @@
 import { Col, Row } from "antd";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import bookingstudio from "../../../assets/bookingstudio.png";
 import gardenie from "../../../assets/gardenie.png";
 import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
@@ -7,48 +9,62 @@ import plusfood from "../../../assets/plusfood.png";
 import plusstinv from "../../../assets/plusstinv.png";
 import plusticket from "../../../assets/plusticket.png";
 import plustrip from "../../../assets/plustrip.png";
+import { getAllProductAction } from "../../../stores/actions/productAction";
 import "./ourProducts.scss";
 
 const OurProducts = (props) => {
+  const { listProducts } = useSelector((state) => state.productReducer);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const products = [
-    {
-      logo: plusstinv,
-      name: "Plusstinv",
-      link: "https://www.facebook.com/plusstinv",
-      des: t("plusstinvdes"),
-    },
-    {
-      logo: bookingstudio,
-      name: "Booking Studio",
-      link: "https://www.facebook.com/BookingStudio.vnplus.vn",
-      des: t("bookingstudiodes"),
-    },
-    {
-      logo: plusticket,
-      name: "Plus Ticket",
-      link: "#",
-      des: t("plusticketdes"),
-    },
-    {
-      logo: plustrip,
-      name: "Plus Trip",
-      link: "#",
-      des: t("plustripdes"),
-    },
-    {
-      logo: gardenie,
-      name: "Gardenie",
-      link: "#",
-      des: t("gardeniades"),
-    },
-    {
-      logo: plusfood,
-      name: "Plus Food",
-      link: "#",
-      des: t("plusfooddes"),
-    },
-  ];
+  const products = listProducts?.map((item) => ({
+    logo: `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.Image}`,
+    name: item?.Name,
+    link: item?.URL,
+    des: t(`${item.Name.replace(" ", "")}ContentKey`),
+  }));
+  // const products = [
+  //   {
+  //     logo: plusstinv,
+  //     name: "Plusstinv",
+  //     link: "https://www.facebook.com/plusstinv",
+  //     des: t("plusstinvdes"),
+  //   },
+  //   {
+  //     logo: bookingstudio,
+  //     name: "Booking Studio",
+  //     link: "https://www.facebook.com/BookingStudio.vnplus.vn",
+  //     des: t("bookingstudiodes"),
+  //   },
+  //   {
+  //     logo: plusticket,
+  //     name: "Plus Ticket",
+  //     link: "#",
+  //     des: t("plusticketdes"),
+  //   },
+  //   {
+  //     logo: plustrip,
+  //     name: "Plus Trip",
+  //     link: "#",
+  //     des: t("plustripdes"),
+  //   },
+  //   {
+  //     logo: gardenie,
+  //     name: "Gardenie",
+  //     link: "#",
+  //     des: t("gardeniades"),
+  //   },
+  //   {
+  //     logo: plusfood,
+  //     name: "Plus Food",
+  //     link: "#",
+  //     des: t("plusfooddes"),
+  //   },
+  // ];
+
+  useEffect(() => {
+    dispatch(getAllProductAction());
+  }, []);
+
   return (
     <section className="our-products d-flex justify-content-center align-items-center flex-column">
       <div className="our-products__container container">
