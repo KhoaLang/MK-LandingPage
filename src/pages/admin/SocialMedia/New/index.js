@@ -67,13 +67,11 @@ const New = () => {
         onFinish={onFinish}
         initialValues={{
           remember: true,
-        }}
-      >
+        }}>
         <Form.Item
           wrapperCol={{
             offset: 21,
-          }}
-        >
+          }}>
           <Button className={cx("edit-btn")} type="primary" htmlType="submit">
             <PlusOutlined />
             Thêm thông tin
@@ -89,8 +87,7 @@ const New = () => {
               required: true,
               message: "Please input your the social media name!",
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
         <Form.Item
@@ -102,8 +99,7 @@ const New = () => {
               required: true,
               message: "Please upload a logo!",
             },
-          ]}
-        >
+          ]}>
           <Upload
             accept=".svg"
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
@@ -121,8 +117,7 @@ const New = () => {
 
               // Prevent upload
               return false;
-            }}
-          >
+            }}>
             {/* {uploadImg < 1 && "+ Upload"} */}
             {fileList?.length < 1 && "+ Upload"}
           </Upload>
@@ -136,11 +131,10 @@ const New = () => {
             {
               required: true,
               message: "Please input your company social media url!",
-              pattern:
-                /^((https?|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/,
+              // pattern:
+              //   /^((https?|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/,
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
       </Form>

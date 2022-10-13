@@ -96,13 +96,11 @@ const Detail = () => {
         onFinish={onFinish}
         initialValues={{
           remember: true,
-        }}
-      >
+        }}>
         <Form.Item
           wrapperCol={{
             offset: 21,
-          }}
-        >
+          }}>
           <Button className={cx("edit-btn")} type="primary" htmlType="submit">
             <PlusOutlined />
             Sửa thông tin
@@ -118,16 +116,14 @@ const Detail = () => {
               required: true,
               message: "Please input the service name!",
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
         <Form.Item
           name="include"
           label="Đính kèm"
           style={{ fontWeight: "500" }}
-          className="w-50"
-        >
+          className="w-50">
           <Input />
         </Form.Item>
         <Form.Item
@@ -140,8 +136,7 @@ const Detail = () => {
               required: true,
               message: "Please input the service price!",
             },
-          ]}
-        >
+          ]}>
           <Input type={"number"} />
         </Form.Item>
         <Form.Item
@@ -153,16 +148,14 @@ const Detail = () => {
               required: true,
               message: "Please upload an image!",
             },
-          ]}
-        >
+          ]}>
           <Upload
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             fileList={fileList}
             listType="picture-card"
             className="avatar-uploader"
             onChange={handleChange}
-            customRequest={dummyRequest}
-          >
+            customRequest={dummyRequest}>
             {/* {fileList.length < 1 && "+ Upload"} */}
             {fileList.length === 0 && (
               <img
@@ -178,11 +171,10 @@ const Detail = () => {
           valuePropName="visible"
           label="Hiển thị"
           name="visible"
-          labelAlign="left"
-        >
+          labelAlign="left">
           <Switch
-            checked={listService[params.id]?.IsVisible}
-            //   onChange={handleFormItemChange("isVisible")}
+            defaultChecked={listService[params.id]?.IsVisible}
+            // onChange={handleFormItemChange("isVisible")}
           />
         </Form.Item>
         <Form.Item
@@ -200,8 +192,7 @@ const Detail = () => {
               max: 60,
               message: "Content must be between 10-60 characters",
             },
-          ]}
-        >
+          ]}>
           <Input />
         </Form.Item>
       </Form>

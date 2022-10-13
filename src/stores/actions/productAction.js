@@ -3,6 +3,7 @@ import { openNotification } from "../../utils/Notification";
 
 export const getAllProductAction = () => {
   return async (dispatch) => {
+    console.log("trả ve ne ");
     try {
       const { data } = await productService.getAllProduct();
       dispatch({ type: "GET_ALL_PRODUCTS", data: data.data });
@@ -15,9 +16,8 @@ export const updateProductAction = (id, dataForm) => {
   return async (dispatch) => {
     try {
       const data = await productService.updateProduct(id, dataForm);
-      if (!data.success) {
-        return null;
-      }
+      console.log("dâttatatat", data);
+
       dispatch(getAllProductAction());
       openNotification("success", "Update product success!");
     } catch (error) {

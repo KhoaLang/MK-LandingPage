@@ -16,12 +16,15 @@ const OurProducts = (props) => {
   const { listProducts } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const products = listProducts?.map((item) => ({
-    logo: `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.Image}`,
-    name: item?.Name,
-    link: item?.URL,
-    des: t(`${item.Name.replace(" ", "")}ContentKey`),
-  }));
+  const products = listProducts
+    .filter((item) => item.IsVisible === true)
+    ?.map((item) => ({
+      logo: `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.Image}`,
+      name: item?.Name,
+      link: item?.URL,
+      des: t(`${item.Name.replace(" ", "")}ContentKey`),
+    }));
+  console.log(listProducts);
   // const products = [
   //   {
   //     logo: plusstinv,
@@ -86,8 +89,7 @@ const OurProducts = (props) => {
                     <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
                       <a
                         className="d-flex justify-content-center align-items-center"
-                        href={item.link}
-                      >
+                        href={item.link}>
                         <p>{t("MoreDetail")}</p>
                         <GoTo />
                       </a>
