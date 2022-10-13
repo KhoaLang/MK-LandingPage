@@ -99,12 +99,15 @@ export const ProductsAdmin = () => {
     {
       title: "Hiển thị",
       dataIndex: "visible",
-      render: (item, record) => (
-        <Switch
-          checked={item}
-          onChange={(checked) => handleChangeVisibility(checked, record.key)}
-        />
-      ),
+      render: (item, record) => {
+        console.log(item);
+        return (
+          <Switch
+            defaultChecked={item}
+            onChange={(checked) => handleChangeVisibility(checked, record.key)}
+          />
+        );
+      },
     },
     {
       title: "Thao tác",
@@ -117,8 +120,7 @@ export const ProductsAdmin = () => {
                   <Popconfirm
                     title="Are you sure？"
                     onConfirm={() => dispatch(deleteProductAction(item.key))}
-                    icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-                  >
+                    icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
                     <Button
                       shape="circle"
                       size="large"
@@ -137,8 +139,7 @@ export const ProductsAdmin = () => {
                   />
                 </>
               }
-              trigger="click"
-            >
+              trigger="click">
               <MoreOutlined style={{ fontSize: "20px", cursor: "pointer" }} />
             </Popover>
           </div>
@@ -172,8 +173,7 @@ export const ProductsAdmin = () => {
                   Về chuyển đổi ngôn ngữ
                 </h5>
               }
-              placement="bottom"
-            >
+              placement="bottom">
               <QuestionCircleOutlined
                 style={{ cursor: "pointer", color: "#1ea6fb" }}
               />
@@ -185,8 +185,7 @@ export const ProductsAdmin = () => {
             title="Are you sure？"
             onConfirm={handleDeleteArray}
             disabled={!(selectedRowKeys.length > 1)}
-            icon={<QuestionCircleOutlined style={{ color: "red" }} />}
-          >
+            icon={<QuestionCircleOutlined style={{ color: "red" }} />}>
             <Button
               style={{
                 color: "#C00101",
@@ -194,8 +193,7 @@ export const ProductsAdmin = () => {
                 fontWeight: "bold",
               }}
               disabled={!(selectedRowKeys.length > 1)}
-              size="large"
-            >
+              size="large">
               <DeleteOutlined />
               Xoá
             </Button>
@@ -204,8 +202,7 @@ export const ProductsAdmin = () => {
             onClick={() => navigate("new")}
             style={{ marginLeft: "20px" }}
             type="primary"
-            size="large"
-          >
+            size="large">
             <PlusOutlined />
             Thêm sản phẩm
           </Button>
@@ -217,8 +214,7 @@ export const ProductsAdmin = () => {
           fontWeight: "600",
           paddingLeft: "20px",
           margin: "0",
-        }}
-      >
+        }}>
         Chi tiết
       </p>
       <Table
