@@ -43,6 +43,9 @@ import ServiceNew from "./pages/admin/Service/New";
 import ServiceDetail from "./pages/admin/Service/Detail";
 import ContactAdmin from "./pages/admin/Contact";
 import ContactAdminDetail from "./pages/admin/Contact/Detail";
+import { ProductsAdmin } from "./pages/admin/Products";
+import NewProductsAdmin from "./pages/admin/Products/New";
+import DetailProductsAdmin from "./pages/admin/Products/Detail";
 
 function App() {
   const navigate = useNavigate();
@@ -128,6 +131,11 @@ function App() {
           <Route path="contact">
             <Route index element={<ContactAdmin />} />
             <Route path="detail/:id" element={<ContactAdminDetail />} />
+          </Route>
+          <Route path="product">
+            <Route index element={<ProductsAdmin />} />
+            <Route path="detail/:id" element={<DetailProductsAdmin />} />
+            <Route path="new" element={<NewProductsAdmin />} />
           </Route>
         </Route>
         <Route
