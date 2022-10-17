@@ -48,6 +48,12 @@
   .core-value {
     &__container {
       width: 50% !important;
+      h2 {
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 32px;
+        margin-bottom: 0%;
+      }
       &__list {
         &__item {
           &__title {

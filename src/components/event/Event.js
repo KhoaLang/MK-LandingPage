@@ -77,7 +77,7 @@ const Event = () => {
               ]}
             >
               {isLoading ? (
-                <Loading />
+                <Loading style={{ color: "#000" }} />
               ) : (
                 <>
                   {listPost
@@ -125,7 +125,7 @@ const Event = () => {
                     ]}
                   >
                     {isLoading ? (
-                      <Loading />
+                      <Loading style={{ color: "#000" }} />
                     ) : (
                       <>
                         {postFilter

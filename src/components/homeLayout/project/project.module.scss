@@ -12,8 +12,8 @@
     line-height: 41px;
   }
   .project-container {
-    margin: 0 auto;
-    width: 50%;
+    margin: 60px auto;
+    width: 80%;
     .project-in-home-page {
       cursor: pointer;
       .outer-container {
@@ -63,6 +63,8 @@
         background-color: $white;
         margin: 0 auto;
         img {
+          // width: 100%;
+          // object-fit: cover;
           display: block;
           margin: 0 auto;
         }
@@ -71,7 +73,14 @@
         width: 100%;
         margin: 0 auto;
         background-color: $white;
-        padding: 0 20px 0 20px;
+        padding: 0 12px 0 12px;
+        .description {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
         p {
           &:nth-child(2) {
             font-weight: 700;
@@ -99,6 +108,7 @@
 
 @media screen and (max-width: 992px) {
   .project {
+    padding-top: 36px !important;
     &-container {
       width: 90% !important;
       .project-in-home-page {
@@ -110,6 +120,31 @@
         }
       }
       .project-outside-homepage {
+        .title {
+          .description {
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .project {
+    &-container {
+      .project-outside-homepage {
+        .title {
+          .name {
+            margin: 4px 0 12px 0 !important;
+          }
+          .description {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+        }
       }
     }
   }

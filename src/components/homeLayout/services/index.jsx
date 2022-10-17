@@ -85,7 +85,10 @@ const Services = ({ button, isHomePage = true }) => {
               Dịch vụ
             </h2>
           ) : (
-            <h2 className="our-products__container__title d-flex flex-column align-items-center">
+            <h2
+              style={{ marginTop: "0px" }}
+              className="our-products__container__title d-flex flex-column align-items-center"
+            >
               {/* {t("Products_Of_VNPLUS")} */}
               Bảng giá dịch vụ
               <span

@@ -49,10 +49,7 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
   return (
     <section className={cx("project")}>
       {isHomePage && <h3>DỰ ÁN</h3>}
-      <div
-        style={isHomePage ? {} : { width: "80%" }}
-        className={cx("project-container")}
-      >
+      <div className={cx("project-container")}>
         <Row gutter={[72, 72]}>
           {DATA.map((item, idx) =>
             isHomePage ? (
@@ -86,8 +83,8 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
                 </div>
                 <div className={cx("title")}>
                   <p>{item.type}</p>
-                  <p>{item.name}</p>
-                  <p>{item.des}</p>
+                  <p className={cx("name")}>{item.name}</p>
+                  <p className={cx("description")}>{item.des}</p>
                 </div>
               </Col>
             )
