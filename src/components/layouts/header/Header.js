@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { ReactComponent as Menu } from "../../../assets/GgMenuRight 1.svg";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ReactComponent as Menu } from "../../../assets/header/burger-2.svg";
 import { ReactComponent as Close } from "../../../assets/RadixIconsCross2 (2) 1.svg";
 import "./header.scss";
 
@@ -12,70 +12,66 @@ const Header = () => {
   const [activeItem, setActiveItem] = useState(0);
   const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { t, i18n } = useTranslation();
 
   const navbarItems = [
-    { path: "/", page: t("Home") },
-    { path: "/aboutus", page: t("About") },
-    { path: "/products", page: t("Product") },
-    { path: "/event", page: t("Event") },
-    { path: "/contact", page: t("Contact") },
-    { path: "/career", page: t("Career") },
+    // { path: "/", page: t("Home") },
+    // { path: "/aboutus", page: t("About") },
+    // { path: "/products", page: t("Product") },
+    // { path: "/event", page: t("Event") },
+    // { path: "/contact", page: t("Contact") },
+    // { path: "/career", page: t("Career") },
+    { path: "/", page: "Trang chủ" },
+    { path: "/aboutus", page: "Về chúng tôi" },
+    { path: "/project", page: "Dự án" },
+    { path: "/service", page: "Dịch vụ" },
+    { path: "/event", page: "Tin tức" },
+    { path: "/contact", page: "Liên hệ" },
   ];
 
   const setActiveNavbarItem = () => {
-    if (activeRoute.length > 0) {
-      switch (activeRoute) {
-        case "":
-        case "/":
-          setActiveItem(0);
-          break;
-        case "aboutus":
-        case "/aboutus":
-          setActiveItem(1);
-          break;
-        case "products":
-        case "/products":
-          setActiveItem(2);
-          break;
-        case "event":
-        case "/event":
-          setActiveItem(3);
-          break;
-        case "contact":
-        case "/contact":
-          setActiveItem(4);
-          break;
-        case "career":
-        case "/career":
-          setActiveItem(5);
-          break;
-        default:
-          break;
-      }
+    const path = location.pathname;
+    // console.log(path.split("/"));
+    switch (path.split("/")[1]) {
+      case "":
+        setActiveItem(0);
+        break;
+      case "aboutus":
+        setActiveItem(1);
+        break;
+      case "project":
+        setActiveItem(2);
+        break;
+      case "service":
+        setActiveItem(3);
+        break;
+      case "event":
+        setActiveItem(4);
+        break;
+      case "contact":
+        setActiveItem(5);
+        break;
+      default:
+        break;
     }
   };
 
   const handlePathChangeOnMobile = (item) => {
-    setActiveRoute(item.path);
+    // setActiveRoute(item.path);
     setOpenOverlay(false);
   };
 
   const handleLogoClick = () => {
     navigate("/");
-    setActiveItem(0);
+    // setActiveItem(0);
     window.scrollTo(0, 0);
   };
 
   useEffect(() => {
-    //get location and active route base on url
-    let currentURL = window.location.href;
-    let endpoint = currentURL.split("/");
-    setActiveRoute(endpoint[3]);
-
     setActiveNavbarItem();
-  }, [window.location.href.split("/")[3]]);
+  }, [location]);
 
   return (
     <header className="header d-flex justify-content-center align-items-center">
@@ -83,16 +79,16 @@ const Header = () => {
         <div
           onClick={handleLogoClick}
           className="header__container__logo d-flex justify-content-center align-items-center"
-          dangerouslySetInnerHTML={{ __html: companyInfo?.Logo }}
+          // dangerouslySetInnerHTML={{ __html: companyInfo?.Logo }}
         >
-          {/* <Logo /> */}
+          <p>Logo</p>
         </div>
         <ul className="header__container__navbar d-flex justify-content-between align-items-center">
           {navbarItems.map((item, idx) => (
             <Link
               key={idx}
-              onClick={() => idx !== 5 && setActiveRoute(item.path)}
-              to={idx !== 5 && item.path}
+              // onClick={() => setActiveRoute(item.path)}
+              to={item.path}
             >
               <li
                 className={
@@ -122,7 +118,7 @@ const Header = () => {
       >
         <div
           onClick={() => setOpenOverlay(false)}
-          className="header__overlay-block__close align-self-end"
+          className="header__overlay-block__close"
         >
           <Close />
         </div>

@@ -1,16 +1,13 @@
+import { Col, Row } from "antd";
 import "./events.scss";
-import { Row, Col } from "antd";
 //Import Image
-import image1 from "../../../assets/Rectangle138.png";
-import image2 from "../../../assets/Rectangle138(1).png";
-import image3 from "../../../assets/Rectangle138(2).png";
-import Card from "../../layouts/card/Card";
-import PrimaryButton from "../../layouts/primaryButton/Button";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAllPostAction } from "../../../stores/actions/postAction";
-import { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import Card from "../../layouts/card/Card";
+import PrimaryButton from "../../layouts/primaryButton/Button";
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -24,13 +21,15 @@ const Events = () => {
   return (
     <section className="events d-flex justify-content-center align-items-center">
       <div className="events__container container d-flex justify-content-center align-items-center flex-column">
-        <h2>{t("New_Event")}</h2>
+        {/* <h2>{t("New_Event")}</h2> */}
+        <h2>TIN TỨC</h2>
         <>
           <Row gutter={[48, 48]}>
             {listPost.slice(0, 3).map((item, idx) => (
               <Col
                 key={idx}
                 md={8}
+                sm={24}
                 xs={24}
                 onClick={() => navigate(`/event/${item.id}`)}
               >
@@ -39,7 +38,7 @@ const Events = () => {
             ))}
           </Row>
           <PrimaryButton path="/event" style={{ margin: "67px auto" }}>
-            {t("More")}
+            {/* {t("More")} */} Xem thêm
           </PrimaryButton>
         </>
       </div>

@@ -46,6 +46,9 @@ import ContactAdminDetail from "./pages/admin/Contact/Detail";
 import { ProductsAdmin } from "./pages/admin/Products";
 import NewProductsAdmin from "./pages/admin/Products/New";
 import DetailProductsAdmin from "./pages/admin/Products/Detail";
+import Project from "./components/project";
+import ProjectDetail from "./components/projectDetail";
+import Authenticate from "./pages/admin/authenticate";
 
 function App() {
   const navigate = useNavigate();
@@ -75,11 +78,14 @@ function App() {
         <Route path="/" element={<ClientLayout></ClientLayout>}>
           <Route index element={<Home />} />
           <Route path="aboutus" element={<AboutUs />} />
-          <Route path="products" element={<Products />} />
+          <Route path="project" element={<Project />} />
+          <Route path="project/:id" element={<ProjectDetail />} />
+          <Route path="service" element={<Products />} />
           <Route path="contact" element={<Contact />} />
           <Route path="event" element={<Event />} />
           <Route path="event/:id" element={<EventDetail />} />
         </Route>
+        <Route path="admin/login" element={<Authenticate />} />
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<ManagePost />} />
 

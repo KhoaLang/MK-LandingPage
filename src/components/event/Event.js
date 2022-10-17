@@ -61,7 +61,8 @@ const Event = () => {
     <section className="event">
       <SmoothScroll />
       <div className="wrapperEvent">
-        <h2 className="title">{t("New_Event")}</h2>
+        {/* <h2 className="title">{t("New_Event")}</h2> */}
+        <h2 className="title">Tin tức</h2>
         <Tabs
           className="tabEvent"
           size="large"

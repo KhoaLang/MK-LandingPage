@@ -7,7 +7,6 @@ import { ReactComponent as Envelope } from "../../assets/PhEnvelopeFill 1.svg";
 import { ReactComponent as Facebook } from "../../assets/PhFacebookLogoFill 1.svg";
 import { ReactComponent as Link } from "../../assets/link.svg";
 import { ReactComponent as Linkedin } from "../../assets/linkedin2.svg";
-import OtherNews from "../eventDetailLayout/otherNews/OtherNews";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getPostDetailAction,
@@ -17,6 +16,7 @@ import { LazyImage } from "../LazyImage";
 import moment from "moment";
 import { URL_IMAGE } from "../../utils/constants";
 import { t } from "i18next";
+import OtherNews from "../eventDetailLayout/otherNews/OtherNews";
 
 const EventDetail = () => {
   const { id } = useParams();
@@ -38,20 +38,22 @@ const EventDetail = () => {
 
   return (
     <section className="event-detail d-flex justify-content-center align-items-center">
-      <div className="event-detail__container">
-        <div className="event-detail__container__main-content">
+      <div className="event-detail__container d-flex justify-content-center">
+        <div className="event-detail__container__main-content ">
           <Row gutter={[16, 16]}>
-            <Col md={17}>
+            <Col md={24}>
               <div className="event-detail__container__main-content__page-header">
                 <Breadcrumb>
                   <Breadcrumb.Item
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate("/")}>
+                    onClick={() => navigate("/")}
+                  >
                     Trang chủ
                   </Breadcrumb.Item>
                   <Breadcrumb.Item
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate("/event")}>
+                    onClick={() => navigate("/event")}
+                  >
                     Sự kiện
                   </Breadcrumb.Item>
                   <Breadcrumb.Item>Article {id}</Breadcrumb.Item>
@@ -62,47 +64,36 @@ const EventDetail = () => {
                 <p>{moment(postDetail.createdAt).format("LLLL")}</p>
               </div>
               <div className="event-detail__container__main-content__content">
-                <LazyImage src={`${URL_IMAGE}${postDetail?.image}`} />
+                <LazyImage
+                  src={`${process.env.REACT_APP_BACKEND_BASE_URL}${postDetail?.image}`}
+                />
                 <div className="event-detail__container__main-content__content__main d-flex flex-column">
                   {mainContent}
                 </div>
               </div>
-              <div className="event-detail__container__main-content__source">
+              {/* <div className="event-detail__container__main-content__source">
                 <p>
                   {t("Source")}:{" "}
                   <span>
                     <a href={postDetail.source}>{postDetail.source}</a>
                   </span>
                 </p>
-              </div>
+              </div> */}
               <div className="event-detail__container__main-content__share-icon d-flex justify-content-between align-items-center">
-                <p>{t("Share")}: </p>
-                <Facebook />
-                <Envelope />
-                <Linkedin />
-                <Link />
-              </div>
-            </Col>
-            <Col md={6} className="d-flex justify-content-center">
-              <div
-                className="fb-page"
-                data-href="https://www.facebook.com/vnplusjsc"
-                data-width="340"
-                data-height="152"
-                data-small-header="false"
-                data-adapt-container-width="true"
-                data-hide-cover="false"
-                data-show-facepile="false">
-                <blockquote
-                  cite="https://www.facebook.com/vnplusjsc"
-                  className="fb-xfbml-parse-ignore">
-                  <a href="https://www.facebook.com/vnplusjsc">VNPLus jsc</a>
-                </blockquote>
+                <span className="d-flex justify-content-between align-items-center">
+                  <p>{t("Share")}: </p>
+                  <Facebook />
+                  <Envelope />
+                  <Linkedin />
+                  <Link />
+                </span>
               </div>
             </Col>
           </Row>
         </div>
-        <div className="event-detail__container__other-news"></div>
+        <div className="event-detail__container__other-news">
+          {/* <OtherNews /> */}
+        </div>
       </div>
     </section>
   );

@@ -2,67 +2,56 @@
 @import "../../../sass/variables.scss";
 .our-products {
   width: 100%;
-  padding: 60px 0 60px 0;
   position: relative;
   &__container {
+    width: 60%;
+    margin: 0 auto;
     &__title {
       text-align: center;
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 41px;
+      font-family: "Helvetica" !important;
     }
     &__items {
+      padding: 95px 0 167px 0;
       &__image-section {
-        height: 100px;
         padding: 20px 0 30px 0;
         position: relative;
-        &::after {
-          position: absolute;
-          content: "";
-          width: 30px;
-          height: 2px;
-          background-color: #999999;
-          bottom: 0%;
-          left: 0%;
-        }
       }
       p {
-        // text-align: justify;
+        text-align: center;
         color: $black400;
-        font-size: 16px;
         font-weight: 400;
-        line-height: 20px;
+        font-size: 18px;
+        line-height: 27px;
       }
       h3 {
         margin-top: 20px;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 32px;
       }
       &__button {
-        border: 1px solid $primary;
-        background-color: $white;
-        color: $primary;
-        padding: 15px;
+        border: 1px solid $black;
+        background-color: transparent;
+        color: $black;
+        padding: 15px 47px;
         margin-top: 30px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         p {
           margin: 0 5px 0 0;
-          color: $primary;
+          color: $black;
           font-size: 16px;
           font-weight: 500;
           line-height: 20px;
           transition: color 0.3s ease;
         }
-        svg {
-          path {
-            transition: fill 0.3s ease;
-          }
-        }
         &:hover {
-          background-color: $primary;
+          background-color: $black;
           p {
             color: $white;
-          }
-          svg {
-            path {
-              fill: $white;
-            }
           }
         }
       }
@@ -70,12 +59,19 @@
   }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 992px) {
   .our-products {
     &__container {
       width: 90% !important;
       &__title {
         font-size: 32px !important;
+      }
+      &__items {
+        padding: 40px 0 48px 0 !important;
+        p {
+          font-size: 16px !important;
+          line-height: 24px !important;
+        }
       }
     }
   }

@@ -1,26 +1,24 @@
 import "./home.scss";
-import Hero from "../homeLayout/hero/Hero";
-import OurProducts from "../homeLayout/ourProducts/OurProducts";
+import Services from "../homeLayout/services";
 import Events from "../homeLayout/events/Events";
 import About from "../homeLayout/about/About";
-import Career from "../homeLayout/career/Career";
 import { useState } from "react";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
-import { Banner } from "../banner/Banner";
+import { Banner } from "../homeLayout/banner/Banner";
 import { OverPack } from "rc-scroll-anim";
+import Project from "../homeLayout/project";
 
 const Home = () => {
   const [bgOffset, setBgOffset] = useState(null);
 
   return (
     <OverPack className="home">
-      <SmoothScroll setBgOffset={setBgOffset} />
-      {/* <Hero /> */}
+      <SmoothScroll />
       <Banner />
-      <OurProducts button={false} />
+      <Services button={true} />
+      <Project />
       <Events />
-      <About bgOffset={bgOffset} />
-      <Career />
+      <About />
     </OverPack>
   );
 };

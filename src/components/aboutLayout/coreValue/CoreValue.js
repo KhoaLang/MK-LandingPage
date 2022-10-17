@@ -35,8 +35,9 @@ const CoreValue = () => {
   return (
     <section className="core-value d-flex justify-content-center align-items-center">
       <div className="core-value__container container d-flex flex-column justify-content-center align-items-center">
-        <h2>{t("CoreValue")}</h2>
-        <Row className="core-value__container__list">
+        {/* <h2>{t("CoreValue")}</h2> */}
+        <h2>Giá trị cốt lõi</h2>
+        <Row gutter={[72, 48]} className="core-value__container__list">
           {items.map((item, idx) => (
             <Col
               md={6}

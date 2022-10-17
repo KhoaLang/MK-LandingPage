@@ -33,12 +33,12 @@ export const SiderbarAdmin = () => {
         <Menu.SubMenu
           className={
             ["categories"].includes(pathname.split("/")[2])
-              ? " ant-menu-submenu-active"
+              ? "ant-menu-submenu-active"
               : ""
           }
           key={0}
           icon={<ProfileOutlined />}
-          title="Tin tức-Sự kiện"
+          title="Tin tức"
         >
           <Menu.Item
             className={

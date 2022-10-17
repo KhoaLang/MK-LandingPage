@@ -58,10 +58,11 @@ const Contact = () => {
     );
   };
   return (
-    <section className="contact d-flex justify-content-center align-items-center">
+    <section className="contact d-flex justify-content-center">
       <SmoothScroll />
-      <div className="contact__container container d-flex flex-column justify-content-center align-items-center">
-        <h2>{t("ContactVNPLUS")}</h2>
+      <div className="contact__container d-flex flex-column justify-content-center align-items-center">
+        {/* <h2>{t("ContactVNPLUS")}</h2> */}
+        <h2>Liên hệ với chúng tôi</h2>
         <div className="contact__container__form">
           <Row gutter={[48]}>
             <Col md={14} xs={24}>
@@ -76,85 +77,75 @@ const Contact = () => {
                 layout="vertical"
                 onFinish={onFinish}
               >
-                <Row gutter={[24, 24]}>
-                  <Col md={12} xs={24}>
-                    <Form.Item
-                      label={t("FullName")}
-                      name="name"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập họ và tên!",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col md={12} xs={24}>
-                    <Form.Item
-                      label="Email"
-                      name="email"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập email!",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </Row>
-                <Row gutter={[24, 24]}>
-                  <Col md={12} xs={24}>
-                    <Form.Item
-                      label={t("EnterpriseName")}
-                      name="enterprisename"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập tên công ty!",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                  <Col md={12} xs={24}>
-                    <Form.Item
-                      label={t("PhoneNumber")}
-                      name="phonenumber"
-                      rules={[
-                        {
-                          required: true,
-                          message: "Vui lòng nhập số điện thoại!",
-                        },
-                      ]}
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </Row>
-
-                <Form.Item
-                  label={t("WhatCanWeHelpYou")}
-                  name="help"
-                  rules={[
-                    {
-                      required: true,
-                      message: "Bạn thắc mắc điều gì?",
-                    },
-                  ]}
-                >
-                  <Input.TextArea />
-                </Form.Item>
-                <Button style={{ marginTop: "26px" }}>{t("Send")}</Button>
+                <Col md={24}>
+                  <Form.Item
+                    // label={t("FullName")}
+                    label="Họ và tên"
+                    name="name"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng nhập họ và tên!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col md={24}>
+                  <Form.Item
+                    label="Email"
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng nhập email!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col md={24}>
+                  <Form.Item
+                    // label={t("PhoneNumber")}
+                    label="Số điện thoại"
+                    name="phonenumber"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Vui lòng nhập số điện thoại!",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col md={24}>
+                  <Form.Item
+                    // label={t("WhatCanWeHelpYou")}
+                    label="Nội dung liên hệ"
+                    name="help"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Bạn thắc mắc điều gì?",
+                      },
+                    ]}
+                  >
+                    <Input.TextArea />
+                  </Form.Item>
+                </Col>
+                {/* <Button style={{ marginTop: "26px" }}>{t("Send")}</Button> */}
+                <Button style={{ marginTop: "26px" }}>Gửi</Button>
               </Form>
             </Col>
             <Col md={10} xs={24}>
-              <div className="contact__container__form__company-info d-flex flex-column">
-                <h5>{t("CompanyName")}</h5>
+              <div className="contact__container__form__map">
+                <img src={img1} alt="nothing to see" onClick={showModal} />
+              </div>
+              <div className="contact__container__form__company-info d-flex justify-content-center align-items-center">
+                {/* <h5>{t("CompanyName")}</h5>
                 <ul className="footer__upper__container__left-side__contact-info">
                   {contactInfo.map((item, idx) => (
                     <li
@@ -165,11 +156,10 @@ const Contact = () => {
                       <p style={{ color: "#000" }}>{item.info}</p>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
+                <p>Logo</p>
               </div>
-              <div className="contact__container__form__map">
-                <img src={img1} alt="nothing to see" onClick={showModal} />
-              </div>
+
               <Modal
                 className="map"
                 width={"100%"}

@@ -5,7 +5,7 @@
   width: 100%;
   &__upper {
     width: 100%;
-    background-color: $navy;
+    background-color: $black;
     &__container {
       padding: 40px 0 40px 0;
       &__left-side {
@@ -14,13 +14,17 @@
           padding: 0 0 13px 0;
           h5 {
             color: $white;
+            font-family: "Helvetica";
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 21px;
           }
           &::after {
             position: absolute;
             content: "";
             width: 63px;
             height: 1px;
-            background-color: $primary;
+            background-color: $white;
             bottom: 8%;
             left: 0%;
           }
@@ -46,6 +50,10 @@
       &__middle-side {
         h5 {
           color: $white;
+          font-family: "Helvetica";
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 21px;
         }
         &__follow {
           margin-top: 16px;
@@ -98,8 +106,10 @@
   &__below {
     &__container {
       padding: 14px 0 14px 0;
+      height: fit-content;
       &__policies {
         margin-bottom: 0px;
+
         li {
           display: inline-block;
           width: fit-content;
@@ -107,19 +117,16 @@
           font-weight: 400;
           margin-right: 28px;
           color: #525252;
-          list-style: none;
-          &:nth-child(2) {
-            list-style: disc;
-          }
         }
       }
+
       &__copyright {
         p {
-          margin-bottom: 0px;
+          text-align: end !important;
           font-size: 14px;
           font-weight: 400;
           color: #000;
-          text-align: end;
+          margin: 0%;
         }
       }
     }
@@ -130,6 +137,17 @@
   .footer {
     &__upper {
       &__container {
+        width: 90% !important;
+        &__left-side {
+          &__contact-info {
+            &__item {
+              svg {
+                width: 30px !important;
+                height: 30px !important;
+              }
+            }
+          }
+        }
         &__right-side {
           justify-content: flex-start !important;
         }
@@ -144,6 +162,11 @@
             }
             &__item-responsive {
               display: block !important;
+              height: fit-content;
+              svg {
+                width: 50px !important;
+                height: 50px !important;
+              }
             }
           }
         }

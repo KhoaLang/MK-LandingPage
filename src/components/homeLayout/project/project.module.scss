@@ -1,0 +1,116 @@
+@import "../../../sass/index.scss";
+
+.project {
+  width: 100%;
+  padding: 64px 0 92px 0;
+  background-color: $offwhite;
+  h3 {
+    font-family: "Helvetica" !important;
+    text-align: center;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 41px;
+  }
+  .project-container {
+    margin: 0 auto;
+    width: 50%;
+    .project-in-home-page {
+      cursor: pointer;
+      .outer-container {
+        width: fit-content;
+        // aspect-ratio: 1 /1;
+        padding: 12px;
+        background-color: $white;
+        margin: 0 auto;
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      .title {
+        width: 100%;
+        margin: 0 auto;
+
+        p {
+          font-size: 20px;
+          text-align: center;
+          &:nth-child(1) {
+            font-weight: 700;
+            line-height: 24px;
+            margin-top: 23px;
+          }
+          &:nth-child(2) {
+            font-weight: 400;
+            line-height: 23px;
+          }
+          // &:nth-child(3) {
+          //   margin-top: 10px;
+          //   font-weight: 400;
+          //   line-height: 23px;
+          // }
+        }
+      }
+    }
+    .project-outside-homepage {
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+      .outer-container {
+        width: fit-content;
+        // aspect-ratio: 1 /1;
+        padding: 12px;
+        background-color: $white;
+        margin: 0 auto;
+        img {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+      .title {
+        width: 100%;
+        margin: 0 auto;
+        background-color: $white;
+        padding: 0 20px 0 20px;
+        p {
+          &:nth-child(2) {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 36px;
+            margin: 8px 0 16px 0;
+          }
+          &:nth-child(1) {
+            margin: 25px 0 0 0;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 23px;
+          }
+          &:nth-child(3) {
+            margin-top: 10px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .project {
+    &-container {
+      width: 90% !important;
+      .project-in-home-page {
+        .outer-container {
+          width: 100% !important;
+          img {
+            width: 100% !important;
+          }
+        }
+      }
+      .project-outside-homepage {
+      }
+    }
+  }
+}

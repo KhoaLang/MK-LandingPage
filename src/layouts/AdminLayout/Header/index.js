@@ -12,7 +12,7 @@ export const HeaderAdmin = () => {
       <Link to={"/admin"}>
         <img className={cx("logo")} src={images.logo} alt="logo" />
       </Link>
-      <ul className={cx("nav")}>
+      {/* <ul className={cx("nav")}>
         <li className={cx("active")}>VNPLUS</li>
         <li>Booking Studio</li>
         <li>Plus Stinv</li>
@@ -20,7 +20,8 @@ export const HeaderAdmin = () => {
         <li>Plus Trip</li>
         <li>Plus Garden</li>
         <li>Plus Food</li>
-      </ul>
+      </ul> */}
+      <p>Ngày 20 tháng 10 năm 2022</p>
 
       <img className={cx("avt")} src={logoDefault} />
     </header>

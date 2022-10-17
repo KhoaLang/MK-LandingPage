@@ -2,12 +2,17 @@
 @import "../../../sass/variables.scss";
 .core-value {
   width: 100%;
-  background-color: #edf8ff;
-  padding: 62px 0 80px 0;
+  background-color: $offwhite;
+  padding: 62px 0 162px 0;
 
   &__container {
+    h2 {
+      font-weight: 700;
+      font-size: 40px;
+      line-height: 46px;
+    }
     &__list {
-      padding-top: 65px;
+      margin-top: 65px;
       &__img {
         width: 72px;
         height: 72px;
@@ -39,14 +44,11 @@
   }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 992px) {
   .core-value {
     &__container {
+      width: 50% !important;
       &__list {
-        padding-top: 5px !important;
-        img {
-          margin-top: 50px !important;
-        }
         &__item {
           &__title {
             text-align: center;

@@ -20,13 +20,13 @@ const { Option } = Select;
 
 const socialMediaResponsive = [
   {
-    logo: <FacebookBlue />,
+    logo: <Facebook />,
   },
   {
-    logo: <LinkedinBlue />,
+    logo: <Linkedin />,
   },
   {
-    logo: <YoutubeBlue />,
+    logo: <Youtube />,
   },
 ];
 const Footer = () => {
@@ -67,7 +67,7 @@ const Footer = () => {
                   className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
                   key={idx}
                 >
-                  {item.logo}
+                  <div>{item.logo}</div>
                   <p>{item.info}</p>
                 </li>
               ))}
@@ -106,7 +106,7 @@ const Footer = () => {
             xs={24}
             className="footer__upper__container__right-side d-flex justify-content-end"
           >
-            <Select
+            {/* <Select
               defaultValue="en"
               style={{
                 width: 170,
@@ -127,15 +127,28 @@ const Footer = () => {
               <Option value="vi">
                 <LanguageSelect icon={VN} name="Tiếng Việt" />
               </Option>
-            </Select>
+            </Select>*/}
+            <div
+              style={{
+                width: "fit-content",
+                padding: "17px 25px",
+                fontWeight: "400",
+                fontSize: "18px",
+                backgroundColor: "#fff",
+              }}
+            >
+              Liên hệ chúng tôi
+            </div>
           </Col>
         </Row>
       </div>
       <div className="footer__below d-flex justify-content-center align-items-center">
         <Row className="footer__below__container container">
-          <Col md={12} xs={24} className="footer__below__container__policies ">
-            <li>{t("Terms_Of_Use")}</li>
-            <li>{t("Privacy_Policy")}</li>
+          <Col md={12} xs={24} className="footer__below__container__policies">
+            {/* <li>{t("Terms_Of_Use")}</li>
+            <li>{t("Privacy_Policy")}</li> */}
+            <li>Điều khoản sử dụng</li>
+            <li>Chính sách bảo mật</li>
           </Col>
           <Col md={12} xs={24} className="footer__below__container__copyright">
             <p>Copyright &copy; 2022 VNPLUS Langing Page</p>

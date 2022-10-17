@@ -2,15 +2,16 @@
 @import "../../../sass/variables.scss";
 
 .card {
-  width: 100%;
-  height: 90%;
+  width: 350px;
+  height: 420px;
   background-color: $white;
   box-shadow: 0px 0px 20px 2px rgba(48, 82, 122, 0.08);
   border: none;
   cursor: pointer;
   &__image-container {
     width: 100%;
-    height: 60%;
+    height: 55%;
+    object-fit: cover;
     img {
       width: 100%;
       height: 100%;
@@ -18,25 +19,41 @@
   }
   &__content {
     width: 100%;
-    height: 30%;
-    padding: 20px;
-    &__date {
-      font-size: 14px;
-      font-weight: 300;
-      line-height: 16.94px;
-      color: $black300;
-    }
-    &__info {
-      text-overflow: ellipsis;
-      overflow: hidden;
+    height: 45%;
+    padding: 16px 20px 19px 24px;
+    &__inner {
+      width: 100%;
+      height: 80%;
 
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      margin-top: 12px;
-      color: #000;
-      font-size: 20px;
-      font-weight: 600;
+      &__category {
+        font-family: "Helvetica";
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        color: $grey500;
+      }
+      &__date {
+        font-family: "Helvetica";
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 16.94px;
+        color: $grey400;
+      }
+      &__info {
+        font-family: "Helvetica";
+
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        margin: 12px 0 16px 0;
+        color: #000;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 30px;
+      }
     }
   }
   &__link {
@@ -49,10 +66,29 @@
     }
   }
   &:hover {
-    background-color: $navy;
+    background-color: $black;
     .card__content {
-      &__info {
-        color: $white !important;
+      &__inner {
+        &__date {
+          color: $grey300 !important;
+        }
+        &__category {
+          color: $offwhite !important;
+        }
+        &__info {
+          color: $white !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .card {
+    width: 100%;
+    &__image-container {
+      img {
+        object-fit: cover;
       }
     }
   }

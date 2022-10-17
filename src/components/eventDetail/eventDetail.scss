@@ -4,7 +4,7 @@
 .event-detail {
   width: 100%;
   &__container {
-    width: 75%;
+    width: 60%;
     padding: 120px 0 60px 0;
     &__main-content {
       width: 100%;
@@ -51,17 +51,23 @@
       }
       &__source {
         padding-bottom: 10px;
-        border-bottom: 1px solid $grey400;
       }
 
       &__share-icon {
-        padding-top: 20px;
-        width: 30%;
-        p {
-          margin-bottom: 0%;
-          font-size: 18px;
-          font-weight: 400;
-          line-height: 22px;
+        padding-top: 25px;
+        margin-top: 30px;
+        border-top: 1px solid $grey300;
+        width: 100%;
+        span {
+          p {
+            margin-bottom: 0%;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 22px;
+          }
+          svg {
+            margin-left: 20px;
+          }
         }
       }
     }

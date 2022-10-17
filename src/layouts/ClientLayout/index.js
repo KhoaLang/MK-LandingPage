@@ -11,10 +11,10 @@ export const ClientLayout = () => {
     dispatch(getCompanyInfoAction());
   }, []);
   return (
-    <>
+    <div style={{ overflow: "hidden" }}>
       <Header />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 };

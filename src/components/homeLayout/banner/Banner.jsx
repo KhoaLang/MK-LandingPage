@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { CloseOutlined, PlayCircleFilled } from "@ant-design/icons";
-import "./banner.scss";
+import { useDispatch, useSelector } from "react-redux";
 import "swiper/css";
+import "swiper/css/bundle";
+import "swiper/css/lazy";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/lazy";
-import "swiper/css/bundle";
-import { useDispatch, useSelector } from "react-redux";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Lazy, Navigation, Pagination, Parallax } from "swiper";
-import { getAllBannerAction } from "../../stores/actions/bannerAction";
-import { URL_IMAGE } from "../../utils/constants";
+import img from "../../../assets/home/hero_bg.jpg";
+import { DownOutlined } from "@ant-design/icons";
+import { getAllBannerAction } from "../../../stores/actions/bannerAction";
+import "./banner.scss";
 export const Banner = (props) => {
   const [play, setPlay] = useState(false);
   const { banner } = props;
@@ -21,8 +19,8 @@ export const Banner = (props) => {
   }, []);
 
   return (
-    <>
-      <Swiper
+    <section className="banner">
+      {/* <Swiper
         navigation={true}
         pagination={{ clickable: true }}
         autoplay={true}
@@ -30,7 +28,8 @@ export const Banner = (props) => {
         lazy={true}
         speed={600}
         modules={[Navigation, Pagination, Autoplay, Lazy, Parallax]}
-        className="bannerSwiper">
+        className="bannerSwiper"
+      >
         {listBanner?.map((banner, idx) => {
           return (
             banner.isVisible && (
@@ -56,7 +55,17 @@ export const Banner = (props) => {
             )
           );
         })}
-      </Swiper>
-    </>
+      </Swiper> */}
+      <img className="new-bg" src={img} alt="" />
+      <div className="outer-layout"></div>
+      <main>
+        <h1>Lorem ipsum dolor sit amet</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </main>
+      <DownOutlined className="down-arrow" />
+    </section>
   );
 };

@@ -14,13 +14,21 @@
     top: 0%;
     left: 0%;
     z-index: 1;
-    background: url("../../../assets/753221.png") no-repeat center center/cover;
+    background: url("../../../assets/home/job546-mind-27 1.jpg") no-repeat
+      center center/cover;
+    filter: brightness(40%);
   }
   &__container {
     position: relative;
     padding: 60px;
     z-index: 5;
     // opacity: 1 !important;
+    h1 {
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 41px;
+      text-align: center;
+    }
     h1,
     p {
       width: 50%;
@@ -30,25 +38,22 @@
     p {
       text-align: left;
       margin-top: 56px;
-      font-size: 18px;
       font-weight: 400;
-      line-height: 22px;
+      font-size: 18px;
+      line-height: 27px;
+      color: $offwhite;
     }
   }
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 992px) {
   .about {
     height: fit-content !important;
     &__container {
       width: 90% !important;
-      h1 {
-        font-size: 32px !important;
-        font-weight: 600 !important;
-        line-height: 39px !important;
-      }
       p {
-        margin-top: 35px;
+        // text-align: justify;
+        margin-top: 48px;
       }
     }
   }
