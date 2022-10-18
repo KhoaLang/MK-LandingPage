@@ -101,11 +101,7 @@ const Footer = () => {
               ))}
             </ul>
           </Col>
-          <Col
-            md={5}
-            xs={24}
-            className="footer__upper__container__right-side d-flex justify-content-end"
-          >
+          <Col md={5} xs={24} className="footer__upper__container__right-side">
             {/* <Select
               defaultValue="en"
               style={{

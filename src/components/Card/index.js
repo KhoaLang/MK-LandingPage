@@ -18,8 +18,8 @@ export const CardEvent = ({ item, size, idxItem }) => {
   const styles = size ? { bacground: "#ffff" } : "";
   return (
     <>
-      {idxItem === 0 ? (
-        <Col className="gutter-row" xs={24} lg={16} xl={16} span={16}>
+      {/* {idxItem === 0 ? (
+        <Col className="gutter-row" xs={24} lg={8} xl={8} span={8}>
           <div className="card-event" onClick={() => navigate(`${item.id}`)}>
             <LazyImage
               src={`${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`}
@@ -35,24 +35,25 @@ export const CardEvent = ({ item, size, idxItem }) => {
             </div>
           </div>
         </Col>
-      ) : (
-        <Col xs={24} lg={8} xl={8} className="gutter-row" span={8}>
-          <div className="card-event" onClick={() => navigate(`${item.id}`)}>
-            <LazyImage
-              src={`${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`}
-            />
-            <div style={{ background: "#ffff" }} className="content">
-              <p style={{ color: "#7B7B7B" }}>{t(item.Category.name)}</p>
-              <h3 style={{ color: "#333" }}>
-                {truncateString(item.title, 22)}
-              </h3>
-              <p style={{ color: "#7B7B7B" }}>
-                {moment(item.createdAt).format("LLLL")}
-              </p>
-            </div>
+      ) : ( */}
+      <Col xs={24} md={8} lg={8} xl={8} className="gutter-row">
+        <div className="card-event" onClick={() => navigate(`${item.id}`)}>
+          <LazyImage
+            src={`${process.env.REACT_APP_BACKEND_BASE_URL}${item.image}`}
+          />
+          <div
+            style={{ background: "#ffff" }}
+            className="content d-flex flex-column"
+          >
+            <p style={{ color: "#7B7B7B" }}>{t(item.Category.name)}</p>
+            <h3 style={{ color: "#333" }}>{item.title}</h3>
+            <p className="date" style={{ color: "#7B7B7B" }}>
+              {moment(item.createdAt).format("LLLL")}
+            </p>
           </div>
-        </Col>
-      )}
+        </div>
+      </Col>
+      {/* )}s */}
     </>
   );
 };

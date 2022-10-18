@@ -12,12 +12,15 @@
 }
 .wrapperEvent {
   width: 100%;
+  margin: 0 auto;
   padding: 0 190px 62px 190px;
 }
 .card-event {
   position: relative;
-  height: 380px;
-  box-shadow: 0px 0px 10px 1px rgba(27, 41, 56, 0.06);
+  width: 347px;
+  height: 421px;
+  margin: 0 auto;
+  box-shadow: 0px 2px 20px 2px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   &:hover {
     .content {
@@ -30,10 +33,12 @@
   }
   img {
     width: 100%;
-    height: 100%;
+    height: 234px;
     object-fit: cover;
   }
   .content {
+    width: 347px;
+    height: 187px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -41,22 +46,30 @@
     background: rgba(14, 22, 36, 0.8);
     padding: 20px;
     h3 {
-      width: 100%;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      height: 99px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
 
+      overflow: hidden;
+      text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       font-size: 22px !important;
       color: #ffffffff;
       margin: 0 !important;
-      padding: 11px 0;
+      padding: 11px 0 20px 0;
     }
     p {
       font-size: 14px;
       color: #f3f3f3;
       margin: 0 !important;
+    }
+    .date {
+      position: absolute;
+      bottom: 10%;
+      // left: 10%;
     }
   }
 }
@@ -88,5 +101,13 @@
   .wrapperEvent {
     width: 100%;
     padding: 62px 80px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .wrapperEvent {
+    width: 80% !important;
+    margin: 0 auto;
+    // padding: 42px 20px;
   }
 }

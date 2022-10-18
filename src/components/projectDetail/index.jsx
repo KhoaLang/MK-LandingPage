@@ -1,13 +1,16 @@
 import styles from "./projectDetail.module.scss";
 import classNames from "classnames/bind";
 import img from "../../assets/home/orderly-fashion.jpg";
-import img2 from "../../assets/home/hero_bg_greyscale.jpg";
+import img2 from "../../assets/project/Rectangle 514.jpg";
+import img3 from "../../assets/project/Rectangle 515.jpg";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
 
 const cx = classNames.bind(styles);
 
 const ProjectDetail = () => {
   return (
     <section className={cx("project-detail")}>
+      <SmoothScroll />
       <p className={cx("title")}>Lorem ipsum</p>
       <p className={cx("short")}>Lorem ipsum</p>
       <p className={cx("content")}>
@@ -36,7 +39,7 @@ const ProjectDetail = () => {
         cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
         id non proident, sunt in culpa qui officia
       </p>
-      <img src={img2} alt="" />
+      <img src={img3} alt="" />
       <p className={cx("content")}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

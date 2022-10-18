@@ -59,9 +59,8 @@ const Event = () => {
 
   return (
     <section className="event">
-      <SmoothScroll />
       <div className="wrapperEvent">
-        {/* <h2 className="title">{t("New_Event")}</h2> */}
+        <SmoothScroll />
         <h2 className="title">Tin tức</h2>
         <Tabs
           className="tabEvent"
@@ -72,8 +71,8 @@ const Event = () => {
           <TabPane tab={t("All")} key="">
             <Row
               gutter={[
-                { xs: 2, sm: 4, md: 10, lg: 16 },
-                { xs: 2, sm: 4, md: 10, lg: 16 },
+                { xs: 2, sm: 4, md: 48, lg: 16, xl: 16 },
+                { xs: 16, sm: 32, md: 64, lg: 64, xl: 64, xxl: 64 },
               ]}
             >
               {isLoading ? (
@@ -120,8 +119,8 @@ const Event = () => {
                 >
                   <Row
                     gutter={[
-                      { xs: 2, sm: 4, md: 10, lg: 16 },
-                      { xs: 2, sm: 4, md: 10, lg: 16 },
+                      { xs: 2, sm: 4, md: 48, lg: 16, xl: 16 },
+                      { xs: 16, sm: 32, md: 64, lg: 64, xl: 64, xxl: 64 },
                     ]}
                   >
                     {isLoading ? (

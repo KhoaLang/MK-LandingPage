@@ -10,10 +10,12 @@ import { getAllProductAction } from "../../../stores/actions/productAction";
 import ServicesCard from "../../layouts/servicesCard";
 
 import "./services.scss";
+import { useNavigate } from "react-router-dom";
 
 const Services = ({ button, isHomePage = true }) => {
   // const { listProducts } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   // const products = listProducts
   //   .filter((item) => item.IsVisible === true)
@@ -118,7 +120,7 @@ const Services = ({ button, isHomePage = true }) => {
                       <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
                         <a
                           className="d-flex justify-content-center align-items-center"
-                          href={item.link}
+                          onClick={() => navigate("/service")}
                         >
                           {/* <p>{t("MoreDetail")}</p> */}
                           <p>Xem chi tiết</p>

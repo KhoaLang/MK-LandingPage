@@ -64,7 +64,7 @@ const Contact = () => {
         {/* <h2>{t("ContactVNPLUS")}</h2> */}
         <h2>Liên hệ với chúng tôi</h2>
         <div className="contact__container__form">
-          <Row gutter={[48]}>
+          <Row gutter={[20]}>
             <Col md={14} xs={24}>
               <Form
                 form={form}
@@ -72,7 +72,7 @@ const Contact = () => {
                   span: 16,
                 }}
                 wrapperCol={{
-                  span: 24,
+                  span: 20,
                 }}
                 layout="vertical"
                 onFinish={onFinish}
@@ -89,7 +89,7 @@ const Contact = () => {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
                 <Col md={24}>
@@ -103,7 +103,7 @@ const Contact = () => {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
                 <Col md={24}>
@@ -118,7 +118,7 @@ const Contact = () => {
                       },
                     ]}
                   >
-                    <Input />
+                    <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
                 <Col md={24}>
@@ -133,7 +133,7 @@ const Contact = () => {
                       },
                     ]}
                   >
-                    <Input.TextArea />
+                    <Input.TextArea autoSize={{ minRows: "7" }} />
                   </Form.Item>
                 </Col>
                 {/* <Button style={{ marginTop: "26px" }}>{t("Send")}</Button> */}

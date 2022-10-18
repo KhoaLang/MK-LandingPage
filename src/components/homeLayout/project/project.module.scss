@@ -14,6 +14,16 @@
   .project-container {
     margin: 60px auto;
     width: 80%;
+
+    .project-outside-homepage {
+      &:hover {
+        .outer-container,
+        .title {
+          background-color: $black !important;
+          color: $white !important;
+        }
+      }
+    }
     .project-in-home-page {
       cursor: pointer;
       .outer-container {
@@ -119,12 +129,12 @@
           }
         }
       }
-      .project-outside-homepage {
-        .title {
-          .description {
-          }
-        }
-      }
+      // .project-outside-homepage {
+      //   .title {
+      //     .description {
+      //     }
+      //   }
+      // }
     }
   }
 }

@@ -17,6 +17,7 @@ import moment from "moment";
 import { URL_IMAGE } from "../../utils/constants";
 import { t } from "i18next";
 import OtherNews from "../eventDetailLayout/otherNews/OtherNews";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
 
 const EventDetail = () => {
   const { id } = useParams();
@@ -38,7 +39,8 @@ const EventDetail = () => {
 
   return (
     <section className="event-detail d-flex justify-content-center align-items-center">
-      <div className="event-detail__container d-flex justify-content-center">
+      <SmoothScroll />
+      <div className="event-detail__container d-flex flex-column justify-content-center">
         <div className="event-detail__container__main-content ">
           <Row gutter={[16, 16]}>
             <Col md={24}>
@@ -61,7 +63,7 @@ const EventDetail = () => {
               </div>
               <div className="event-detail__container__main-content__title">
                 <p>{postDetail?.title}</p>
-                <p>{moment(postDetail.createdAt).format("LLLL")}</p>
+                <p>{moment(postDetail.createdAt).format("DD/MM/YYYY")}</p>
               </div>
               <div className="event-detail__container__main-content__content">
                 <LazyImage
@@ -92,7 +94,7 @@ const EventDetail = () => {
           </Row>
         </div>
         <div className="event-detail__container__other-news">
-          {/* <OtherNews /> */}
+          <OtherNews />
         </div>
       </div>
     </section>

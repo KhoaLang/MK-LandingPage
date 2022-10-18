@@ -95,6 +95,12 @@
         }
       }
       &__right-side {
+        div {
+          cursor: pointer;
+          &:hover {
+            background-color: $grey300 !important;
+          }
+        }
         .ant-select-selector {
           // padding: 0px !important;
           // border: 0px !important;
@@ -176,13 +182,21 @@
     &__below {
       &__container {
         &__policies {
-          justify-content: center;
+          margin: 0px auto;
           li {
-            margin-right: 8px !important;
+            &:nth-child(1) {
+              margin-right: 20px !important;
+            }
+            &:nth-child(2) {
+              margin-right: 0px !important;
+            }
           }
         }
         &__copyright {
-          justify-content: center !important;
+          p {
+            text-align: left !important;
+          }
+          // justify-content: center !important;
         }
       }
     }

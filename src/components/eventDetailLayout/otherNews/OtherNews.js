@@ -2,6 +2,49 @@ import { Row, Col } from "antd";
 import "./otherNews.scss";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import img1 from "../../../assets/event/Rectangle 503.jpg";
+import img2 from "../../../assets/event/Rectangle 503 (1).jpg";
+import img3 from "../../../assets/event/Rectangle 503 (2).jpg";
+import img4 from "../../../assets/event/Rectangle 503 (3).jpg";
+
+const DATA = [
+  {
+    id: 1,
+    image: img1,
+    Category: {
+      name: "Category 1",
+    },
+    title:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
+  },
+  {
+    id: 2,
+    image: img2,
+    Category: {
+      name: "Category 1",
+    },
+    title:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
+  },
+  {
+    id: 3,
+    image: img3,
+    Category: {
+      name: "Category 1",
+    },
+    title:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
+  },
+  {
+    id: 4,
+    image: img4,
+    Category: {
+      name: "Category 1",
+    },
+    title:
+      "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
+  },
+];
 
 const OtherNews = ({ listPost, id }) => {
   const [listFilteredPost, setListFilteredPost] = useState([]);
@@ -30,21 +73,18 @@ const OtherNews = ({ listPost, id }) => {
     // alreadyDone.splice(randomValueIndex, 1);
     // return myArray;
   };
-  useEffect(() => {
-    // console.log(randomValueFromArray(listPost)); //Tối ưu code lọc post khác nhau
-    setListFilteredPost(randomValueFromArray());
-  }, [id]);
+  // useEffect(() => {
+  //   // console.log(randomValueFromArray(listPost)); //Tối ưu code lọc post khác nhau
+  //   setListFilteredPost(randomValueFromArray());
+  // }, [id]);
   return (
     <section className="other-news">
       <h3>Tin tức khác</h3>
-      <Row gutter={[28, 28]}>
-        {listFilteredPost.map((item, idx) => (
-          <Col onClick={() => navigate(`/event/${item.id}`)} md={8} key={idx}>
+      <Row gutter={[48, 48]}>
+        {DATA.map((item, idx) => (
+          <Col onClick={() => navigate(`/event/${item.id}`)} md={12} key={idx}>
             <div className="other-news__card">
-              <img
-                src={process.env.REACT_APP_BACKEND_BASE_URL + item?.image}
-                alt=""
-              />
+              <img src={item?.image} alt="" />
               <div className="other-news__card__content">
                 <p>{item?.Category?.name}</p>
                 <p>{item?.title}</p>
