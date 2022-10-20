@@ -75,8 +75,7 @@ const Contact = () => {
                   span: 20,
                 }}
                 layout="vertical"
-                onFinish={onFinish}
-              >
+                onFinish={onFinish}>
                 <Col md={24}>
                   <Form.Item
                     // label={t("FullName")}
@@ -87,8 +86,7 @@ const Contact = () => {
                         required: true,
                         message: "Vui lòng nhập họ và tên!",
                       },
-                    ]}
-                  >
+                    ]}>
                     <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
@@ -101,8 +99,7 @@ const Contact = () => {
                         required: true,
                         message: "Vui lòng nhập email!",
                       },
-                    ]}
-                  >
+                    ]}>
                     <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
@@ -116,8 +113,7 @@ const Contact = () => {
                         required: true,
                         message: "Vui lòng nhập số điện thoại!",
                       },
-                    ]}
-                  >
+                    ]}>
                     <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
@@ -131,8 +127,7 @@ const Contact = () => {
                         required: true,
                         message: "Bạn thắc mắc điều gì?",
                       },
-                    ]}
-                  >
+                    ]}>
                     <Input.TextArea autoSize={{ minRows: "7" }} />
                   </Form.Item>
                 </Col>
@@ -142,7 +137,17 @@ const Contact = () => {
             </Col>
             <Col md={10} xs={24}>
               <div className="contact__container__form__map">
-                <img src={img1} alt="nothing to see" onClick={showModal} />
+                {/* <img src={img1} alt="nothing to see" onClick={showModal} /> */}
+                <iframe
+                  className="gmap_iframe"
+                  width="100%"
+                  height="300px"
+                  frameBorder={0}
+                  scrolling="no"
+                  marginHeight={0}
+                  marginWidth={0}
+                  src={`https://www.google.com/maps?q=${10.752487},${106.6761186}&t=&z=13&ie=UTF8&iwloc=B&output=embed`}
+                />
               </div>
               <div className="contact__container__form__company-info d-flex justify-content-center align-items-center">
                 {/* <h5>{t("CompanyName")}</h5>
@@ -166,16 +171,14 @@ const Contact = () => {
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                footer={[]}
-              >
+                footer={[]}>
                 <iframe
                   width="100%"
                   height="600px"
                   frameBorder="0"
                   referrerPolicy="no-referrer-when-downgrade"
                   src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GG_API_KEY}_Fumq67-0&q=10.732531, 106.731495`}
-                  allowFullScreen
-                ></iframe>
+                  allowFullScreen></iframe>
               </Modal>
             </Col>
           </Row>

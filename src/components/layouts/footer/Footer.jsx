@@ -1,21 +1,15 @@
-import "./footer.scss";
-import { ReactComponent as Location } from "../../../assets/locationLogo.svg";
-import { ReactComponent as Phone } from "../../../assets/phoneLogo.svg";
-import { ReactComponent as Email } from "../../../assets/mail.svg";
+import { Col, Row, Select } from "antd";
 import { ReactComponent as Facebook } from "../../../assets/facebook.svg";
 import { ReactComponent as Linkedin } from "../../../assets/linkedin.svg";
+import { ReactComponent as Location } from "../../../assets/locationLogo.svg";
+import { ReactComponent as Email } from "../../../assets/mail.svg";
+import { ReactComponent as Phone } from "../../../assets/phoneLogo.svg";
 import { ReactComponent as Youtube } from "../../../assets/youtube.svg";
-import { ReactComponent as FacebookBlue } from "../../../assets/facebookBlue.svg";
-import { ReactComponent as LinkedinBlue } from "../../../assets/linkedinBlue.svg";
-import { ReactComponent as YoutubeBlue } from "../../../assets/youtubeBlue.svg";
-import { Row, Col, Select } from "antd";
-import { DownOutlined } from "@ant-design/icons";
+import "./footer.scss";
 
-import UK from "../../../assets/UK.png";
-import VN from "../../../assets/VietNam.png";
-import LanguageSelect from "../languageSelect/LanguageSelect";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const socialMediaResponsive = [
@@ -32,6 +26,7 @@ const socialMediaResponsive = [
 const Footer = () => {
   const { t, i18n } = useTranslation();
   const { companyInfo } = useSelector((state) => state.companyInfoReducer);
+  const navigate = useNavigate();
 
   const contactInfo = [
     {
@@ -55,8 +50,7 @@ const Footer = () => {
       <div className="footer__upper d-flex justify-content-center align-items-center">
         <Row
           gutter={[0, 48]}
-          className="footer__upper__container container d-flex justify-content-between"
-        >
+          className="footer__upper__container container d-flex justify-content-between">
           <Col md={14} xs={24} className="footer__upper__container__left-side">
             <div className="footer__upper__container__left-side__company-name-box">
               <h5>{t("CompanyName")}</h5>
@@ -65,8 +59,7 @@ const Footer = () => {
               {contactInfo.map((item, idx) => (
                 <li
                   className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
-                  key={idx}
-                >
+                  key={idx}>
                   <div>{item.logo}</div>
                   <p>{item.info}</p>
                 </li>
@@ -80,13 +73,11 @@ const Footer = () => {
                 companyInfo?.socialLink.map((item, idx) => (
                   <li
                     className="footer__upper__container__middle-side__follow__item d-flex align-items-center"
-                    key={idx}
-                  >
+                    key={idx}>
                     <a href={item?.URL} className="d-flex align-items-center">
                       <div
                         className="company-logo d-flex justify-content-center align-items-center"
-                        dangerouslySetInnerHTML={{ __html: item.Icon }}
-                      ></div>
+                        dangerouslySetInnerHTML={{ __html: item.Icon }}></div>
                       <p>{item.Title}</p>
                     </a>
                   </li>
@@ -94,8 +85,7 @@ const Footer = () => {
               {socialMediaResponsive.map((item, idx) => (
                 <li
                   className="footer__upper__container__middle-side__follow__item-responsive d-flex align-items-center"
-                  key={idx}
-                >
+                  key={idx}>
                   {item.logo}
                 </li>
               ))}
@@ -125,14 +115,14 @@ const Footer = () => {
               </Option>
             </Select>*/}
             <div
+              onClick={() => navigate("/contact")}
               style={{
                 width: "fit-content",
                 padding: "17px 25px",
                 fontWeight: "400",
                 fontSize: "18px",
                 backgroundColor: "#fff",
-              }}
-            >
+              }}>
               Liên hệ chúng tôi
             </div>
           </Col>

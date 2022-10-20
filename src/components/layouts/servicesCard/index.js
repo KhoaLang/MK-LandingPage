@@ -11,8 +11,7 @@ const ServicesCard = (props) => {
           width: "40px",
           height: "2px",
           backgroundColor: "#000",
-        }}
-      ></div>
+        }}></div>
       <p className="name">{name}</p>
       <p className="short-desc">{shortDesc}</p>
       <div
@@ -21,8 +20,7 @@ const ServicesCard = (props) => {
           width: "40px",
           height: "2px",
           backgroundColor: "#000",
-        }}
-      ></div>
+        }}></div>
 
       <p style={{ fontWeight: "700", fontSize: "20px", lineHeight: "27px" }}>
         Bao gồm
@@ -34,7 +32,7 @@ const ServicesCard = (props) => {
       </ul>
       <div className="footer d-flex flex-column justify-content-center align-items-center">
         <p className="price">{price} VNĐ</p>
-        <PrimaryButton>Gửi yêu cầu</PrimaryButton>
+        <PrimaryButton path="/contact">Gửi yêu cầu</PrimaryButton>
       </div>
     </article>
   );

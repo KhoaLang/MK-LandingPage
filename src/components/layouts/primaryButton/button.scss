@@ -12,8 +12,10 @@
   border: 1px solid $black;
   cursor: pointer;
   z-index: 1;
+  transition: all 0.3s;
   &:hover {
-    background-color: $grey300;
+    background-color: $black;
     border: 1px solid transparent;
+    color: $white;
   }
 }
