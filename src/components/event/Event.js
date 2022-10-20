@@ -12,7 +12,7 @@ import {
 } from "../../stores/actions/postAction";
 import { Loading } from "../Loading";
 const { TabPane } = Tabs;
-const pageSize = 5;
+const pageSize = 6;
 const Event = () => {
   const [state, setState] = useState({
     data: [],
@@ -66,15 +66,13 @@ const Event = () => {
           className="tabEvent"
           size="large"
           defaultActiveKey="1"
-          onChange={onChange}
-        >
+          onChange={onChange}>
           <TabPane tab={t("All")} key="">
             <Row
               gutter={[
                 { xs: 2, sm: 4, md: 48, lg: 16, xl: 16 },
                 { xs: 16, sm: 32, md: 64, lg: 64, xl: 64, xxl: 64 },
-              ]}
-            >
+              ]}>
               {isLoading ? (
                 <Loading style={{ color: "#000" }} />
               ) : (
@@ -100,7 +98,7 @@ const Event = () => {
               <Pagination
                 defaultCurrent={1}
                 pageSize={pageSize}
-                current={current}
+                current={current || 1}
                 total={data.length}
                 onChange={handleChange}
                 // responsive={true}
@@ -115,14 +113,12 @@ const Event = () => {
                 <TabPane
                   // onClick={() => handleChangeTab(item1)}
                   tab={t(item1.name)}
-                  key={item1.id}
-                >
+                  key={item1.id}>
                   <Row
                     gutter={[
                       { xs: 2, sm: 4, md: 48, lg: 16, xl: 16 },
                       { xs: 16, sm: 32, md: 64, lg: 64, xl: 64, xxl: 64 },
-                    ]}
-                  >
+                    ]}>
                     {isLoading ? (
                       <Loading style={{ color: "#000" }} />
                     ) : (
@@ -148,7 +144,7 @@ const Event = () => {
                     <Pagination
                       defaultCurrent={1}
                       pageSize={pageSize}
-                      current={current}
+                      current={current || 1}
                       total={data.length}
                       onChange={handleChange}
                       // responsive={true}
