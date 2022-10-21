@@ -8,49 +8,58 @@ import img4 from "../../../assets/event/v1057-logo-30 1 (4).jpg";
 import styles from "./project.module.scss";
 import classNames from "classnames/bind";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getAllProductAction } from "../../../stores/actions/productAction";
 
 const cx = classNames.bind(styles);
 const DATA = [
   {
-    img: img,
-    name: "Orderly Fashion",
-    type: "Thương hiệu thời trang",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+    Image: img,
+    Name: "Orderly Fashion",
+    Type: "Thương hiệu thời trang",
+    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
   },
   {
-    img: img0,
-    name: "Orderly Fashion",
-    type: "Thương hiệu thời trang",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+    Image: img0,
+    Name: "Orderly Fashion",
+    Type: "Thương hiệu thời trang",
+    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
   },
   {
-    img: img1,
-    name: "Orderly Fashion",
-    type: "Thương hiệu thời trang",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+    Image: img1,
+    Name: "Orderly Fashion",
+    Type: "Thương hiệu thời trang",
+    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
   },
   {
-    img: img2,
-    name: "Orderly Fashion",
-    type: "Thương hiệu thời trang",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+    Image: img2,
+    Name: "Orderly Fashion",
+    Type: "Thương hiệu thời trang",
+    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
   },
   {
-    img: img3,
-    name: "Orderly Fashion",
-    type: "Thương hiệu thời trang",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+    Image: img3,
+    Name: "Orderly Fashion",
+    Type: "Thương hiệu thời trang",
+    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
   },
   {
-    img: img4,
-    name: "Orderly Fashion",
-    type: "Thương hiệu thời trang",
-    des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+    Image: img4,
+    Name: "Orderly Fashion",
+    Type: "Thương hiệu thời trang",
+    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
   },
 ];
 
 const Project = ({ gridColumns = 3, isHomePage = true }) => {
+  const { listProducts } = useSelector((state) => state.productReducer);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(getAllProductAction());
+  }, []);
   return (
     <section className={cx("project")}>
       {isHomePage && <h3>DỰ ÁN</h3>}
@@ -67,11 +76,11 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
                 key={idx}
               >
                 <div className={cx("outer-container")}>
-                  <img src={item.img} alt="" />
+                  <img src={item.Image} alt="" />
                 </div>
                 <div className={cx("title")}>
-                  <p>{item.name}</p>
-                  <p>{item.type}</p>
+                  <p>{item.Name}</p>
+                  <p>{item.Type}</p>
                 </div>
               </Col>
             ) : (
@@ -84,12 +93,12 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
                 key={idx}
               >
                 <div className={cx("outer-container")}>
-                  <img src={item.img} alt="" />
+                  <img src={item.Image} alt="" />
                 </div>
                 <div className={cx("title")}>
-                  <p>{item.type}</p>
-                  <p className={cx("name")}>{item.name}</p>
-                  <p className={cx("description")}>{item.des}</p>
+                  <p>{item.Type}</p>
+                  <p className={cx("name")}>{item.Name}</p>
+                  <p className={cx("description")}>{item.Des}</p>
                 </div>
               </Col>
             )
