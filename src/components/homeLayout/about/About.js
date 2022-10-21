@@ -25,7 +25,11 @@ const About = () => {
         </p>
         <PrimaryButton
           path="/aboutus"
-          style={{ border: "none", margin: "70px auto" }}
+          grey={true}
+          style={{
+            border: "none",
+            margin: "70px auto",
+          }}
         >
           {/* {t("More")} */}
           Xem thêm
