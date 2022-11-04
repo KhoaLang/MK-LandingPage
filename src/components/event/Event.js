@@ -1,7 +1,6 @@
 import "./event.scss";
 import { useState, useEffect } from "react";
 import { Pagination, Row, Tabs } from "antd";
-import { useTranslation } from "react-i18next";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCatetgoryAction } from "../../stores/actions/categoryAction";
@@ -27,7 +26,6 @@ const Event = () => {
   const { listPost, isLoading, postFilter } = useSelector(
     (state) => state.postReducer
   );
-  const { t } = useTranslation();
   useEffect(() => {
     dispatch(getAllCatetgoryAction());
     dispatch(getAllPostAction());
@@ -66,13 +64,15 @@ const Event = () => {
           className="tabEvent"
           size="large"
           defaultActiveKey="1"
-          onChange={onChange}>
-          <TabPane tab={t("All")} key="">
+          onChange={onChange}
+        >
+          <TabPane tab="All" key="">
             <Row
               gutter={[
                 { xs: 2, sm: 4, md: 48, lg: 16, xl: 16 },
                 { xs: 16, sm: 32, md: 64, lg: 64, xl: 64, xxl: 64 },
-              ]}>
+              ]}
+            >
               {isLoading ? (
                 <Loading style={{ color: "#000" }} />
               ) : (
@@ -110,15 +110,13 @@ const Event = () => {
             ?.filter((category) => category.isVisible === true)
             .map((item1, idx) => {
               return (
-                <TabPane
-                  // onClick={() => handleChangeTab(item1)}
-                  tab={t(item1.name)}
-                  key={item1.id}>
+                <TabPane tab={item1.name} key={item1.id}>
                   <Row
                     gutter={[
                       { xs: 2, sm: 4, md: 48, lg: 16, xl: 16 },
                       { xs: 16, sm: 32, md: 64, lg: 64, xl: 64, xxl: 64 },
-                    ]}>
+                    ]}
+                  >
                     {isLoading ? (
                       <Loading style={{ color: "#000" }} />
                     ) : (

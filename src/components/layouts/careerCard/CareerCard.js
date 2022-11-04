@@ -1,9 +1,7 @@
-import { useTranslation } from "react-i18next";
 import "./careerCard.scss";
 
 const CareerCard = (props) => {
   const { title, info } = props;
-  const { t } = useTranslation();
   return (
     <div className="career-card">
       <div className="box">

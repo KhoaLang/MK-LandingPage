@@ -64,6 +64,7 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
     IsVisible: item?.IsVisible,
     Des: item?.Content,
     id: item?.id,
+    key: idx,
   }));
 
   useEffect(() => {
@@ -79,7 +80,7 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
           {DATA.map((item, idx) =>
             isHomePage ? (
               <Col
-                onClick={() => navigate(`/project/${item.id}`)}
+                onClick={() => navigate(`/project/${item.key}`)}
                 className={cx("project-in-home-page")}
                 md={24 / listProducts.length}
                 sm={12}
@@ -96,7 +97,7 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
               </Col>
             ) : (
               <Col
-                onClick={() => navigate(`/project/${item.id}`)}
+                onClick={() => navigate(`/project/${item.key}`)}
                 className={cx("project-outside-homepage")}
                 md={24 / listProducts.length}
                 sm={24}

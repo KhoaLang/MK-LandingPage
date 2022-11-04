@@ -1,7 +1,6 @@
 import { Col, Row } from "antd";
 import "./events.scss";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllPostAction } from "../../../stores/actions/postAction";
@@ -12,7 +11,6 @@ const Events = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { listPost } = useSelector((state) => state.postReducer);
-  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getAllPostAction());

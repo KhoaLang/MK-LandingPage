@@ -1,16 +1,10 @@
-import "./contact.scss";
-import { Row, Col, Form, Input, Modal } from "antd";
-import Button from "../layouts/primaryButton/Button";
-import { ReactComponent as Location } from "../../assets/locationLogo.svg";
-import { ReactComponent as Phone } from "../../assets/phoneLogo.svg";
-import { ReactComponent as Email } from "../../assets/mail.svg";
-import img1 from "../../assets/Frame 66.png";
-import { useEffect, useState } from "react";
-import SmoothScroll from "../smoothScroll/SmoothScroll";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
+import { Col, Form, Input, Modal, Row } from "antd";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { createContactAction } from "../../stores/actions/contactAction";
-// import { ReactComponent as Logo } from "../../assets/logo/Rectangle.svg";
+import Button from "../layouts/primaryButton/Button";
+import SmoothScroll from "../smoothScroll/SmoothScroll";
+import "./contact.scss";
 import Logo from "../../assets/logo/Logo_Mark Solutions.png";
 
 const Contact = () => {

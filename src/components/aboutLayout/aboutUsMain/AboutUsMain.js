@@ -1,13 +1,9 @@
 import "./aboutUsMain.scss";
-// import image from "../../../assets/aboutus.jpg";
 import image from "../../../assets/about/Rectangle.png";
-import { useTranslation } from "react-i18next";
 
 const AboutUsMain = () => {
-  const { t } = useTranslation();
   return (
     <section className="about-us-main">
-      {/* <h2>{t("About")}</h2> */}
       <h2>Về Mark Solution</h2>
       <h2>Chuyên thiết kế bộ nhận diện thương hiệu</h2>
       <div className="about-us-main__content">

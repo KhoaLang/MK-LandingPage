@@ -1,8 +1,6 @@
 import { Col, Row } from "antd";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.svg";
 import img1 from "../../../assets/home/Group 2885.jpg";
 import img2 from "../../../assets/home/Group 2886.jpg";
 import img3 from "../../../assets/home/Group 2887.jpg";
@@ -16,7 +14,6 @@ const Services = ({ button, isHomePage = true }) => {
   const { listService } = useSelector((state) => state.serviceReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t } = useTranslation();
   const services = listService
     .filter((item) => item.IsVisible === true)
     ?.map((item) => ({
@@ -27,51 +24,6 @@ const Services = ({ button, isHomePage = true }) => {
       price: item?.Price,
       features: item?.Include.split("*/n").map((item2) => item2),
     }));
-  // console.log(listProducts);
-  const products = [
-    {
-      logo: img1,
-      price: "20.000.000",
-      name: "Gói cơ bản",
-      link: "#",
-      shortDes:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-      features: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ",
-        "Lorem ipsum dolor sit amet",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      ],
-      // des: t("plusstinvdes"),
-    },
-    {
-      logo: img2,
-      price: "20.000.000",
-      name: "Gói nâng cao",
-      link: "#",
-      shortDes:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-      features: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ",
-        "Lorem ipsum dolor sit amet",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      ],
-      // des: t("bookingstudiodes"),
-    },
-    {
-      logo: img3,
-      price: "20.000.000",
-      name: "Gói cao cấp",
-      link: "#",
-      shortDes:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ",
-      features: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, ",
-        "Lorem ipsum dolor sit amet",
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      ],
-    },
-  ];
-
   useEffect(() => {
     if (listService.length === 0) {
       dispatch(getAllServiceAction());

@@ -1,4 +1,4 @@
-import { Col, Row, Select } from "antd";
+import { Col, Row } from "antd";
 import { ReactComponent as Facebook } from "../../../assets/facebook.svg";
 import { ReactComponent as Linkedin } from "../../../assets/linkedin.svg";
 import { ReactComponent as Location } from "../../../assets/locationLogo.svg";
@@ -7,10 +7,7 @@ import { ReactComponent as Phone } from "../../../assets/phoneLogo.svg";
 import { ReactComponent as Youtube } from "../../../assets/youtube.svg";
 import "./footer.scss";
 
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-const { Option } = Select;
 
 const socialMediaResponsive = [
   {
@@ -95,28 +92,6 @@ const Footer = () => {
             </ul>
           </Col>
           <Col md={5} xs={24} className="footer__upper__container__right-side">
-            {/* <Select
-              defaultValue="en"
-              style={{
-                width: 170,
-                height: "fit-content",
-              }}
-              dropdownStyle={{
-                width: "100%",
-                backgroundColor: "#17243c",
-              }}
-              suffixIcon={
-                <DownOutlined style={{ fontSize: "15px", color: "#fff" }} />
-              }
-              onChange={handleChange}
-            >
-              <Option value="en">
-                <LanguageSelect icon={UK} name="English" />
-              </Option>
-              <Option value="vi">
-                <LanguageSelect icon={VN} name="Tiếng Việt" />
-              </Option>
-            </Select>*/}
             <div
               onClick={() => navigate("/contact")}
               style={{
@@ -135,8 +110,6 @@ const Footer = () => {
       <div className="footer__below d-flex justify-content-center align-items-center">
         <Row className="footer__below__container container">
           <Col md={12} xs={24} className="footer__below__container__policies">
-            {/* <li>{t("Terms_Of_Use")}</li>
-            <li>{t("Privacy_Policy")}</li> */}
             <li>Điều khoản sử dụng</li>
             <li>Chính sách bảo mật</li>
           </Col>

@@ -1,5 +1,4 @@
 import { Col, Row } from "antd";
-import { useTranslation } from "react-i18next";
 import Button from "../../layouts/primaryButton/Button";
 import "./otherService.scss";
 
@@ -10,24 +9,6 @@ import { useSelector } from "react-redux";
 
 const OtherService = () => {
   const { listService } = useSelector((state) => state.serviceReducer);
-  const { t } = useTranslation();
-  // const items = [
-  //   {
-  //     title: t("softwaredevelopment"),
-  //     image: PhatTrienPhanMem,
-  //     info: t("softwaredevelopmentdes"),
-  //   },
-  //   {
-  //     title: t("consultingtechnologysolutions"),
-  //     image: TrucQuanHoaDL,
-  //     info: t("consultingtechnologysolutionsdes"),
-  //   },
-  //   {
-  //     title: t("datavisualization"),
-  //     image: CoVan,
-  //     info: t("datavisualizationdes"),
-  //   },
-  // ];
   const items = listService.map((item) => ({
     title: item.Name,
     image: `${process.env.REACT_APP_BACKEND_BASE_URL}${item.Image}`,
@@ -42,7 +23,6 @@ const OtherService = () => {
           className="d-flex justify-content-between align-items-center"
         >
           {items.map((item, idx) => (
-            // <Col key={idx} md={8} xs={24}>
             <div
               style={{ width: `${100 / items.length}%` }}
               className="other-service__container__col"
@@ -59,7 +39,6 @@ const OtherService = () => {
                 {item.info}
               </p>
             </div>
-            // </Col>
           ))}
         </div>
         <Button path="/contact" style={{ marginTop: "70px" }}>
