@@ -1,28 +1,17 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ReactComponent as Menu } from "../../../assets/header/burger-2.svg";
+import { ReactComponent as Logo } from "../../../assets/logo/Rectangle.svg";
 import { ReactComponent as Close } from "../../../assets/RadixIconsCross2 (2) 1.svg";
 import "./header.scss";
 
 const Header = () => {
   const [openOverlay, setOpenOverlay] = useState(false);
-  const [activeRoute, setActiveRoute] = useState("");
   const [activeItem, setActiveItem] = useState(0);
-  const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { t, i18n } = useTranslation();
-
   const navbarItems = [
-    // { path: "/", page: t("Home") },
-    // { path: "/aboutus", page: t("About") },
-    // { path: "/products", page: t("Product") },
-    // { path: "/event", page: t("Event") },
-    // { path: "/contact", page: t("Contact") },
-    // { path: "/career", page: t("Career") },
     { path: "/", page: "Trang chủ" },
     { path: "/aboutus", page: "Về chúng tôi" },
     { path: "/project", page: "Dự án" },
@@ -33,7 +22,6 @@ const Header = () => {
 
   const setActiveNavbarItem = () => {
     const path = location.pathname;
-    // console.log(path.split("/"));
     switch (path.split("/")[1]) {
       case "":
         setActiveItem(0);
@@ -59,13 +47,11 @@ const Header = () => {
   };
 
   const handlePathChangeOnMobile = (item) => {
-    // setActiveRoute(item.path);
     setOpenOverlay(false);
   };
 
   const handleLogoClick = () => {
     navigate("/");
-    // setActiveItem(0);
     window.scrollTo(0, 0);
   };
 
@@ -79,17 +65,12 @@ const Header = () => {
         <div
           onClick={handleLogoClick}
           className="header__container__logo d-flex justify-content-center align-items-center"
-          // dangerouslySetInnerHTML={{ __html: companyInfo?.Logo }}
         >
-          <p>Logo</p>
+          <Logo />
         </div>
         <ul className="header__container__navbar d-flex justify-content-between align-items-center">
           {navbarItems.map((item, idx) => (
-            <Link
-              key={idx}
-              // onClick={() => setActiveRoute(item.path)}
-              to={item.path}
-            >
+            <Link key={idx} to={item.path}>
               <li
                 className={
                   activeItem === idx

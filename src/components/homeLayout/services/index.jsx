@@ -6,25 +6,27 @@ import { ReactComponent as GoTo } from "../../../assets/PhArrowSquareOutLight 1.
 import img1 from "../../../assets/home/Group 2885.jpg";
 import img2 from "../../../assets/home/Group 2886.jpg";
 import img3 from "../../../assets/home/Group 2887.jpg";
-import { getAllProductAction } from "../../../stores/actions/productAction";
+import { getAllServiceAction } from "../../../stores/actions/serviceAction";
 import ServicesCard from "../../layouts/servicesCard";
 
 import "./services.scss";
 import { useNavigate } from "react-router-dom";
 
 const Services = ({ button, isHomePage = true }) => {
-  // const { listProducts } = useSelector((state) => state.productReducer);
+  const { listService } = useSelector((state) => state.serviceReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  // const products = listProducts
-  //   .filter((item) => item.IsVisible === true)
-  //   ?.map((item) => ({
-  //     logo: `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.Image}`,
-  //     name: item?.Name,
-  //     link: item?.URL,
-  //     des: t(`${item.Name.replace(" ", "")}ContentKey`),
-  //   }));
+  const services = listService
+    .filter((item) => item.IsVisible === true)
+    ?.map((item) => ({
+      id: item.id,
+      logo: `${process.env.REACT_APP_BACKEND_BASE_URL}${item?.Image}`,
+      name: item?.Name,
+      des: item?.Content,
+      price: item?.Price,
+      features: item?.Include.split("*/n").map((item2) => item2),
+    }));
   // console.log(listProducts);
   const products = [
     {
@@ -70,9 +72,11 @@ const Services = ({ button, isHomePage = true }) => {
     },
   ];
 
-  // useEffect(() => {
-  //   dispatch(getAllProductAction());
-  // }, []);
+  useEffect(() => {
+    if (listService.length === 0) {
+      dispatch(getAllServiceAction());
+    }
+  }, []);
 
   return (
     <section className="our-products d-flex justify-content-center align-items-center flex-column">
@@ -82,16 +86,12 @@ const Services = ({ button, isHomePage = true }) => {
       >
         <>
           {isHomePage ? (
-            <h2 className="our-products__container__title">
-              {/* {t("Products_Of_VNPLUS")} */}
-              Dịch vụ
-            </h2>
+            <h2 className="our-products__container__title">Dịch vụ</h2>
           ) : (
             <h2
               style={{ marginTop: "0px" }}
               className="our-products__container__title d-flex flex-column align-items-center"
             >
-              {/* {t("Products_Of_VNPLUS")} */}
               Bảng giá dịch vụ
               <span
                 style={{
@@ -107,22 +107,21 @@ const Services = ({ button, isHomePage = true }) => {
             </h2>
           )}
           <Row gutter={isHomePage ? [72, 0] : [72, 30]}>
-            {products.map((item, idx) => (
-              <Col md={8} xs={24} sm={24} key={idx}>
+            {services.map((item, idx) => (
+              <Col md={24 / listService?.length} xs={24} sm={24} key={idx}>
                 {isHomePage ? (
                   <div className="our-products__container__items d-flex flex-column align-items-center">
                     <div className="our-products__container__items__image-section">
                       <img src={item.logo} alt="nothing to see" />
                     </div>
                     <h3>{item.name}</h3>
-                    <p>{item.shortDes}</p>
+                    <p>{item.des}</p>
                     {button && (
                       <button className="our-products__container__items__button d-flex justify-content-center align-items-center">
                         <a
                           className="d-flex justify-content-center align-items-center"
                           onClick={() => navigate("/service")}
                         >
-                          {/* <p>{t("MoreDetail")}</p> */}
                           <p>Xem chi tiết</p>
                         </a>
                       </button>
@@ -131,7 +130,7 @@ const Services = ({ button, isHomePage = true }) => {
                 ) : (
                   <ServicesCard
                     name={item.name}
-                    shortDesc={item.shortDes}
+                    shortDesc={item.des}
                     img={item.logo}
                     features={item.features}
                     price={item.price}

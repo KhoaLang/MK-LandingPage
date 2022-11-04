@@ -13,52 +13,63 @@ import { useEffect } from "react";
 import { getAllProductAction } from "../../../stores/actions/productAction";
 
 const cx = classNames.bind(styles);
-const DATA = [
-  {
-    Image: img,
-    Name: "Orderly Fashion",
-    Type: "Thương hiệu thời trang",
-    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
-  },
-  {
-    Image: img0,
-    Name: "Orderly Fashion",
-    Type: "Thương hiệu thời trang",
-    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
-  },
-  {
-    Image: img1,
-    Name: "Orderly Fashion",
-    Type: "Thương hiệu thời trang",
-    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
-  },
-  {
-    Image: img2,
-    Name: "Orderly Fashion",
-    Type: "Thương hiệu thời trang",
-    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
-  },
-  {
-    Image: img3,
-    Name: "Orderly Fashion",
-    Type: "Thương hiệu thời trang",
-    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
-  },
-  {
-    Image: img4,
-    Name: "Orderly Fashion",
-    Type: "Thương hiệu thời trang",
-    Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
-  },
-];
+// const DATA = [
+//   {
+//     Image: img,
+//     Name: "Orderly Fashion",
+//     Type: "Thương hiệu thời trang",
+//     Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+//   },
+//   {
+//     Image: img0,
+//     Name: "Orderly Fashion",
+//     Type: "Thương hiệu thời trang",
+//     Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+//   },
+//   {
+//     Image: img1,
+//     Name: "Orderly Fashion",
+//     Type: "Thương hiệu thời trang",
+//     Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+//   },
+//   {
+//     Image: img2,
+//     Name: "Orderly Fashion",
+//     Type: "Thương hiệu thời trang",
+//     Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+//   },
+//   {
+//     Image: img3,
+//     Name: "Orderly Fashion",
+//     Type: "Thương hiệu thời trang",
+//     Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+//   },
+//   {
+//     Image: img4,
+//     Name: "Orderly Fashion",
+//     Type: "Thương hiệu thời trang",
+//     Des: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labo",
+//   },
+// ];
 
 const Project = ({ gridColumns = 3, isHomePage = true }) => {
   const { listProducts } = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const DATA = listProducts.map((item, idx) => ({
+    Image: `${process.env.REACT_APP_BACKEND_BASE_URL}${item.Image}`,
+    Name: item?.Name,
+    Type: item?.Type,
+    IsVisible: item?.IsVisible,
+    Des: item?.Content,
+    id: item?.id,
+  }));
+
   useEffect(() => {
-    dispatch(getAllProductAction());
+    if (listProducts.length < 1) {
+      dispatch(getAllProductAction());
+    }
   }, []);
   return (
     <section className={cx("project")}>
@@ -68,12 +79,12 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
           {DATA.map((item, idx) =>
             isHomePage ? (
               <Col
-                onClick={() => navigate(`/project/${idx}`)}
+                onClick={() => navigate(`/project/${item.id}`)}
                 className={cx("project-in-home-page")}
-                md={24 / gridColumns}
+                md={24 / listProducts.length}
                 sm={12}
                 xs={24}
-                key={idx}
+                key={item.id}
               >
                 <div className={cx("outer-container")}>
                   <img src={item.Image} alt="" />
@@ -85,12 +96,12 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
               </Col>
             ) : (
               <Col
-                onClick={() => navigate(`/project/${idx}`)}
+                onClick={() => navigate(`/project/${item.id}`)}
                 className={cx("project-outside-homepage")}
-                md={24 / gridColumns}
+                md={24 / listProducts.length}
                 sm={24}
                 xs={24}
-                key={idx}
+                key={item.id}
               >
                 <div className={cx("outer-container")}>
                   <img src={item.Image} alt="" />
@@ -98,7 +109,10 @@ const Project = ({ gridColumns = 3, isHomePage = true }) => {
                 <div className={cx("title")}>
                   <p>{item.Type}</p>
                   <p className={cx("name")}>{item.Name}</p>
-                  <p className={cx("description")}>{item.Des}</p>
+                  <p
+                    className={cx("description")}
+                    dangerouslySetInnerHTML={{ __html: item.Des }}
+                  ></p>
                 </div>
               </Col>
             )

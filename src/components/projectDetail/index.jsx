@@ -4,50 +4,45 @@ import img from "../../assets/home/orderly-fashion.jpg";
 import img2 from "../../assets/project/Rectangle 514.jpg";
 import img3 from "../../assets/project/Rectangle 515.jpg";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useLocation } from "react-router-dom";
+import { getAllProductAction } from "../../stores/actions/productAction";
 
 const cx = classNames.bind(styles);
 
 const ProjectDetail = () => {
+  const { listProducts } = useSelector((state) => state.productReducer);
+  const [projDetail, setProjDetail] = useState({});
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  useEffect(() => {
+    if (id !== undefined) {
+      setProjDetail({ ...listProducts[id] });
+    }
+    if (listProducts.length < 1) {
+      dispatch(getAllProductAction());
+    }
+  }, [id]);
+  useEffect(() => {
+    if (id !== undefined) {
+      setProjDetail({ ...listProducts[id] });
+    }
+  }, []);
   return (
     <section className={cx("project-detail")}>
       <SmoothScroll />
-      <p className={cx("title")}>Lorem ipsum</p>
-      <p className={cx("short")}>Lorem ipsum</p>
-      <p className={cx("content")}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id non proident, sunt in culpa qui officia
-      </p>
-      <img src={img} alt="" />
-      <p className={cx("content")}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id non proident, sunt in culpa qui officia
-      </p>
-      <img src={img2} alt="" />
-      <p className={cx("content")}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id non proident, sunt in culpa qui officia
-      </p>
-      <img src={img3} alt="" />
-      <p className={cx("content")}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id non proident, sunt in culpa qui officia
-      </p>
+      <p className={cx("title")}>{projDetail.Type}</p>
+      <p className={cx("short")}>{projDetail.Name}</p>
+      <img
+        src={`${process.env.REACT_APP_BACKEND_BASE_URL}${projDetail.Image}`}
+        alt=""
+      />
+      <p
+        className={cx("content")}
+        dangerouslySetInnerHTML={{ __html: projDetail.Content }}
+      ></p>
     </section>
   );
 };

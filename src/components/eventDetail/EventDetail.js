@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./eventDetail.scss";
 import parse from "html-react-parser";
 import { Col, Row, Breadcrumb } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ReactComponent as Envelope } from "../../assets/PhEnvelopeFill 1.svg";
 import { ReactComponent as Facebook } from "../../assets/PhFacebookLogoFill 1.svg";
 import { ReactComponent as Link } from "../../assets/link.svg";
@@ -14,8 +14,6 @@ import {
 } from "../../stores/actions/postAction";
 import { LazyImage } from "../LazyImage";
 import moment from "moment";
-import { URL_IMAGE } from "../../utils/constants";
-import { t } from "i18next";
 import OtherNews from "../eventDetailLayout/otherNews/OtherNews";
 import SmoothScroll from "../smoothScroll/SmoothScroll";
 
@@ -26,8 +24,6 @@ const EventDetail = () => {
   const { listPost } = useSelector((state) => state.postReducer);
   const { postDetail } = useSelector((state) => state.postReducer);
   const mainContent = parse(`${postDetail?.content}`);
-
-  // useEffect(() => {}, [window.location.href]);
 
   useEffect(() => {
     if (listPost.length === 0) {
@@ -73,17 +69,9 @@ const EventDetail = () => {
                   {mainContent}
                 </div>
               </div>
-              {/* <div className="event-detail__container__main-content__source">
-                <p>
-                  {t("Source")}:{" "}
-                  <span>
-                    <a href={postDetail.source}>{postDetail.source}</a>
-                  </span>
-                </p>
-              </div> */}
               <div className="event-detail__container__main-content__share-icon d-flex justify-content-between align-items-center">
                 <span className="d-flex justify-content-between align-items-center">
-                  <p>{t("Share")}: </p>
+                  <p>Chia sẻ: </p>
                   <Facebook />
                   <Envelope />
                   <Linkedin />
@@ -93,9 +81,9 @@ const EventDetail = () => {
             </Col>
           </Row>
         </div>
-        <div className="event-detail__container__other-news">
+        {/* <div className="event-detail__container__other-news">
           <OtherNews />
-        </div>
+        </div> */}
       </div>
     </section>
   );

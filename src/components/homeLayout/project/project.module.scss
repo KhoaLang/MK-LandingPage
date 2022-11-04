@@ -15,18 +15,11 @@
     margin: 60px auto;
     width: 80%;
 
-    .project-outside-homepage {
-      &:hover {
-        .outer-container,
-        .title {
-          background-color: $black !important;
-          color: $white !important;
-        }
-      }
-    }
     .project-in-home-page {
       cursor: pointer;
       .outer-container {
+        width: 256px !important;
+        height: 224px;
         &:hover {
           transform: scale(1.1) !important;
         }
@@ -37,6 +30,9 @@
         background-color: $white;
         margin: 0 auto;
         img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
           display: block;
           margin: 0 auto;
         }
@@ -67,24 +63,33 @@
     }
     .project-outside-homepage {
       width: 80%;
+      height: 224px;
       display: flex;
       justify-content: space-between;
       cursor: pointer;
+      &:hover {
+        .outer-container,
+        .title {
+          background-color: $black !important;
+          color: $white !important;
+        }
+      }
       .outer-container {
-        width: fit-content;
-        // aspect-ratio: 1 /1;
+        width: 40%;
+        height: 100%;
         padding: 12px;
         background-color: $white;
         margin: 0 auto;
         img {
-          // width: 100%;
-          // object-fit: cover;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
           display: block;
           margin: 0 auto;
         }
       }
       .title {
-        width: 100%;
+        width: 60%;
         margin: 0 auto;
         background-color: $white;
         padding: 0 12px 0 12px;

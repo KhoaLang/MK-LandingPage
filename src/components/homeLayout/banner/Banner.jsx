@@ -5,13 +5,13 @@ import "swiper/css/bundle";
 import "swiper/css/lazy";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import img from "../../../assets/home/hero_bg.jpg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Lazy, Navigation, Pagination, Parallax } from "swiper";
 import { DownOutlined } from "@ant-design/icons";
 import { getAllBannerAction } from "../../../stores/actions/bannerAction";
 import "./banner.scss";
 export const Banner = (props) => {
   const [play, setPlay] = useState(false);
-  const { banner } = props;
   const { listBanner } = useSelector((state) => state.bannerReducer);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -20,7 +20,7 @@ export const Banner = (props) => {
 
   return (
     <section className="banner">
-      {/* <Swiper
+      <Swiper
         navigation={true}
         pagination={{ clickable: true }}
         autoplay={true}
@@ -38,16 +38,21 @@ export const Banner = (props) => {
                   <img
                     data-swiper-parallax="-300"
                     slot="container-start"
-                    src={`${URL_IMAGE}${banner.image}`}
+                    src={`${process.env.REACT_APP_BACKEND_BASE_URL}${banner.image}`}
                     alt={banner.id}
                     className="bg swiper-lazy"
                   />
+                  <div className="outer-layout"></div>
 
                   <div className="contentBanner" data-swiper-parallax="-200">
                     <h1 className="" data-swiper-parallax="-200">
-                      {banner.name}
+                      {banner.description.split("###")[0]}
                     </h1>
-                    <p data-swiper-parallax="-100">{banner.description}</p>
+                    {banner.isVisibleDescription && (
+                      <p data-swiper-parallax="-100">
+                        {banner.description.split("###")[1]}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
@@ -55,16 +60,7 @@ export const Banner = (props) => {
             )
           );
         })}
-      </Swiper> */}
-      <img className="new-bg" src={img} alt="" />
-      <div className="outer-layout"></div>
-      <main>
-        <h1>Lorem ipsum dolor sit amet</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-      </main>
+      </Swiper>
       <DownOutlined className="down-arrow" />
     </section>
   );

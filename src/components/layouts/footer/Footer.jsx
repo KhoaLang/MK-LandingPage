@@ -15,77 +15,80 @@ const { Option } = Select;
 const socialMediaResponsive = [
   {
     logo: <Facebook />,
+    title: "Facebook",
+    URL: "#",
   },
   {
     logo: <Linkedin />,
+    title: "Linkedin",
+    URL: "#",
   },
   {
     logo: <Youtube />,
+    title: "Youtube",
+    URL: "#",
   },
 ];
 const Footer = () => {
-  const { t, i18n } = useTranslation();
-  const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const navigate = useNavigate();
 
   const contactInfo = [
     {
       logo: <Location />,
-      info: t("address"),
+      info: "19 Nguyễn Tuân Phường 3 Gò Vấp TP.HCM",
     },
     {
       logo: <Phone />,
-      info: companyInfo?.PhoneNumber,
+      info: "0938 737 999",
     },
     {
       logo: <Email />,
-      info: companyInfo?.Email,
+      info: "msolutions.hello@gmail.com",
     },
   ];
-  const handleChange = (value) => {
-    i18n.changeLanguage(value);
-  };
+
   return (
     <div className="footer">
       <div className="footer__upper d-flex justify-content-center align-items-center">
         <Row
           gutter={[0, 48]}
-          className="footer__upper__container container d-flex justify-content-between">
+          className="footer__upper__container container d-flex justify-content-between"
+        >
           <Col md={14} xs={24} className="footer__upper__container__left-side">
             <div className="footer__upper__container__left-side__company-name-box">
-              <h5>{t("CompanyName")}</h5>
+              <h5>CÔNG TY CỔ PHẦN MARK SOLUTIONS</h5>
             </div>
             <ul className="footer__upper__container__left-side__contact-info">
               {contactInfo.map((item, idx) => (
                 <li
                   className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
-                  key={idx}>
-                  <div>{item.logo}</div>
+                  key={idx}
+                >
+                  {item.logo}
                   <p>{item.info}</p>
                 </li>
               ))}
             </ul>
           </Col>
           <Col md={5} xs={24} className="footer__upper__container__middle-side">
-            <h5>{t("Follow")} VNPLUS</h5>
+            <h5>Theo dõi chúng tôi</h5>
             <ul className="footer__upper__container__middle-side__follow">
-              {JSON.stringify(companyInfo) !== "{}" &&
-                companyInfo?.socialLink.map((item, idx) => (
-                  <li
-                    className="footer__upper__container__middle-side__follow__item d-flex align-items-center"
-                    key={idx}>
-                    <a href={item?.URL} className="d-flex align-items-center">
-                      <div
-                        className="company-logo d-flex justify-content-center align-items-center"
-                        dangerouslySetInnerHTML={{ __html: item.Icon }}></div>
-                      <p>{item.Title}</p>
-                    </a>
-                  </li>
-                ))}
+              {socialMediaResponsive.map((item, idx) => (
+                <li
+                  className="footer__upper__container__middle-side__follow__item d-flex align-items-center"
+                  key={idx}
+                >
+                  <a href={item?.URL} className="d-flex align-items-center">
+                    {item.logo}
+                    <p>{item.title}</p>
+                  </a>
+                </li>
+              ))}
               {socialMediaResponsive.map((item, idx) => (
                 <li
                   className="footer__upper__container__middle-side__follow__item-responsive d-flex align-items-center"
-                  key={idx}>
+                  key={idx}
+                >
                   {item.logo}
                 </li>
               ))}
@@ -122,7 +125,8 @@ const Footer = () => {
                 fontWeight: "400",
                 fontSize: "18px",
                 backgroundColor: "#fff",
-              }}>
+              }}
+            >
               Liên hệ chúng tôi
             </div>
           </Col>
@@ -137,7 +141,7 @@ const Footer = () => {
             <li>Chính sách bảo mật</li>
           </Col>
           <Col md={12} xs={24} className="footer__below__container__copyright">
-            <p>Copyright &copy; 2022 VNPLUS Langing Page</p>
+            <p>Copyright &copy; 2022 MSolutions</p>
           </Col>
         </Row>
       </div>

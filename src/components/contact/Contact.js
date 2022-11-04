@@ -10,28 +10,13 @@ import SmoothScroll from "../smoothScroll/SmoothScroll";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { createContactAction } from "../../stores/actions/contactAction";
+// import { ReactComponent as Logo } from "../../assets/logo/Rectangle.svg";
+import Logo from "../../assets/logo/Logo_Mark Solutions.png";
 
 const Contact = () => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { companyInfo } = useSelector((state) => state.companyInfoReducer);
   const dispatch = useDispatch();
-  const { t } = useTranslation();
-
-  const contactInfo = [
-    {
-      logo: <Location />,
-      info: t("address"),
-    },
-    {
-      logo: <Phone />,
-      info: companyInfo?.PhoneNumber,
-    },
-    {
-      logo: <Email />,
-      info: companyInfo?.Email,
-    },
-  ];
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -61,7 +46,6 @@ const Contact = () => {
     <section className="contact d-flex justify-content-center">
       <SmoothScroll />
       <div className="contact__container d-flex flex-column justify-content-center align-items-center">
-        {/* <h2>{t("ContactVNPLUS")}</h2> */}
         <h2>Liên hệ với chúng tôi</h2>
         <div className="contact__container__form">
           <Row gutter={[20]}>
@@ -75,10 +59,10 @@ const Contact = () => {
                   span: 20,
                 }}
                 layout="vertical"
-                onFinish={onFinish}>
+                onFinish={onFinish}
+              >
                 <Col md={24}>
                   <Form.Item
-                    // label={t("FullName")}
                     label="Họ và tên"
                     name="name"
                     rules={[
@@ -86,7 +70,8 @@ const Contact = () => {
                         required: true,
                         message: "Vui lòng nhập họ và tên!",
                       },
-                    ]}>
+                    ]}
+                  >
                     <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
@@ -99,13 +84,13 @@ const Contact = () => {
                         required: true,
                         message: "Vui lòng nhập email!",
                       },
-                    ]}>
+                    ]}
+                  >
                     <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
                 <Col md={24}>
                   <Form.Item
-                    // label={t("PhoneNumber")}
                     label="Số điện thoại"
                     name="phonenumber"
                     rules={[
@@ -113,13 +98,13 @@ const Contact = () => {
                         required: true,
                         message: "Vui lòng nhập số điện thoại!",
                       },
-                    ]}>
+                    ]}
+                  >
                     <Input style={{ padding: "10px" }} />
                   </Form.Item>
                 </Col>
                 <Col md={24}>
                   <Form.Item
-                    // label={t("WhatCanWeHelpYou")}
                     label="Nội dung liên hệ"
                     name="help"
                     rules={[
@@ -127,17 +112,16 @@ const Contact = () => {
                         required: true,
                         message: "Bạn thắc mắc điều gì?",
                       },
-                    ]}>
+                    ]}
+                  >
                     <Input.TextArea autoSize={{ minRows: "7" }} />
                   </Form.Item>
                 </Col>
-                {/* <Button style={{ marginTop: "26px" }}>{t("Send")}</Button> */}
                 <Button style={{ marginTop: "26px" }}>Gửi</Button>
               </Form>
             </Col>
             <Col md={10} xs={24}>
               <div className="contact__container__form__map">
-                {/* <img src={img1} alt="nothing to see" onClick={showModal} /> */}
                 <iframe
                   className="gmap_iframe"
                   width="100%"
@@ -150,35 +134,25 @@ const Contact = () => {
                 />
               </div>
               <div className="contact__container__form__company-info d-flex justify-content-center align-items-center">
-                {/* <h5>{t("CompanyName")}</h5>
-                <ul className="footer__upper__container__left-side__contact-info">
-                  {contactInfo.map((item, idx) => (
-                    <li
-                      className="footer__upper__container__left-side__contact-info__item d-flex align-items-center"
-                      key={idx}
-                    >
-                      {item.logo}
-                      <p style={{ color: "#000" }}>{item.info}</p>
-                    </li>
-                  ))}
-                </ul> */}
-                <p>Logo</p>
+                <img src={Logo} alt="" />
               </div>
 
               <Modal
                 className="map"
                 width={"100%"}
-                visible={isModalVisible}
+                open={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                footer={[]}>
+                footer={[]}
+              >
                 <iframe
                   width="100%"
                   height="600px"
                   frameBorder="0"
                   referrerPolicy="no-referrer-when-downgrade"
                   src={`https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_GG_API_KEY}_Fumq67-0&q=10.732531, 106.731495`}
-                  allowFullScreen></iframe>
+                  allowFullScreen
+                ></iframe>
               </Modal>
             </Col>
           </Row>

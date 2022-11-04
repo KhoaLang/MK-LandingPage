@@ -1,6 +1,5 @@
 import { Col, Row } from "antd";
 import "./events.scss";
-//Import Image
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +20,6 @@ const Events = () => {
   return (
     <section className="events d-flex justify-content-center align-items-center">
       <div className="events__container container d-flex justify-content-center align-items-center flex-column">
-        {/* <h2>{t("New_Event")}</h2> */}
         <h2>TIN TỨC</h2>
         <>
           <Row gutter={[48, 48]}>
@@ -38,7 +36,7 @@ const Events = () => {
             ))}
           </Row>
           <PrimaryButton path="/event" style={{ margin: "67px auto" }}>
-            {/* {t("More")} */} Xem thêm
+            Xem thêm
           </PrimaryButton>
         </>
       </div>

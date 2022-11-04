@@ -3,7 +3,7 @@ import { openNotification } from "../../utils/Notification";
 
 export const getAllProductAction = () => {
   return async (dispatch) => {
-    console.log("trả ve ne ");
+    // console.log("trả ve ne ");
     try {
       const { data } = await productService.getAllProduct();
       dispatch({ type: "GET_ALL_PRODUCTS", data: data.data });
